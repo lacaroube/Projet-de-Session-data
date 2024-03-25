@@ -8,11 +8,19 @@
 
 <div id="div1"><h2>Chargement du contenu utilisateur...</h2></div>
 
+<div id="div3"><h2>Chargement du contenu utilisateur2...</h2></div>
+
 <script>
-fetch('utilisateur.html')
+fetch('./component/utilisateur.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('div1').innerHTML = data;
+  });
+
+fetch('./component/topBarMenu.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('div3').innerHTML = data;
   });
 </script>
 

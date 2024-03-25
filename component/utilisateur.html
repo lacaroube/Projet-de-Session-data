@@ -9,7 +9,7 @@
 <div id="topBarMenu"><h2>Chargement du menu...</h2></div>
 
 <script>
-fetch('./component/topBarMenu.html')
+fetch('topBarMenu.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('topBarMenu').innerHTML = data;
