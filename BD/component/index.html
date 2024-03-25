@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="div1"><h2>Chargement du contenu utilisateur...</h2></div>
+
+<script>
+fetch('utilisateur.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('div1').innerHTML = data;
+  });
+</script>
+
+</body>
+</html>

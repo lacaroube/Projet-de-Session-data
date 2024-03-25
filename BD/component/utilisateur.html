@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="topBarMenu"><h2>Chargement du menu...</h2></div>
+
+<script>
+fetch('./component/topBarMenu.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('topBarMenu').innerHTML = data;
+  });
+</script>
+
+</body>
+</html>

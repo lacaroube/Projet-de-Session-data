@@ -34,7 +34,7 @@ CREATE TABLE utilisateurs_avis (
     uaUtilisateur integer,
     uaAvis integer,
     PRIMARY KEY (uaUtilisateur),
-    FOREIGN KEY (uaAvis) REFERENCES avis (no_avis),
+    FOREIGN KEY (uaAvis) REFERENCES avis (no_avis)
 );
 DROP TABLE utilisateurs_avis;
 
