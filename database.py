@@ -4,7 +4,7 @@ connection = pymysql.connect(
     host='localhost',
     user="root",
     password="SdM4rs0laisC!",
-    db="agence_de_transport",
+    db="schema_name",
     autocommit=True
 )
 

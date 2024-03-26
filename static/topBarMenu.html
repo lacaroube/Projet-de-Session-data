@@ -5,18 +5,26 @@
     <title>Title</title>
 </head>
 <body>
-<button class="topButton client">Client</button>
-<button class="topButton employee">Employee</button>
-<button class="topButton service">Service</button>
+<div id="button-container">
+    <button class="topButton client">Client</button>
+    <button class="topButton employee">Employee</button>
+    <button class="topButton service">Service</button>
+</div>
 </body>
 <style>
+     #button-container {
+        display: flex;
+    }
+
     .topButton {
-        border: none;
-        border-radius: 7%;
-        font-size: 16px;
-        float: right;
-        padding: 8px 10px;
-        margin: 2px 4px;
+        height: 45px;
+        background-color: #333;
+        color: white;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        margin-right: 20px;
+        margin-left: 10px;
     }
 
     .topButton:hover {

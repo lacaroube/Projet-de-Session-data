@@ -10,9 +10,9 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/avis", methods=["POST"])
+@app.route("/add-avis", methods=["POST"])
 def add_avis():
-    data = request.get_json
+    data = request.get_json()
     insert_avis(data["text"])
     response = {
         "status": "success"
