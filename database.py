@@ -11,6 +11,6 @@ connection = pymysql.connect(
 cursor = connection.cursor()
 
 
-def insert_avis(text):
-    cursor.execute(f"INSERT INTO avis (commentaire) VALUES ('{text}')")
+def insert_avis(text, note):
+    cursor.execute(f"INSERT INTO avis (note, commentaire, id_utilisateur) VALUES ('{note}', '{text}', 1)")
 

@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS utilisateur (
 
 CREATE TABLE IF NOT EXISTS avis (
     no_avis integer primary key AUTO_INCREMENT,
-    commentaires enum('Excellent','Bien','Modeste','Mauvais',''),
+    note enum('Excellent','Bien','Modeste','Mauvais','Aucune note'),
+    commentaire varchar(200),
     id_utilisateur integer
     /*foreign key (id_utilisateur) REFERENCES utilisateur(id_utilisateur)*/
 );

@@ -11,10 +11,21 @@
     </div>
     <div id="background-image">
 
+
         <input id="notice-input" type="text" placeholder="Entrer votre commentaire"></input>
-        <label for="notice-input">
-            <button onclick="onAvisButtonClick()">Ajouter le commentaire</button>
-        </label>
+        <form>
+            <h4>Note</h4>
+            <input type="radio" id="Excellent" name="Note" value="Excellent">
+            <label for="Excellent">Excellent</label>
+            <input type="radio" id="Bien" name="Note" value="Bien">
+            <label for="Bien">Bien</label>
+            <input type="radio" id="Modeste" name="Note" value="Modeste">
+            <label for="Modeste">Modeste</label>
+            <input type="radio" id="Mauvais" name="Note" value="Mauvais">
+            <label for="Mauvais">Mauvais</label>
+        </form>
+
+        <button onclick="onAvisButtonClick()">Ajouter le commentaire</button>
 
         <div id="notice-containeur">
             Vos avis
