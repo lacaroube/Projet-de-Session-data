@@ -25,11 +25,14 @@ CREATE TABLE IF NOT EXISTS utilisateur (
 );
 
 CREATE TABLE IF NOT EXISTS avis (
-    no_avis integer primary key ,
-    commentaires enum('Excellent','Bien','Modeste','Mauvais',''),
-    id_utilisateur integer,
-    foreign key (id_utilisateur) REFERENCES utilisateur(id_utilisateur)
+    no_avis integer primary key AUTO_INCREMENT,
+    note enum('Excellent','Bien','Modeste','Mauvais','Aucune note'),
+    commentaire varchar(200),
+    id_utilisateur integer
+    /*foreign key (id_utilisateur) REFERENCES utilisateur(id_utilisateur)*/
 );
+
+DROP TABLE avis;
 
 CREATE TABLE IF NOT EXISTS voyage (
     vo_ni varchar(20) primary key,

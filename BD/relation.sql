@@ -19,6 +19,8 @@ CREATE TABLE assistance(
     FOREIGN KEY (avisUtilisateurNo) REFERENCES avis(no_avis)
 );
 
+DROP TABLE assistance;
+
 CREATE TABLE participationUtilisateurs (
     niVoyage varchar(20),
     niUtilisateur integer,
