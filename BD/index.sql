@@ -1,3 +1,5 @@
+CREATE DATABASE agence_de_transport;
+USE agence_de_transport;
 
 
 CREATE TABLE IF NOT EXISTS ville (

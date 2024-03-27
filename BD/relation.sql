@@ -1,3 +1,4 @@
+
 CREATE TABLE conduite(
     conducteurId integer,
     vehiculeId varchar(17),
