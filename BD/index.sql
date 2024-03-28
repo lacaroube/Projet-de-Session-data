@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS vehicule (
 CREATE TABLE IF NOT EXISTS utilisateurs (
     id_utilisateur integer primary key,
     ut_username varchar(20),
-    ut_password varchar(100),
+    ut_password varchar(200),
     ut_nom varchar(20),
     ut_prenom varchar(20),
     ut_date_naissance date,

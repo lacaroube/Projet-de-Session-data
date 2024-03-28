@@ -3,39 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../static/avisUtilisateur.css">
-    <script src="../static/avisUtilisateur.js"></script>
     <script src="../static/register.js"></script>
     <script src="../static/loginClient.js"></script>
 </head>
 <body>
+
+<div id="div1"></div>
 <div id="div2"></div>
 
-<div id="div1"><h2></h2></div>
-
-<div id="div3"></div>
-
 <script>
-fetch('../static/utilisateur.html')
+fetch('../static/topBarMenu.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('div1').innerHTML = data;
   });
 
-fetch('../static/topBarMenu.html')
+fetch('../static/loginClient.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('div2').innerHTML = data;
   });
 
-fetch('../static/avisUtilisateur.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('div3').innerHTML = data;
-  });
-
+fetch('../static/register.html')
+  .then(response => response.text());
 
 </script>
+
+<style>
+    #div2 {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+    }
+</style>
 
 </body>
 </html>

@@ -46,7 +46,7 @@ def get_client():
     return jsonify(response)
 
 
-@app.route("/create-client", methods=["POST"])
+@app.route("/static/create-client", methods=["POST"])
 def create_client():
     data = request.get_json()
     password = data["password"].encode('utf-8')

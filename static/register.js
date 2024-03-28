@@ -17,7 +17,6 @@ function registerNewClient() {
     const address = addressInput.value
 
     createClient(id, username, password, lastName, firstName, birthDate, phone, address)
-    console.log("Success!")
     window.location.replace("/")
 }
 
