@@ -33,13 +33,6 @@ CREATE TABLE participationUtilisateurs (
 DROP TABLE participationUtilisateurs;
 
 
-CREATE TABLE utilisateurs_avis (
-    uaUtilisateur integer,
-    uaAvis integer,
-    PRIMARY KEY (uaUtilisateur),
-    FOREIGN KEY (uaAvis) REFERENCES avis (no_avis)
-);
-DROP TABLE utilisateurs_avis;
 
 CREATE TABLE participationVehicules (
     niVehicule varchar(17),
@@ -49,5 +42,11 @@ CREATE TABLE participationVehicules (
     FOREIGN KEY (niVoyage) REFERENCES voyage(vo_ni)
 );
 
--- TODO relation 8 a voir si integrer dans voyage ou non
+CREATE TABLE IF NOT EXISTS voyage_utilisateur(
+    id_participation integer AUTO_INCREMENT PRIMARY KEY,
+    id_utilisateur integer,
+    vo_ni varchar(36),
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
+    FOREIGN KEY (vo_ni) REFERENCES voyage(vo_ni)
+);
 

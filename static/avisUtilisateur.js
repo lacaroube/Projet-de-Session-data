@@ -8,7 +8,6 @@ function onAvisButtonClick(){
     const newAvisElement = document.createElement("div")
     newAvisElement.innerText = textInput
 
-
     postAvis(textInput, noteValue)
     getAllAvis()
 

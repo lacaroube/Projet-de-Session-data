@@ -6,8 +6,69 @@
 </head>
 <script src="utilisateur.js" ></script>
 <body>
+    <div>
+        <form>
+            <h2>Ajouter des voyages</h2>
+            <label for="destination">Destination:</label><br>
+            <input type="text" id="destination" name="destination"><br>
+            <label for="date-time">Date and Temps:</label><br>
+            <input type="datetime-local" id="date-time" name="date et temps"><br>
+            <label for="prix">Prix maximum:</label><br>
+            <input type="number" id="prix" name="prix" min="0"><br>
+            <input type="submit" value="Soumettre">
+        </form>
+    </div>
+    <div>
+        <ul id="voyage-container">
 
-<div id="topBarMenu"><h2></h2></div>
+        </ul>
+    </div>
 
 </body>
+<style>
+    form {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+input[type="text"],
+input[type="datetime-local"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 0.9em;
+    color: #333;
+    max-width: 680px;
+}
+
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #333;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+input[type="submit"]:hover {
+    background-color: deepskyblue;
+}
+</style>
 </html>
