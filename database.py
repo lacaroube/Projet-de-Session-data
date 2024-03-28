@@ -10,10 +10,10 @@ def get_db_connection():
                            )
 
 
-def insert_avis(text, note):
+def insert_avis(text, note, user_id):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"INSERT INTO avis (note, commentaire, id_utilisateur) VALUES ('{note}', '{text}', 1)")
+    cursor.execute(f"INSERT INTO avis (note, commentaire, id_utilisateur) VALUES ('{note}', '{text}', '{user_id}')")
     connection.close()
 
 

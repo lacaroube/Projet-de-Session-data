@@ -18,7 +18,7 @@ def index():
 @app.route("/add-avis", methods=["POST"])
 def add_avis():
     data = request.get_json()
-    insert_avis(data["text"], data["note"])
+    insert_avis(data["text"], data["note"], data["user_id"])
     response = {
         "status": "success"
     }

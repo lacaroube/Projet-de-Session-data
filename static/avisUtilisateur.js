@@ -8,13 +8,13 @@ function onAvisButtonClick(){
     const newAvisElement = document.createElement("div")
     newAvisElement.innerText = textInput
 
-    postAvis(textInput, noteValue)
+    postAvis(textInput, noteValue, sessionStorage.getItem('id'))
     getAllAvis()
 
     inputElement.value = ""
 }
 
-function postAvis(text, note) {
+function postAvis(text, note, userId) {
     const postUrl = "add-avis"
 
     fetch(postUrl, {
@@ -24,7 +24,8 @@ function postAvis(text, note) {
         },
         body: JSON.stringify({
             text: text,
-            note: note
+            note: note,
+            user_id: userId
         })
     }).then(function (response) {
         return response.json()
