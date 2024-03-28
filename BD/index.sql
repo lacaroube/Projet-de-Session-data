@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS voyage (
     vo_ni varchar(36) primary key,
     vo_prix_passager integer,
     vo_heure_dep DATETIME not null,
-    vo_heure_arv DATETIME not null,
-    vo_distance integer
+    vo_dep varchar(255),
+    vo_dest varchar(255)
 );
 
 DROP TABLE voyage;
