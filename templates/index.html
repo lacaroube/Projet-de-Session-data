@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="../static/avisUtilisateur.css">
     <script src="../static/avisUtilisateur.js"></script>
+    <script src="../static/topBarMenu.js"></script>
 </head>
 <body>
 <div id="div2"></div>
@@ -24,6 +25,7 @@ fetch('../static/topBarMenu.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('div2').innerHTML = data;
+    manageButtonsDisplay();
   });
 
 fetch('../static/avisUtilisateur.html')

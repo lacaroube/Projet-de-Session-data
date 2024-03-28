@@ -1,5 +1,12 @@
 window.onload = function() {
-    const username = localStorage.getItem('username');
+    const username = sessionStorage.getItem('username');
     const usernameElement = document.getElementById('username');
     usernameElement.textContent = username;
 }
+
+fetch('../static/topBarMenu.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('topBarMenu').innerHTML = data;
+    manageButtonsDisplay();
+  });

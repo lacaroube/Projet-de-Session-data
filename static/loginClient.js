@@ -6,8 +6,8 @@ async function loginAsClient() {
 
     const data = await getClient(username, password)
     if (data.status === "success") {
-        localStorage.setItem('username', data.client[1]);
-        localStorage.setItem('id', data.client[0]);
+        sessionStorage.setItem('username', data.client[1]);
+        sessionStorage.setItem('id', data.client[0]);
         window.location.href = "utilisateur.html";
     }
 }
