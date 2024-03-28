@@ -1,4 +1,5 @@
-
+CREATE DATABASE agence_de_transport;
+USE agence_de_transport;
 
 CREATE TABLE IF NOT EXISTS ville (
     vi_nom varchar(20),
@@ -15,8 +16,10 @@ CREATE TABLE IF NOT EXISTS vehicule (
     ve_mecanicienID integer references mecanos(me_id)
 );
 
-CREATE TABLE IF NOT EXISTS utilisateur (
-    id_utilisateur integer primary key ,
+CREATE TABLE IF NOT EXISTS utilisateurs (
+    id_utilisateur integer primary key,
+    ut_username varchar(20),
+    ut_password varchar(100),
     ut_nom varchar(20),
     ut_prenom varchar(20),
     ut_date_naissance date,
@@ -81,3 +84,5 @@ CREATE TABLE IF NOT EXISTS serviceClient (
 -- INSERT INTO serviceClient (sc_id, sc_nom, sc_prenom, sc_th, sc_langue) VALUES (987, 'Beaudoin', 'Carole', 20.0, 'FRA'), (789, 'Smith', 'Nicole', 21.0, 'ENG');
 
 -- INSERT INTO vehicule (ve_niv, ve_immatriculation, ve_type_vehicule, ve_odometre, ve_mecanicienID) VALUES ('1FAHP3F20CL266328', 'AB123CD', 'type 2', 1500, 10), ('1FBHP3F20CL266328', 'EF456GH', 'type 3', 2700, 57);
+
+-- INSERT INTO utilisateurs (id_utilisateur,ut_username,ut_password,ut_nom,ut_prenom,ut_date_naissance,ut_telephone,ut_adresse) VALUES (123,'test','123soleil','Joseph','Bobby','1990-3-17','1234567890','123 rue Deschamps');

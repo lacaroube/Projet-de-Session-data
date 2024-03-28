@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="loginClient.js"></script>
 </head>
 <body>
 <div style="text-align: center">
@@ -15,18 +16,13 @@
         <label style="font-size: 16px;" for="password">Password:</label>
         <input style="font-size: 16px;" type="password" id="password" placeholder="Password">
     </p>
-    <button class="submitClientLogin" onclick="login()">Submit</button>
+    <button class="clientLoginButton" onclick="loginAsClient()">Submit</button>
+    <button class="clientLoginButton" onclick="goToRegisterClient()">Register</button>
 </div>
 </body>
 
-<script>
-    function login() {
-        window.location.replace("../templates/index.html")
-    }
-</script>
-
 <style>
-    .submitClientLogin {
+    .clientLoginButton {
         background-color: deepskyblue;
         border: none;
         border-radius: 7%;
@@ -38,7 +34,7 @@
         position: relative;
     }
 
-    .submitClientLogin:hover {
+    .clientLoginButton:hover {
         filter: brightness(75%);
         transition-duration: 0.18s;
     }
