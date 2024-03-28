@@ -4,7 +4,7 @@ import pymysql
 def get_db_connection():
     return pymysql.connect(host='localhost',
                            user="root",
-                           password="SdM4rs0laisC!",
+                           password="PolarLucky7",
                            db="agence_de_transport",
                            autocommit=True
                            )
@@ -36,6 +36,7 @@ def insert_new_client(id, username, password, last_name, first_name, birth_date,
                    f"'{phone}',"
                    f"'{address}')")
     connection.close()
+    return [id, username, password, last_name, first_name, birth_date, phone, address]
 
 
 def get_avis():

@@ -1,16 +1,20 @@
-function loginAsClient() {
+async function loginAsClient() {
     const usernameInput = document.getElementById("username")
     const username = usernameInput.value
     const passwordInput = document.getElementById("password")
     const password = passwordInput.value
 
-    getClient(username, password)
-    window.location.replace("/")
+    const data = await getClient(username, password)
+    if (data.status === "success") {
+        localStorage.setItem('username', data.client[1]);
+        localStorage.setItem('id', data.client[0]);
+        window.location.href = "utilisateur.html";
+    }
 }
 
 function getClient(username, password) {
     const getUrl = "get-client"
-    fetch(getUrl, {
+    return fetch(getUrl, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -21,8 +25,6 @@ function getClient(username, password) {
         })
     }).then(function (response) {
         return response.json()
-    }).then(function (data) {
-        return data["clients"]
     })
 }
 

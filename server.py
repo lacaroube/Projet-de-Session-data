@@ -62,13 +62,13 @@ def get_client():
         if bcrypt.check_password_hash(client[2], password):
             response = {
                 "status": "success",
-                "clients": clients
+                "client": client
             }
             return jsonify(response)
 
     response = {
         "status": "failure",
-        "clients": []
+        "client": []
     }
     return jsonify(response)
 
@@ -80,16 +80,17 @@ def create_client():
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    insert_new_client(data["id"],
-                      data["username"],
-                      hashed_password,
-                      data["last_name"],
-                      data["first_name"],
-                      data["birth_date"],
-                      data["phone"],
-                      data["address"])
+    client = insert_new_client(data["id"],
+                               data["username"],
+                               hashed_password,
+                               data["last_name"],
+                               data["first_name"],
+                               data["birth_date"],
+                               data["phone"],
+                               data["address"])
     response = {
-        "status": "success"
+        "status": "success",
+        "client": client
     }
     return jsonify(response)
 

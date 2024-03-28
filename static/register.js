@@ -1,4 +1,4 @@
-function registerNewClient() {
+async function registerNewClient() {
     const idInput = document.getElementById("id")
     const id = idInput.value
     const usernameInput = document.getElementById("username")
@@ -17,7 +17,12 @@ function registerNewClient() {
     const address = addressInput.value
 
     createClient(id, username, password, lastName, firstName, birthDate, phone, address)
-    window.location.replace("/")
+    const data = await getClient(username, password)
+    if (data.status === "success") {
+        localStorage.setItem('username', data.client[1]);
+        localStorage.setItem('id', data.client[0]);
+        window.location.href = "utilisateur.html"
+    }
 }
 
 function createClient(id, username, password, lastName, firstName, birthDate, phone, address) {
@@ -39,7 +44,5 @@ function createClient(id, username, password, lastName, firstName, birthDate, ph
         })
     }).then(function (response) {
         return response.json()
-    }).then(function (data) {
-
     })
 }
