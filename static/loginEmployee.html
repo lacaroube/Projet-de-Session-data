@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="loginEmployee.js"></script>
 </head>
 <body>
 <div style="text-align: center">
@@ -15,15 +16,10 @@
         <label style="font-size: 16px;" for="password">Password:</label>
         <input style="font-size: 16px;" type="password" id="password" placeholder="Password">
     </p>
-    <button class="submitEmployeeLogin" onclick="login()">Submit</button>
+    <button class="submitEmployeeLogin" onclick="loginAsEmployee()">Submit</button>
+    <button class="submitEmployeeLogin" onclick="loginAsAdmin()">Log in as Admin</button>
 </div>
 </body>
-
-<script>
-    function login() {
-        window.location.replace("/")
-    }
-</script>
 
 <style>
     .submitEmployeeLogin {
