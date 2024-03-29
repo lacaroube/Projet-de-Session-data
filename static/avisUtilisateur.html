@@ -3,8 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="avisUtilisateur.css" rel="stylesheet">
     <script src="avisUtilisateur.js"></script>
 </head>
 <body>
+    <div id="div2">
+    </div>
+    <div id="background-image">
+
+
+        <label for="notice-input"></label><input id="notice-input" type="text" placeholder="Entrer votre commentaire">
+        <form>
+            <h4>Note</h4>
+            <input type="radio" id="Excellent" name="Note" value="Excellent">
+            <label for="Excellent">Excellent</label>
+            <input type="radio" id="Bien" name="Note" value="Bien">
+            <label for="Bien">Bien</label>
+            <input type="radio" id="Modeste" name="Note" value="Modeste">
+            <label for="Modeste">Modeste</label>
+            <input type="radio" id="Mauvais" name="Note" value="Mauvais">
+            <label for="Mauvais">Mauvais</label>
+        </form>
+
+        <button onclick="onAvisButtonClick()">Ajouter le commentaire</button>
+
+        <div>
+            <ul id="notice-containeur">
+
+            </ul>
+        </div>
+
+    </div>
 </body>
 </html>

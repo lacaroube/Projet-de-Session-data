@@ -5,35 +5,45 @@
     <title>Title</title>
 </head>
 <body>
-<button class="topButton client">Client</button>
-<button class="topButton employee">Employee</button>
-<button class="topButton service">Service</button>
+<a href="../static/loginService.html">
+    <button class="topButton" onclick="loginService()">Service</button>
+</a>
+<a href="../static/loginEmployee.html">
+    <button class="topButton" onclick="loginEmployee()">Employee</button>
+</a>
+<a href="../static/loginClient.html">
+    <button class="topButton" onclick="loginClient()">Client</button>
+</a>
 </body>
+
+<script>
+    function loginService() {
+        window.location.href = "loginService.html"
+    }
+
+    function loginEmployee() {
+        window.location.href = "loginEmployee.html"
+    }
+
+    function loginClient() {
+        window.location.href = "loginClient.html"
+    }
+</script>
+
 <style>
     .topButton {
+        background-color: deepskyblue;
         border: none;
         border-radius: 7%;
-        font-size: 16px;
         float: right;
-        padding: 8px 10px;
+        font-size: 16px;
         margin: 2px 4px;
+        padding: 8px 10px;
     }
 
     .topButton:hover {
         filter: brightness(75%);
         transition-duration: 0.18s;
-    }
-
-    .client{
-        background-color: deepskyblue;
-    }
-
-    .employee {
-        background-color: deepskyblue;
-    }
-
-    .service {
-        background-color: deepskyblue;
     }
 </style>
 </html>

@@ -1,3 +1,4 @@
+
 CREATE TABLE conduite(
     conducteurId integer,
     vehiculeId varchar(17),
@@ -15,28 +16,23 @@ CREATE TABLE assistance(
     avisUtilisateurNo integer,
     PRIMARY KEY (serviceClientId, id_utilisateur, timeOfAssistance),
     FOREIGN KEY (serviceClientId) REFERENCES serviceclient(sc_id),
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
     FOREIGN KEY (avisUtilisateurNo) REFERENCES avis(no_avis)
 );
+
+DROP TABLE assistance;
 
 CREATE TABLE participationUtilisateurs (
     niVoyage varchar(20),
     niUtilisateur integer,
     PRIMARY KEY (niUtilisateur),
     FOREIGN KEY (niVoyage) REFERENCES voyage(vo_ni),
-    FOREIGN KEY (niUtilisateur) REFERENCES utilisateur(id_utilisateur)
+    FOREIGN KEY (niUtilisateur) REFERENCES utilisateurs(id_utilisateur)
 );
 
 DROP TABLE participationUtilisateurs;
 
 
-CREATE TABLE utilisateurs_avis (
-    uaUtilisateur integer,
-    uaAvis integer,
-    PRIMARY KEY (uaUtilisateur),
-    FOREIGN KEY (uaAvis) REFERENCES avis (no_avis)
-);
-DROP TABLE utilisateurs_avis;
 
 CREATE TABLE participationVehicules (
     niVehicule varchar(17),
@@ -46,5 +42,11 @@ CREATE TABLE participationVehicules (
     FOREIGN KEY (niVoyage) REFERENCES voyage(vo_ni)
 );
 
--- TODO relation 8 a voir si integrer dans voyage ou non
+CREATE TABLE IF NOT EXISTS voyage_utilisateur(
+    id_participation integer AUTO_INCREMENT PRIMARY KEY,
+    id_utilisateur integer,
+    vo_ni varchar(36),
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
+    FOREIGN KEY (vo_ni) REFERENCES voyage(vo_ni)
+);
 
