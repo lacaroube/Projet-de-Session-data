@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 
-from database import insert_avis, get_avis, supprime_avis, modifierCommentaire
+from database import insert_avis, get_avis, supprime_avis, modifier_commentaire
 
 from flask_bcrypt import Bcrypt
 
@@ -25,13 +25,13 @@ def add_avis():
     return jsonify(response)
 
 
-@app.route("/static/get-avis", methods=["GET"])
-def get_all_avis():
-    avis = get_avis()
+@app.route("/static/get-avis/<int:user_id>", methods=["GET"])
+def get_all_avis(user_id):
+    avis = get_avis(user_id)
     return jsonify(avis)
 
 
-@app.route("/delete-avis/<int:no_avis>", methods=["DELETE"])
+@app.route("/static/delete-avis/<int:no_avis>", methods=["DELETE"])
 def delete_avis(no_avis):
     supprime_avis(no_avis)
     response = {
@@ -40,10 +40,10 @@ def delete_avis(no_avis):
     return jsonify(response)
 
 
-@app.route("/modify-avis/<int:no_avis>", methods=["PUT"])
+@app.route("/static/modify-avis/<int:no_avis>", methods=["PUT"])
 def modify_avis(no_avis):
     data = request.get_json()
-    modifierCommentaire(no_avis, data["commentaire"], data["note"])
+    modifier_commentaire(no_avis, data["commentaire"], data["note"])
     response = {
         "status": "success"
     }

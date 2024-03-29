@@ -1,3 +1,10 @@
+fetch('../static/topBarMenu.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('div2').innerHTML = data;
+    manageButtonsDisplay();
+  });
+
 function onAvisButtonClick(){
     const inputElement = document.getElementById("notice-input")
     const textInput = inputElement.value
@@ -40,7 +47,7 @@ function getAllAvis() {
     const avisContainer = document.getElementById("notice-containeur");
     avisContainer.innerHTML = "";
 
-    fetch("get-avis")
+    fetch(`get-avis/${sessionStorage.getItem('id')}`)
         .then(response => response.json())
         .then(avisList => {
             avisList.forEach(avis => {

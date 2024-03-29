@@ -10,3 +10,7 @@ fetch('../static/topBarMenu.html')
     document.getElementById('topBarMenu').innerHTML = data;
     manageButtonsDisplay();
   });
+
+function goToAvis() {
+    window.location.href = "avisUtilisateur.html"
+}

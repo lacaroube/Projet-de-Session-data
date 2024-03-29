@@ -4,7 +4,7 @@ import pymysql
 def get_db_connection():
     return pymysql.connect(host='localhost',
                            user="root",
-                           password="SdM4rs0laisC!",
+                           password="PolarLucky7",
                            db="agence_de_transport",
                            autocommit=True
                            )
@@ -40,10 +40,10 @@ def insert_new_client(id, username, password, last_name, first_name, birth_date,
     return [id, username, password, last_name, first_name, birth_date, phone, address]
 
 
-def get_avis():
+def get_avis(user_id):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute("SELECT no_avis, note, commentaire FROM avis WHERE id_utilisateur = 1")
+    cursor.execute(f"SELECT no_avis, note, commentaire FROM avis WHERE id_utilisateur = '{user_id}'")
     result = cursor.fetchall()
     connection.close()
     return [{"no_avis": no_avis, "note": note, "commentaire": commentaire} for no_avis, note, commentaire in result]
@@ -56,11 +56,11 @@ def supprime_avis(no_avis):
     connection.close()
 
 
-def modifierCommentaire(no_avis, text, note):
+def modifier_commentaire(no_avis, text, note):
     connection = get_db_connection()
     cursor = connection.cursor()
     cursor.execute(f"UPDATE avis SET commentaire = '{text}', note = '{note}'"
-                   f"WHERE id_utilisateur = 1 AND no_avis = {no_avis}")
+                   f"WHERE no_avis = '{no_avis}'")
     connection.close()
 
 
