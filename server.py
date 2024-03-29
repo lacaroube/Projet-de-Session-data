@@ -15,7 +15,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/add-avis", methods=["POST"])
+@app.route("/static/add-avis", methods=["POST"])
 def add_avis():
     data = request.get_json()
     insert_avis(data["text"], data["note"], data["user_id"])
@@ -25,7 +25,7 @@ def add_avis():
     return jsonify(response)
 
 
-@app.route("/get-avis", methods=["GET"])
+@app.route("/static/get-avis", methods=["GET"])
 def get_all_avis():
     avis = get_avis()
     return jsonify(avis)

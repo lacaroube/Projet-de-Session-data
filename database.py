@@ -20,7 +20,8 @@ def insert_avis(text, note, user_id):
 def insert_new_client(id, username, password, last_name, first_name, birth_date, phone, address):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"INSERT INTO utilisateurs (id_utilisateur,ut_username,"
+    cursor.execute(f"INSERT INTO utilisateurs (id_utilisateur,"
+                   f"ut_username,"
                    f"ut_password,"
                    f"ut_nom,"
                    f"ut_prenom,"

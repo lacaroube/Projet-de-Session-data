@@ -3,29 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/avisUtilisateur.css">
+    <script src="../static/avisUtilisateur.js"></script>
+    <script src="../static/utilisateur.js" ></script>
+    <script src="../static/topBarMenu.js" ></script>
 </head>
-<script src="utilisateur.js" ></script>
-<script src="topBarMenu.js" ></script>
 <body>
     <label id="username" style="font-size: 16px"></label>
     <div id="topBarMenu"></div>
-    <div>
-        <form>
-            <h2>Ajouter des voyages</h2>
-            <label for="destination">Destination:</label><br>
-            <input type="text" id="destination" name="destination"><br>
-            <label for="date-time">Date and Temps:</label><br>
-            <input type="datetime-local" id="date-time" name="date et temps"><br>
-            <label for="prix">Prix maximum:</label><br>
-            <input type="number" id="prix" name="prix" min="0"><br>
-            <input type="submit" value="Soumettre">
-        </form>
-    </div>
-    <div>
-        <ul id="voyage-container">
 
-        </ul>
-    </div>
+    <div id="div1"></div>
+    <script>
+        fetch('../static/avisUtilisateur.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('div1').innerHTML = data;
+          });
+    </script>
 </body>
 <style>
     form {
