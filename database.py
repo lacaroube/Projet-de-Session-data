@@ -10,6 +10,28 @@ def get_db_connection():
                            )
 
 
+def get_all_ville():
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT ville FROM villes_quebec")
+    result = cursor.fetchall()
+    connection.close()
+    return [row[0] for row in result]
+
+
+def get_voyage(depart, destination, date_temps, prix):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    date_temps_inf = date_temps - datetime.timedelta(days=1)
+    date_temps_sup = date_temps + datetime.timedelta(days=1)
+    cursor.execute(f"SELECT * FROM voyage WHERE vo_dep = '{depart}' "
+                   f"AND vo_dest = '{destination}' "
+                   f"AND vo_heure_dep BETWEEN '{date_temps_inf}' "
+                   f"AND '{date_temps_sup}' AND vo_prix_passager <= {prix};")
+    result = cursor.fetchall()
+    return result
+
+
 def insert_avis(text, note):
     connection = get_db_connection()
     cursor = connection.cursor()

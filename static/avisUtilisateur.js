@@ -34,7 +34,7 @@ function postAvis(text, note) {
 }
 
 
-window.onload = getAllAvis;
+window.onload = getAllAvis
 function getAllAvis() {
     const avisContainer = document.getElementById("notice-containeur");
     avisContainer.innerHTML = "";
@@ -52,7 +52,7 @@ function getAllAvis() {
 
                 const modifyForm = document.createElement("form")
                 modifyForm.id = `modify-form-${avis.no_avis}`
-                modifyForm.style.display = "none"
+                modifyForm.style.display = "non"
 
                 const newCommentaireInput = document.createElement("input")
                 newCommentaireInput.type = "text"

@@ -16,7 +16,7 @@ CREATE TABLE assistance(
     avisUtilisateurNo integer,
     PRIMARY KEY (serviceClientId, id_utilisateur, timeOfAssistance),
     FOREIGN KEY (serviceClientId) REFERENCES serviceclient(sc_id),
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
     FOREIGN KEY (avisUtilisateurNo) REFERENCES avis(no_avis)
 );
 
@@ -27,7 +27,7 @@ CREATE TABLE participationUtilisateurs (
     niUtilisateur integer,
     PRIMARY KEY (niUtilisateur),
     FOREIGN KEY (niVoyage) REFERENCES voyage(vo_ni),
-    FOREIGN KEY (niUtilisateur) REFERENCES utilisateur(id_utilisateur)
+    FOREIGN KEY (niUtilisateur) REFERENCES utilisateurs(id_utilisateur)
 );
 
 DROP TABLE participationUtilisateurs;

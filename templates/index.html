@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="../static/utilisateur.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/avisUtilisateur.css">
-    <script src="../static/avisUtilisateur.js"></script>
 </head>
 <body>
 <div id="div2"></div>
@@ -14,11 +14,6 @@
 
 
 <script>
-fetch('../static/utilisateur.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('div1').innerHTML = data;
-  });
 
 fetch('../static/topBarMenu.html')
   .then(response => response.text())
@@ -26,11 +21,18 @@ fetch('../static/topBarMenu.html')
     document.getElementById('div2').innerHTML = data;
   });
 
-fetch('../static/avisUtilisateur.html')
+fetch('../static/utilisateur.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('div1').innerHTML = data;
+    get_all_ville();
+  });
+
+/*fetch('../static/avisUtilisateur.html')
   .then(response => response.text())
   .then(data => {
     document.getElementById('div3').innerHTML = data;
-  });
+  });*/
 
 
 </script>
