@@ -4,7 +4,7 @@ import pymysql
 def get_db_connection():
     return pymysql.connect(host='localhost',
                            user="root",
-                           password="PolarLucky7",
+                           password="SdM4rs0laisC!",
                            db="agence_de_transport",
                            autocommit=True
                            )
@@ -52,7 +52,7 @@ def get_avis(user_id):
 def supprime_avis(no_avis):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"DELETE FROM avis WHERE no_avis = {no_avis}")
+    cursor.execute(f"DELETE FROM avis WHERE no_avis = '{no_avis}'")
     connection.close()
 
 

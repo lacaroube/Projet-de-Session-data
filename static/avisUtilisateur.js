@@ -16,8 +16,6 @@ function onAvisButtonClick(){
     newAvisElement.innerText = textInput
 
     postAvis(textInput, noteValue, sessionStorage.getItem('id'))
-    getAllAvis()
-
     inputElement.value = ""
 }
 
