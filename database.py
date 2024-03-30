@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import pymysql
 
 
@@ -29,7 +30,9 @@ def get_voyage(depart, destination, date_temps, prix):
                    f"AND vo_heure_dep BETWEEN '{date_temps_inf}' "
                    f"AND '{date_temps_sup}' AND vo_prix_passager <= {prix};")
     result = cursor.fetchall()
-    return result
+    connection.close()
+    return [{"vo_ni": vo_ni, "depart": depart, "destination": destination, "date_temps": date_temps, "prix": prix}
+            for vo_ni, depart, destination, date_temps, prix in result]
 
 
 def insert_avis(text, note):

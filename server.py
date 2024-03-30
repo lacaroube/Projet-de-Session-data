@@ -20,9 +20,10 @@ def get_cities():
     return jsonify(city_names)
 
 
-@app.route("/get_voyages", methods=["GET"])
+@app.route("/get_voyages", methods=["POST"])
 def get_voyages():
-    voyages = get_voyage
+    data = request.get_json()
+    voyages = get_voyage(data["depart"], data["destination"], data["date_temps"], data["prix"])
     return jsonify(voyages)
 
 

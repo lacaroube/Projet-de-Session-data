@@ -26,8 +26,8 @@ CREATE TABLE IF NOT EXISTS avis (
     no_avis integer primary key AUTO_INCREMENT,
     note enum('Excellent','Bien','Modeste','Mauvais','Aucune note'),
     commentaire varchar(200),
-    id_utilisateur integer
-    /*foreign key (id_utilisateur) REFERENCES utilisateur(id_utilisateur)*/
+    id_utilisateur integer,
+    foreign key (id_utilisateur) REFERENCES utilisateurs(id_utilisateur)
 );
 
 DROP TABLE avis;
@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS voyage (
     vo_dep varchar(255),
     vo_dest varchar(255)
 );
+
+INSERT INTO voyage(vo_ni, vo_prix_passager, vo_heure_dep, vo_dep, vo_dest) VALUES (UUID(), 50, '2024-05-14 09:59:47', 'Chambly', 'Saint-Hyacinthe');
 
 DROP TABLE voyage;
 
@@ -165,6 +167,8 @@ BEGIN
 END //
 DELIMITER ;
 
+CALL CreationVoyage();
+
 
 DELIMITER //
 CREATE TRIGGER check_ville_quebec
@@ -184,6 +188,3 @@ BEGIN
 END;
 //
 DELIMITER ;
-
-
-CALL CreationVoyage();
