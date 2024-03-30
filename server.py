@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 
-from database import insert_avis, get_avis, supprime_avis, modifier_commentaire
+from database import (insert_avis, get_avis, supprime_avis, modifierCommentaire, fetch_client, insert_new_client,
+                      get_all_ville, get_voyage)
 
 from flask_bcrypt import Bcrypt
 
-from database import insert_avis, fetch_client, insert_new_client
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -13,6 +13,18 @@ bcrypt = Bcrypt(app)
 @app.route("/")
 def index():
     return render_template("index.html")
+
+
+@app.route("/get_cities", methods=["GET"])
+def get_cities():
+    city_names = get_all_ville()
+    return jsonify(city_names)
+
+
+@app.route("/get_voyages", methods=["GET"])
+def get_voyages():
+    voyages = get_voyage
+    return jsonify(voyages)
 
 
 @app.route("/static/add-avis", methods=["POST"])

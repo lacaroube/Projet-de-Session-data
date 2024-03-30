@@ -9,25 +9,32 @@
     <script src="../static/topBarMenu.js" ></script>
 </head>
 <body>
-    <label id="username" style="font-size: 16px"></label>
-    <div id="topBarMenu"></div>
-    <div>
-        <form>
-            <h2>Ajouter des voyages</h2>
-            <label for="destination">Destination:</label><br>
-            <input type="text" id="destination" name="destination"><br>
-            <label for="date-time">Date and Temps:</label><br>
-            <input type="datetime-local" id="date-time" name="date et temps"><br>
-            <label for="prix">Prix maximum:</label><br>
-            <input type="number" id="prix" name="prix" min="0"><br>
-            <input type="submit" value="Soumettre">
-        </form>
-    </div>
-    <div>
+<div id="topBarMenu"></div>
+
+<form id="input-User">
+    <h2>Selectionner des voyages</h2>
+    <label for="departure">Depart:</label><br>
+    <select id="departure" name="departure">
+    </select><br>
+
+    <label for="destination">Destination:</label><br>
+    <select id="destination" name="destination"></select><br>
+
+    <label for="date-time">Date and Temps:</label><br>
+    <input type="datetime-local" id="date-time" name="date et temps"><br>
+
+    <label for="prix">Prix maximum:</label><br>
+    <input type="number" id="prix" name="prix" min="0"><br>
+
+    <input type="submit" value="Soumettre" onclick="get_voyage()">
+</form>
+
+<form>
+    <h2>Ajouter des voyages</h2>
         <ul id="voyage-container">
 
         </ul>
-    </div>
+</form>
     <a id="logOut" href="avisUtilisateur.html">
         <button class="avisButton" onclick="goToAvis()">Avis</button>
     </a>
