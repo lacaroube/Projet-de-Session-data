@@ -23,8 +23,9 @@ def get_all_ville():
 def get_voyage(depart, destination, date_temps, prix):
     connection = get_db_connection()
     cursor = connection.cursor()
-    date_temps_inf = date_temps - datetime.timedelta(days=1)
-    date_temps_sup = date_temps + datetime.timedelta(days=1)
+    date_temps_24 = datetime.strptime(date_temps, "%Y-%m-%dT%H:%M")
+    date_temps_inf = date_temps_24 - timedelta(days=1)
+    date_temps_sup = date_temps_24 + timedelta(days=1)
     cursor.execute(f"SELECT * FROM voyage WHERE vo_dep = '{depart}' "
                    f"AND vo_dest = '{destination}' "
                    f"AND vo_heure_dep BETWEEN '{date_temps_inf}' "
