@@ -1,10 +1,3 @@
-window.onload = function() {
-    const username = sessionStorage.getItem('username');
-    const usernameElement = document.getElementById('username');
-    usernameElement.textContent = username;
-    get_all_ville();
-}
-
 fetch('../static/topBarMenu.html')
   .then(response => response.text())
   .then(data => {

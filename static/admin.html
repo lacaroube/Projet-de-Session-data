@@ -5,6 +5,14 @@
     <title>Admin</title>
     <script src="../static/topBarMenu.js" ></script>
     <script src="../static/admin.js" ></script>
+    <script>
+        window.onload = function() {
+            const username = sessionStorage.getItem('username');
+            const usernameElement = document.getElementById('username');
+            usernameElement.textContent = username;
+            get_all_ville();
+        }
+    </script>
 </head>
 <body>
     <label id="username"></label>

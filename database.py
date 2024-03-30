@@ -4,7 +4,7 @@ import pymysql
 def get_db_connection():
     return pymysql.connect(host='localhost',
                            user="root",
-                           password="SdM4rs0laisC!",
+                           password="PolarLucky7",
                            db="agence_de_transport",
                            autocommit=True
                            )

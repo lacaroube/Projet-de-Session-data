@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 
 from database import (insert_avis, get_avis, supprime_avis, modifier_commentaire, fetch_client, insert_new_client,
-                      get_all_ville, get_voyage)
+                      get_all_ville, get_voyage, insert_voyage)
 
 from flask_bcrypt import Bcrypt
 
@@ -16,6 +16,7 @@ def index():
 
 
 @app.route("/get_cities", methods=["GET"])
+@app.route("/static/get_cities", methods=["GET"])
 def get_cities():
     city_names = get_all_ville()
     return jsonify(city_names)
@@ -111,7 +112,7 @@ def add_voyage():
     data = request.get_json()
     insert_voyage(data["departure"],
                   data["destination"],
-                  data["dateTime"],
+                  data["date_time"],
                   data["price"])
     response = {
         "status": "success",
