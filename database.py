@@ -39,7 +39,7 @@ def insert_avis(text, note, user_id):
     connection.close()
 
 
-def insert_new_client(id, username, password, last_name, first_name, birth_date, phone, address):
+def insert_new_client(username, password, last_name, first_name, birth_date, phone, address):
     connection = get_db_connection()
     cursor = connection.cursor()
     cursor.execute(f"INSERT INTO utilisateurs (id_utilisateur,"
@@ -50,7 +50,7 @@ def insert_new_client(id, username, password, last_name, first_name, birth_date,
                    f"ut_date_naissance,"
                    f"ut_telephone,"
                    f"ut_adresse)"
-                   f"VALUES ('{id}',"
+                   f"VALUES (UUID(),"
                    f"'{username}',"
                    f"'{password}',"
                    f"'{last_name}',"
@@ -58,6 +58,8 @@ def insert_new_client(id, username, password, last_name, first_name, birth_date,
                    f"'{birth_date}',"
                    f"'{phone}',"
                    f"'{address}')")
+    cursor.execute("SELECT LAST_INSERT_ID()")
+    id = cursor.fetchone()[0]
     connection.close()
     return [id, username, password, last_name, first_name, birth_date, phone, address]
 
@@ -93,3 +95,19 @@ def fetch_client(username):
     clients = cursor.fetchall()
     connection.close()
     return clients
+
+
+def insert_voyage(departure, destination, date_time, price):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"INSERT INTO voyage (vo_ni,"
+                   f"vo_prix_passager,"
+                   f"vo_heure_dep,"
+                   f"vo_dep,"
+                   f"vo_dest)"
+                   f"VALUES (UUID(),"
+                   f"'{price}',"
+                   f"'{date_time}',"
+                   f"'{departure}',"
+                   f"'{destination}');")
+    connection.close()

@@ -32,12 +32,29 @@ function get_all_ville() {
         })
 }
 
-/*function get_voyage(){
-    const voyage_container = document.getElementById("voyage-container")
-    const departElement = document.querySelector('select[name="Depart"]:checked');
-    const destElement = document.querySelector('select[name="Destination"]:checked');
-}*/
+function addVoyage() {
+    const departure = document.getElementById('departure').value;
+    const destination = document.getElementById('destination').value;
+    const dateTime = document.getElementById('date-time').value;
+    const price = document.getElementById('prix').value;
 
-function goToAvis() {
-    window.location.href = "avisUtilisateur.html"
+    const data = postVoyage(departure, destination, dateTime, price);
+}
+
+function postVoyage(departure, destination, dateTime, price) {
+    const postUrl = "add-voyage"
+    return fetch(postUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            departure: departure,
+            destination: destination,
+            date_time: dateTime,
+            price: price
+        })
+    }).then(function (response) {
+        return response.json()
+    })
 }

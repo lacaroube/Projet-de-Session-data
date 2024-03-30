@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS vehicule (
 );
 
 CREATE TABLE IF NOT EXISTS utilisateurs (
-    id_utilisateur integer primary key,
+    id_utilisateur varchar(36) primary key,
     ut_username varchar(20),
     ut_password varchar(200),
     ut_nom varchar(20),
@@ -26,12 +26,10 @@ CREATE TABLE IF NOT EXISTS avis (
     no_avis integer AUTO_INCREMENT,
     note enum('Excellent','Bien','Modeste','Mauvais','Aucune note'),
     commentaire varchar(200),
-    id_utilisateur integer,
+    id_utilisateur varchar(36),
     PRIMARY KEY (no_avis, id_utilisateur),
     foreign key (id_utilisateur) REFERENCES utilisateurs(id_utilisateur)
 );
-
-DROP TABLE avis;
 
 CREATE TABLE IF NOT EXISTS voyage (
     vo_ni varchar(36) primary key,
@@ -40,8 +38,6 @@ CREATE TABLE IF NOT EXISTS voyage (
     vo_dep varchar(255),
     vo_dest varchar(255)
 );
-
-DROP TABLE voyage;
 
 CREATE TABLE IF NOT EXISTS employes (
     em_id integer primary key,

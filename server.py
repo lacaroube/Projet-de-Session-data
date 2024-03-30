@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 
-from database import (insert_avis, get_avis, supprime_avis, modifierCommentaire, fetch_client, insert_new_client,
+from database import (insert_avis, get_avis, supprime_avis, modifier_commentaire, fetch_client, insert_new_client,
                       get_all_ville, get_voyage)
 
 from flask_bcrypt import Bcrypt
@@ -92,8 +92,7 @@ def create_client():
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    client = insert_new_client(data["id"],
-                               data["username"],
+    client = insert_new_client(data["username"],
                                hashed_password,
                                data["last_name"],
                                data["first_name"],
@@ -103,6 +102,19 @@ def create_client():
     response = {
         "status": "success",
         "client": client
+    }
+    return jsonify(response)
+
+
+@app.route("/static/add-voyage", methods=["POST"])
+def add_voyage():
+    data = request.get_json()
+    insert_voyage(data["departure"],
+                  data["destination"],
+                  data["dateTime"],
+                  data["price"])
+    response = {
+        "status": "success",
     }
     return jsonify(response)
 

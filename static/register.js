@@ -1,6 +1,4 @@
 async function registerNewClient() {
-    const idInput = document.getElementById("id")
-    const id = idInput.value
     const usernameInput = document.getElementById("username")
     const username = usernameInput.value
     const passwordInput = document.getElementById("password")
@@ -16,7 +14,7 @@ async function registerNewClient() {
     const addressInput = document.getElementById("address")
     const address = addressInput.value
 
-    const data = await createClient(id, username, password, lastName, firstName, birthDate, phone, address)
+    const data = await createClient(username, password, lastName, firstName, birthDate, phone, address)
     if (data.status === "success") {
         sessionStorage.setItem('username', data.client[1]);
         sessionStorage.setItem('id', data.client[0]);
@@ -24,7 +22,7 @@ async function registerNewClient() {
     }
 }
 
-function createClient(id, username, password, lastName, firstName, birthDate, phone, address) {
+function createClient(username, password, lastName, firstName, birthDate, phone, address) {
     const postUrl = "create-client"
     return fetch(postUrl, {
         method: "POST",
@@ -32,7 +30,6 @@ function createClient(id, username, password, lastName, firstName, birthDate, ph
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            id: id,
             username: username,
             password: password,
             last_name: lastName,
