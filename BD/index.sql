@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS vehicule (
     ve_niv varchar(17) primary key ,
     ve_immatriculation varchar(7) unique ,
     ve_type_vehicule enum('type 1','type 2','type 3') not null ,
-    ve_odometre integer,
-    ve_mecanicienID integer references mecanos(me_id)
+    ve_odometre integer
+    /* ve_mecanicienID integer references mecanos(me_id) */
 );
 
 CREATE TABLE IF NOT EXISTS utilisateurs (
@@ -39,14 +39,13 @@ CREATE TABLE IF NOT EXISTS voyage (
     vo_dest varchar(255)
 );
 
-CREATE TABLE IF NOT EXISTS employes (
-    em_id integer primary key,
-    em_nom varchar(20),
-    em_prenom varchar(20),
-    em_th FLOAT
+CREATE TABLE IF NOT EXISTS admins (
+    id_admin varchar(36) primary key,
+    adm_username varchar(20),
+    adm_password varchar(200)
 );
 
-CREATE TABLE IF NOT EXISTS conducteurs (
+/* CREATE TABLE IF NOT EXISTS conducteurs (
     co_id integer primary key references employes (em_id),
     co_nom varchar(20) references employes (em_nom),
     co_prenom varchar(20) references employes (em_prenom),
@@ -69,7 +68,7 @@ CREATE TABLE IF NOT EXISTS serviceClient (
     sc_prenom varchar(20) references employes (em_prenom),
     sc_th FLOAT references employes (em_th),
     sc_langue enum('ENG', 'FR', 'ESP', 'ARB', 'JPN', 'MAN')
-);
+); */
 
 CREATE TABLE IF NOT EXISTS villes_quebec (
     id_ville INT AUTO_INCREMENT,

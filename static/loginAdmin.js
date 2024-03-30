@@ -1,8 +1,4 @@
-function loginAsEmployee() {
-    window.location.replace("/")
-}
-
-async function loginAsAdmin() {
+async function loginAdmin() {
     const usernameInput = document.getElementById("username")
     const username = usernameInput.value
     const passwordInput = document.getElementById("password")
@@ -10,14 +6,14 @@ async function loginAsAdmin() {
 
     const data = await getAdmin(username, password)
     if (data.status === "success") {
-        sessionStorage.setItem('username', data.client[1]);
-        sessionStorage.setItem('id', data.client[0]);
+        sessionStorage.setItem('username', data.admin[1]);
+        sessionStorage.setItem('id', data.admin[0]);
         window.location.href = "admin.html";
     }
 }
 
 function getAdmin(username, password) {
-    const getUrl = "get-client"
+    const getUrl = "get-admin"
     return fetch(getUrl, {
         method: "POST",
         headers: {
@@ -30,4 +26,8 @@ function getAdmin(username, password) {
     }).then(function (response) {
         return response.json()
     })
+}
+
+function goToRegisterAdmin() {
+    window.location.replace("../static/registerAdmin.html")
 }

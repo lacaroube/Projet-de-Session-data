@@ -1,33 +1,29 @@
-async function loginAsClient() {
+async function registerNewAdmin() {
     const usernameInput = document.getElementById("username")
     const username = usernameInput.value
     const passwordInput = document.getElementById("password")
     const password = passwordInput.value
 
-    const data = await getClient(username, password)
+    const data = await createAdmin(username, password)
     if (data.status === "success") {
-        sessionStorage.setItem('username', data.client[1]);
-        sessionStorage.setItem('id', data.client[0]);
-        window.location.href = "utilisateur.html";
+        sessionStorage.setItem('username', data.admin[1]);
+        sessionStorage.setItem('id', data.admin[0]);
+        window.location.href = "admin.html";
     }
 }
 
-function getClient(username, password) {
-    const getUrl = "get-client"
-    return fetch(getUrl, {
+function createAdmin(username, password) {
+    const postUrl = "create-admin"
+    return fetch(postUrl, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
             username: username,
-            password: password
+            password: password,
         })
     }).then(function (response) {
         return response.json()
     })
-}
-
-function goToRegisterClient() {
-    window.location.replace("../static/registerClient.html")
 }

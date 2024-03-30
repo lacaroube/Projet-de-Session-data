@@ -4,7 +4,7 @@ import pymysql
 def get_db_connection():
     return pymysql.connect(host='localhost',
                            user="root",
-                           password="PolarLucky7",
+                           password="SdM4rs0laisC!",
                            db="agence_de_transport",
                            autocommit=True
                            )
@@ -64,6 +64,17 @@ def insert_new_client(username, password, last_name, first_name, birth_date, pho
     return [id, username, password, last_name, first_name, birth_date, phone, address]
 
 
+def insert_new_admin(username, password):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"INSERT INTO admins (id_admin, adm_username, adm_password)"
+                   f"VALUES (UUID(), '{username}', '{password}')")
+    cursor.execute("SELECT LAST_INSERT_ID()")
+    id = cursor.fetchone()[0]
+    connection.close()
+    return [id, username, password]
+
+
 def get_avis(user_id):
     connection = get_db_connection()
     cursor = connection.cursor()
@@ -95,6 +106,15 @@ def fetch_client(username):
     clients = cursor.fetchall()
     connection.close()
     return clients
+
+
+def fetch_admin(username):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM admins WHERE adm_username = %s", (username,))
+    admins = cursor.fetchall()
+    connection.close()
+    return admins
 
 
 def insert_voyage(departure, destination, date_time, price):

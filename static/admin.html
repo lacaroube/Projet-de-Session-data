@@ -35,6 +35,15 @@
 
         <input type="submit" value="Submit" onclick="addVoyage()">
     </form>
+
+    <script>
+        fetch('../static/topBarMenu.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('topBarMenu').innerHTML = data;
+            manageButtonsDisplay();
+          });
+    </script>
 </body>
 <style>
     form {

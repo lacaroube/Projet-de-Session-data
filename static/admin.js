@@ -1,10 +1,3 @@
-fetch('../static/topBarMenu.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('topBarMenu').innerHTML = data;
-    manageButtonsDisplay();
-  });
-
 function get_all_ville() {
     const depart_container = document.getElementById("departure")
     const destination_container = document.getElementById("destination")

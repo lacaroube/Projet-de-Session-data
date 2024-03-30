@@ -39,6 +39,15 @@
     <a id="logOut" href="avisUtilisateur.html">
         <button class="avisButton" onclick="goToAvis()">Avis</button>
     </a>
+
+    <script>
+        fetch('../static/topBarMenu.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('topBarMenu').innerHTML = data;
+            manageButtonsDisplay();
+          });
+    </script>
 </body>
 <style>
     form {
