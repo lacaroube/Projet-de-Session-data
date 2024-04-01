@@ -95,3 +95,12 @@ def fetch_client(username):
     clients = cursor.fetchall()
     connection.close()
     return clients
+
+
+def insert_new_voyage_utilisateur(vo_ni, id_utilisateur):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"INSERT INTO voyage_utilisateur (vo_ni, id_utilisateur) VALUES "
+                   f"('{vo_ni}', '{id_utilisateur}')")
+    connection.close()
+
