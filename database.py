@@ -1,12 +1,15 @@
+import os
 from datetime import datetime, timedelta
 import pymysql
 
 
+
+
 def get_db_connection():
-    return pymysql.connect(host='localhost',
-                           user="root",
-                           password="SdM4rs0laisC!",
-                           db="agence_de_transport",
+    return pymysql.connect(host=os.environ.get("HOST"),
+                           user=os.environ.get("USER"),
+                           password=os.environ.get("PASSWORD"),
+                           db=os.environ.get("DATABASE"),
                            autocommit=True
                            )
 

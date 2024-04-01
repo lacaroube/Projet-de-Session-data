@@ -58,7 +58,7 @@ function getAllAvis() {
 
                 const modifyForm = document.createElement("form")
                 modifyForm.id = `modify-form-${avis.no_avis}`
-                modifyForm.style.display = "non"
+                modifyForm.style.display = "none"
 
                 const newCommentaireInput = document.createElement("input")
                 newCommentaireInput.type = "text"

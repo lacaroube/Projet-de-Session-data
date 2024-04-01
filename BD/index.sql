@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS villes_quebec (
 );
 
 
-insert INTO villes_quebec (ville) VALUES
+INSERT INTO villes_quebec (ville) VALUES
 ('Montréal'),
 ('Québec'),
 ('Laval'),

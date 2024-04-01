@@ -1,4 +1,4 @@
-async function registerNewAdmin() {
+async function registerAdmin() {
     const usernameInput = document.getElementById("username")
     const username = usernameInput.value
     const passwordInput = document.getElementById("password")
