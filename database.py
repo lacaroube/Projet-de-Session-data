@@ -14,7 +14,7 @@ def get_db_connection():
 def get_all_ville():
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute("SELECT ville FROM villes_quebec")
+    cursor.execute("SELECT ville FROM villes_quebec ORDER BY ville")
     result = cursor.fetchall()
     connection.close()
     return [row[0] for row in result]
@@ -143,4 +143,5 @@ def insert_new_voyage_utilisateur(vo_ni, id_utilisateur):
     cursor.execute(f"INSERT INTO voyage_utilisateur (vo_ni, id_utilisateur) VALUES "
                    f"('{vo_ni}', '{id_utilisateur}')")
     connection.close()
+
 

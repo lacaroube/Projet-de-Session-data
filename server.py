@@ -30,6 +30,15 @@ def get_voyages():
     return jsonify(voyages)
 
 
+@app.route("/static/delete-voyage/<string:id_utilisateur>/<string:vo_ni>", methods=["DELETE"])
+def delete_voyage_utilisateur(id_utilisateur, vo_ni):
+    delete_voyage_user(id_utilisateur, vo_ni)
+    response = {
+        "status": "success"
+    }
+    return jsonify(response)
+
+
 @app.route("/static/add_voyage_utilisateur", methods=["POST"])
 def add_voyage_utilisateur():
     data = request.get_json()
@@ -56,7 +65,7 @@ def add_avis():
     return jsonify(response)
 
 
-@app.route("/static/get-avis/<int:user_id>", methods=["GET"])
+@app.route("/static/get-avis/<string:user_id>", methods=["GET"])
 def get_all_avis(user_id):
     avis = get_avis(user_id)
     return jsonify(avis)

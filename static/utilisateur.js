@@ -67,7 +67,7 @@ function get_voyage(){
         )
 }
 
-function add_voyage(vo_ni){
+function add_voyage(vo_ni) {
     event.preventDefault()
     const id_utilisateur = sessionStorage.getItem('id')
     const getUrl = "add_voyage_utilisateur"
