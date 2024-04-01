@@ -58,8 +58,26 @@ function get_voyage(){
         )
 }
 
+
 function add_voyage(voyage){
     event.preventDefault()
     console.log("hello world")
+
+    const voyageElement = event.target.parentNode;
+    const voyageDetails = voyageElement.innerText.split(" - ");
+
+    const addedVoyageElement = document.createElement("li");
+    addedVoyageElement.innerText = voyageDetails.join(" - ");
+
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "Supprimer";
+    deleteButton.addEventListener("click", function() {
+        addedVoyageElement.remove();
+    });
+
+    addedVoyageElement.appendChild(deleteButton);
+
+    const addedVoyagesContainer = document.getElementById("added-voyages-container");
+    addedVoyagesContainer.appendChild(addedVoyageElement);
 }
 
