@@ -63,9 +63,9 @@ def insert_new_client(username, password, last_name, first_name, birth_date, pho
                    f"'{phone}',"
                    f"'{address}')")
     cursor.execute("SELECT LAST_INSERT_ID()")
-    id = cursor.fetchone()[0]
+    utili_id = cursor.fetchone()[0]
     connection.close()
-    return [id, username, password, last_name, first_name, birth_date, phone, address]
+    return [utili_id, username, password, last_name, first_name, birth_date, phone, address]
 
 
 def insert_new_admin(username, password):

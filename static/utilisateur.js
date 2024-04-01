@@ -1,8 +1,9 @@
 window.onload = function() {
-    const username = sessionStorage.getItem('username');
-    const usernameElement = document.getElementById('username');
+    const username = sessionStorage.getItem('username')
+    const usernameElement = document.getElementById('username')
     usernameElement.textContent = username;
-    get_all_ville();
+    get_all_ville()
+    get_voyages_utilisateur()
 }
 
 function get_all_ville() {
@@ -68,7 +69,7 @@ function get_voyage(){
 
 function add_voyage(vo_ni){
     event.preventDefault()
-    const voyageUtilisateurElement = document.getElementById("voyage-utilisateur")
+    const id_utilisateur = sessionStorage.getItem('id')
     const getUrl = "add_voyage_utilisateur"
     fetch(getUrl, {
         method: "POST",
@@ -77,15 +78,46 @@ function add_voyage(vo_ni){
         },
         body:JSON.stringify({
             vo_ni: vo_ni,
-            id_utilisateur: 1
+            id_utilisateur: id_utilisateur
         })
     }).then(response => response.json())
         .then(function (data){
-            console.log(data)
+             get_voyages_utilisateur()
         })
+}
 
+function get_voyages_utilisateur() {
+    const voyageUtilisateurElement = document.getElementById("voyage-utilisateur")
+    const id_utilisateur = sessionStorage.getItem('id')
+    fetch(`get_voyages_utilisateur/${id_utilisateur}`)
+        .then(response => response.json())
+        .then(voyagesList => {
+            voyageUtilisateurElement.innerHTML = ""
+            voyagesList.forEach(voyage => {
+                const voyageElement = document.createElement("li")
+                voyageElement.innerText = voyage.vo_dep + " - " + voyage.vo_dest + " - " + voyage.vo_heure_dep + " - " + voyage.vo_prix_passager + "$"
+                voyageUtilisateurElement.appendChild(voyageElement)
 
+                const suppression_voyage = document.createElement("button")
+                suppression_voyage.innerText = "Supprimer"
+                voyageElement.appendChild(suppression_voyage)
 
+                suppression_voyage.addEventListener("click", function (){
+                    supp_voyage(id_utilisateur, voyage.vo_ni)
+                })
+            })
+        })
+}
+
+function supp_voyage(id_utilisateur, vo_ni) {
+    fetch(`delete-voyage/${id_utilisateur}/${vo_ni}`, {
+        method: "DELETE",
+    })
+        .then(function (response) {
+            return response.json()
+        }).then(function () {
+            get_voyages_utilisateur()
+    })
 }
 
 function goToAvis() {

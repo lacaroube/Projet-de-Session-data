@@ -44,7 +44,7 @@ CREATE TABLE participationVehicules (
 
 CREATE TABLE IF NOT EXISTS voyage_utilisateur(
     id_participation integer AUTO_INCREMENT PRIMARY KEY,
-    id_utilisateur integer,
+    id_utilisateur varchar(36),
     vo_ni varchar(36),
     FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
     FOREIGN KEY (vo_ni) REFERENCES voyage(vo_ni)

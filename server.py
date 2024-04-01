@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 
 from database import (insert_avis, get_avis, supprime_avis, modifier_commentaire, fetch_client, insert_new_client,
-                      get_all_ville, get_voyage,insert_new_voyage_utilisateur, insert_voyage, insert_new_admin, fetch_admin)
+                      get_all_ville, get_voyage, insert_new_voyage_utilisateur, insert_voyage, insert_new_admin,
+                      fetch_admin, get_voyages_user, delete_voyage_user)
 
 from flask_bcrypt import Bcrypt
 
@@ -22,14 +23,14 @@ def get_cities():
     return jsonify(city_names)
 
 
-@app.route("/get_voyages", methods=["POST"])
+@app.route("/static/get_voyages", methods=["POST"])
 def get_voyages():
     data = request.get_json()
     voyages = get_voyage(data["depart"], data["destination"], data["date_temps"], data["prix"])
     return jsonify(voyages)
 
 
-@app.route("/add_voyage_utilisateur", methods=["POST"])
+@app.route("/static/add_voyage_utilisateur", methods=["POST"])
 def add_voyage_utilisateur():
     data = request.get_json()
     insert_new_voyage_utilisateur(data["vo_ni"], data["id_utilisateur"])
@@ -37,6 +38,12 @@ def add_voyage_utilisateur():
         "status": "success"
     }
     return jsonify(response)
+
+
+@app.route("/static/get_voyages_utilisateur/<string:user_id>", methods=["GET"])
+def get_voyages_utilisateur(user_id):
+    voyages = get_voyages_user(user_id)
+    return jsonify(voyages)
 
 
 @app.route("/static/add-avis", methods=["POST"])

@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
 );
 
 
+
 CREATE TABLE IF NOT EXISTS avis (
     no_avis integer AUTO_INCREMENT,
     note enum('Excellent','Bien','Modeste','Mauvais','Aucune note'),
