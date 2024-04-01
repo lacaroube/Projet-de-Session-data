@@ -145,3 +145,19 @@ def insert_new_voyage_utilisateur(vo_ni, id_utilisateur):
     connection.close()
 
 
+def get_voyages_user(id_utilisateur):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT v.* FROM voyage_utilisateur vu JOIN voyage v ON vu.vo_ni = v.vo_ni "
+                   f"WHERE vu.id_utilisateur = '{id_utilisateur}'")
+    voyages = cursor.fetchall()
+    connection.close()
+    return [{"vo_ni": vo_ni, "vo_prix_passager": vo_prix_passager, "vo_heure_dep": vo_heure_dep, "vo_dep": vo_dep, "vo_dest": vo_dest}
+            for vo_ni, vo_prix_passager, vo_heure_dep, vo_dep, vo_dest in voyages]
+
+
+def delete_voyage_user(id_utilisateur, vo_ni):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"DELETE FROM voyage_utilisateur WHERE id_utilisateur = '{id_utilisateur}' AND vo_ni = '{vo_ni}'")
+    connection.close()
