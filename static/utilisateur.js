@@ -48,7 +48,9 @@ function get_voyage(){
                 addVoyageButton.innerText = "Ajouter Voyage"
                 voyageElement.innerText = voyage.depart + " - " + voyage.destination + " - " + voyage.date_temps + " - " + voyage.prix
 
-                addVoyageButton.addEventListener('click', add_voyage)
+                addVoyageButton.addEventListener('click', function (){
+                    add_voyage(voyage.vo_ni)
+                })
 
                 voyageElement.appendChild(addVoyageButton)
                 voyage_container.appendChild(voyageElement)
@@ -58,8 +60,43 @@ function get_voyage(){
         )
 }
 
-function add_voyage(voyage){
+function add_voyage(vo_ni){
     event.preventDefault()
-    console.log("hello world")
+    const voyageUtilisateurElement = document.getElementById("voyage-utilisateur")
+    const getUrl = "add_voyage_utilisateur"
+    fetch(getUrl, {
+        method: "POST",
+         headers: {
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify({
+            vo_ni: vo_ni,
+            id_utilisateur: 1
+        })
+    }).then(response => response.json())
+        .then(function (data){
+            console.log(data)
+        })
+
+
+
 }
+
+    /*const voyageElement = event.target.parentNode;
+    const voyageDetails = voyageElement.innerText.split(" - ");
+
+    const addedVoyageElement = document.createElement("li");
+    addedVoyageElement.innerText = voyageDetails.join(" - ");
+
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "Supprimer";
+    deleteButton.addEventListener("click", function() {
+        addedVoyageElement.remove();
+    });
+
+    addedVoyageElement.appendChild(deleteButton);
+
+    const addedVoyagesContainer = document.getElementById("added-voyages-container");
+    addedVoyagesContainer.appendChild(addedVoyageElement);*/
+
 
