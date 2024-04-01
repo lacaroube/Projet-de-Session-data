@@ -1,3 +1,10 @@
+fetch('../static/topBarMenu.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('div2').innerHTML = data;
+    manageButtonsDisplay();
+  });
+
 function onAvisButtonClick(){
     const inputElement = document.getElementById("notice-input")
     const textInput = inputElement.value
@@ -8,13 +15,11 @@ function onAvisButtonClick(){
     const newAvisElement = document.createElement("div")
     newAvisElement.innerText = textInput
 
-    postAvis(textInput, noteValue)
-    getAllAvis()
-
+    postAvis(textInput, noteValue, sessionStorage.getItem('id'))
     inputElement.value = ""
 }
 
-function postAvis(text, note) {
+function postAvis(text, note, userId) {
     const postUrl = "add-avis"
 
     fetch(postUrl, {
@@ -24,7 +29,8 @@ function postAvis(text, note) {
         },
         body: JSON.stringify({
             text: text,
-            note: note
+            note: note,
+            user_id: userId
         })
     }).then(function (response) {
         return response.json()
@@ -39,7 +45,7 @@ function getAllAvis() {
     const avisContainer = document.getElementById("notice-containeur");
     avisContainer.innerHTML = "";
 
-    fetch("get-avis")
+    fetch(`get-avis/${sessionStorage.getItem('id')}`)
         .then(response => response.json())
         .then(avisList => {
             avisList.forEach(avis => {

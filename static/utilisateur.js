@@ -1,3 +1,9 @@
+window.onload = function() {
+    const username = sessionStorage.getItem('username');
+    const usernameElement = document.getElementById('username');
+    usernameElement.textContent = username;
+    get_all_ville();
+}
 
 function get_all_ville() {
     const depart_container = document.getElementById("departure")
@@ -82,21 +88,6 @@ function add_voyage(vo_ni){
 
 }
 
-    /*const voyageElement = event.target.parentNode;
-    const voyageDetails = voyageElement.innerText.split(" - ");
-
-    const addedVoyageElement = document.createElement("li");
-    addedVoyageElement.innerText = voyageDetails.join(" - ");
-
-    const deleteButton = document.createElement("button");
-    deleteButton.innerText = "Supprimer";
-    deleteButton.addEventListener("click", function() {
-        addedVoyageElement.remove();
-    });
-
-    addedVoyageElement.appendChild(deleteButton);
-
-    const addedVoyagesContainer = document.getElementById("added-voyages-container");
-    addedVoyagesContainer.appendChild(addedVoyageElement);*/
-
-
+function goToAvis() {
+    window.location.href = "avisUtilisateur.html"
+}

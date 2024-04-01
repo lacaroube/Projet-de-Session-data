@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 
-from database import insert_avis, get_avis, supprime_avis, modifierCommentaire, fetch_client, insert_new_client, \
-    get_all_ville, get_voyage, insert_new_voyage_utilisateur
+from database import (insert_avis, get_avis, supprime_avis, modifier_commentaire, fetch_client, insert_new_client,
+                      get_all_ville, get_voyage,insert_new_voyage_utilisateur, insert_voyage, insert_new_admin, fetch_admin)
 
 from flask_bcrypt import Bcrypt
+
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -15,6 +16,7 @@ def index():
 
 
 @app.route("/get_cities", methods=["GET"])
+@app.route("/static/get_cities", methods=["GET"])
 def get_cities():
     city_names = get_all_ville()
     return jsonify(city_names)
@@ -37,23 +39,23 @@ def add_voyage_utilisateur():
     return jsonify(response)
 
 
-@app.route("/add-avis", methods=["POST"])
+@app.route("/static/add-avis", methods=["POST"])
 def add_avis():
     data = request.get_json()
-    insert_avis(data["text"], data["note"])
+    insert_avis(data["text"], data["note"], data["user_id"])
     response = {
         "status": "success"
     }
     return jsonify(response)
 
 
-@app.route("/get-avis", methods=["GET"])
-def get_all_avis():
-    avis = get_avis()
+@app.route("/static/get-avis/<int:user_id>", methods=["GET"])
+def get_all_avis(user_id):
+    avis = get_avis(user_id)
     return jsonify(avis)
 
 
-@app.route("/delete-avis/<int:no_avis>", methods=["DELETE"])
+@app.route("/static/delete-avis/<int:no_avis>", methods=["DELETE"])
 def delete_avis(no_avis):
     supprime_avis(no_avis)
     response = {
@@ -62,10 +64,10 @@ def delete_avis(no_avis):
     return jsonify(response)
 
 
-@app.route("/modify-avis/<int:no_avis>", methods=["PUT"])
+@app.route("/static/modify-avis/<int:no_avis>", methods=["PUT"])
 def modify_avis(no_avis):
     data = request.get_json()
-    modifierCommentaire(no_avis, data["commentaire"], data["note"])
+    modifier_commentaire(no_avis, data["commentaire"], data["note"])
     response = {
         "status": "success"
     }
@@ -84,13 +86,36 @@ def get_client():
         if bcrypt.check_password_hash(client[2], password):
             response = {
                 "status": "success",
-                "clients": clients
+                "client": client
             }
             return jsonify(response)
 
     response = {
         "status": "failure",
-        "clients": []
+        "client": []
+    }
+    return jsonify(response)
+
+
+@app.route("/static/get-admin", methods=["POST"])
+def get_admin():
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"].encode('utf-8')
+
+    admins = fetch_admin(username)
+
+    for admin in admins:
+        if bcrypt.check_password_hash(admin[2], password):
+            response = {
+                "status": "success",
+                "admin": admin
+            }
+            return jsonify(response)
+
+    response = {
+        "status": "failure",
+        "admin": []
     }
     return jsonify(response)
 
@@ -102,16 +127,44 @@ def create_client():
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    insert_new_client(data["id"],
-                      data["username"],
-                      hashed_password,
-                      data["last_name"],
-                      data["first_name"],
-                      data["birth_date"],
-                      data["phone"],
-                      data["address"])
+    client = insert_new_client(data["username"],
+                               hashed_password,
+                               data["last_name"],
+                               data["first_name"],
+                               data["birth_date"],
+                               data["phone"],
+                               data["address"])
     response = {
-        "status": "success"
+        "status": "success",
+        "client": client
+    }
+    return jsonify(response)
+
+
+@app.route("/static/create-admin", methods=["POST"])
+def create_admin():
+    data = request.get_json()
+    password = data["password"].encode('utf-8')
+
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    admin = insert_new_admin(data["username"], hashed_password)
+    response = {
+        "status": "success",
+        "admin": admin
+    }
+    return jsonify(response)
+
+
+@app.route("/static/add-voyage", methods=["POST"])
+def add_voyage():
+    data = request.get_json()
+    insert_voyage(data["departure"],
+                  data["destination"],
+                  data["date_time"],
+                  data["price"])
+    response = {
+        "status": "success",
     }
     return jsonify(response)
 

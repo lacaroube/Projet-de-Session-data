@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="registerNewAdmin.js"></script>
+    <script src="../static/topBarMenu.js"></script>
+</head>
+<body>
+    <div id="div1"></div>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <h1 style="font-size: 36px;">Register</h1>
+        <div style="display: flex; flex-direction: column; align-items: flex-start;">
+            <p>
+            <label style="font-size: 16px;" for="username">Username:</label>
+            <input style="font-size: 16px;" id="username" placeholder="Username">
+            </p>
+            <p>
+            <label style="font-size: 16px;" for="password">Password:</label>
+            <input style="font-size: 16px;" type="password" id="password" placeholder="Password">
+            </p>
+            <p>
+        </div>
+        <button class="submitRegister" onclick="registerNewAdmin()">Register</button>
+    </div>
+    <script>
+    fetch('../static/topBarMenu.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('div1').innerHTML = data;
+        manageButtonsDisplay();
+      });
+    </script>
+</body>
+
+<style>
+    .submitRegister {
+        background-color: deepskyblue;
+        border: none;
+        border-radius: 7%;
+        display: inline-block;
+        font-size: 20px;
+        justify-content: center;
+        margin: 2px auto;
+        padding: 8px 10px;
+        position: relative;
+    }
+
+    .submitRegister:hover {
+        filter: brightness(75%);
+        transition-duration: 0.18s;
+    }
+</style>
+
+</html>
