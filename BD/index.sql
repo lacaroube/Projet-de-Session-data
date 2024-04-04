@@ -16,9 +16,7 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
     ut_password varchar(200),
     ut_nom varchar(20),
     ut_prenom varchar(20),
-    ut_date_naissance date,
-    ut_telephone varchar(10),
-    ut_adresse varchar(100)
+    ut_telephone varchar(10)
 );
 
 

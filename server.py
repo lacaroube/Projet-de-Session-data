@@ -147,9 +147,7 @@ def create_client():
                                hashed_password,
                                data["last_name"],
                                data["first_name"],
-                               data["birth_date"],
-                               data["phone"],
-                               data["address"])
+                               data["phone"])
     response = {
         "status": "success",
         "client": client

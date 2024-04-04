@@ -1,10 +1,3 @@
-fetch('../static/topBarMenu.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('div2').innerHTML = data;
-    manageButtonsDisplay();
-  });
-
 function onAvisButtonClick(){
     const inputElement = document.getElementById("notice-input")
     const textInput = inputElement.value

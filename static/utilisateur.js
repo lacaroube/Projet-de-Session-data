@@ -86,6 +86,10 @@ function add_voyage(vo_ni) {
         })
 }
 
+function goToAvis() {
+    window.location.href = "../static/avisUtilisateur.html"
+}
+
 function get_voyages_utilisateur() {
     const voyageUtilisateurElement = document.getElementById("voyage-utilisateur")
     const id_utilisateur = sessionStorage.getItem('id')
@@ -97,6 +101,15 @@ function get_voyages_utilisateur() {
                 const voyageElement = document.createElement("li")
                 voyageElement.innerText = voyage.vo_dep + " - " + voyage.vo_dest + " - " + voyage.vo_heure_dep + " - " + voyage.vo_prix_passager + "$"
                 voyageUtilisateurElement.appendChild(voyageElement)
+
+                const avis_voyage = document.createElement("button")
+                avis_voyage.innerText = "Avis"
+                voyageElement.appendChild(avis_voyage)
+
+                avis_voyage.addEventListener("click", function (event){
+                    event.preventDefault();
+                    goToAvis()
+                })
 
                 const suppression_voyage = document.createElement("button")
                 suppression_voyage.innerText = "Supprimer"
@@ -118,8 +131,4 @@ function supp_voyage(id_utilisateur, vo_ni) {
         }).then(function () {
             get_voyages_utilisateur()
     })
-}
-
-function goToAvis() {
-    window.location.href = "avisUtilisateur.html"
 }

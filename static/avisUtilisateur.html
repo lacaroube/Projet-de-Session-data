@@ -6,6 +6,14 @@
     <link href="avisUtilisateur.css" rel="stylesheet">
     <script src="avisUtilisateur.js"></script>
     <script src="topBarMenu.js"></script>
+    <script>
+        fetch('../static/topBarMenu.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById("div2").innerHTML = data;
+            manageButtonsDisplay();
+          });
+    </script>
 </head>
 <body>
     <div id="div2">

@@ -48,7 +48,7 @@ def insert_avis(text, note, user_id):
     connection.close()
 
 
-def insert_new_client(username, password, last_name, first_name, birth_date, phone, address):
+def insert_new_client(username, password, last_name, first_name, phone):
     connection = get_db_connection()
     cursor = connection.cursor()
     cursor.execute(f"INSERT INTO utilisateurs (id_utilisateur,"
@@ -56,21 +56,17 @@ def insert_new_client(username, password, last_name, first_name, birth_date, pho
                    f"ut_password,"
                    f"ut_nom,"
                    f"ut_prenom,"
-                   f"ut_date_naissance,"
-                   f"ut_telephone,"
-                   f"ut_adresse)"
+                   f"ut_telephone)"
                    f"VALUES (UUID(),"
                    f"'{username}',"
                    f"'{password}',"
                    f"'{last_name}',"
                    f"'{first_name}',"
-                   f"'{birth_date}',"
-                   f"'{phone}',"
-                   f"'{address}')")
+                   f"'{phone}')")
     cursor.execute("SELECT LAST_INSERT_ID()")
     utili_id = cursor.fetchone()[0]
     connection.close()
-    return [utili_id, username, password, last_name, first_name, birth_date, phone, address]
+    return [utili_id, username, password, last_name, first_name, phone]
 
 
 def insert_new_admin(username, password):
