@@ -125,10 +125,6 @@ async function get_voyages_utilisateur() {
                         showAvis(avis.vo_ni)
                     })
                     voyageUtilisateurElement.appendChild(avisElement)
-                    avisElement.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        showModifyForm(avis.vo_ni)
-                    })
                 } else {
                     avis_voyage.addEventListener("click", function (event) {
                         event.preventDefault();
@@ -160,12 +156,22 @@ function supp_voyage(id_utilisateur, vo_ni) {
 
 function showModifyForm(vo_ni) {
     const modifyForm = document.getElementById(`modify-form-${vo_ni}`)
-    modifyForm.style.display = "block"
+    if (modifyForm.style.display === "none") {
+        modifyForm.style.display = "block"
+    } else {
+        modifyForm.style.display = "none"
+    }
 }
 
 function showAvis(vo_ni) {
     const avis = document.getElementById(`avis-${vo_ni}`)
-    avis.style.display = "block"
+    if (avis.style.display === "none") {
+        avis.style.display = "block"
+    } else {
+        avis.style.display = "none"
+        const modifyForm = document.getElementById(`modify-form-${vo_ni}`)
+        modifyForm.style.display = "none"
+    }
 }
 
 function modifyAvis(vo_ni, newCommentaire, newNote){
@@ -182,7 +188,7 @@ function modifyAvis(vo_ni, newCommentaire, newNote){
     }).then(function (response){
         return response.json()
     }).then(function (data){
-        getAllAvis()
+        get_voyages_utilisateur()
     })
 }
 
@@ -202,7 +208,10 @@ function display_avis(avis) {
 
     const modifyButton = document.createElement("button")
     modifyButton.innerText = "Modifier"
-    modifyButton.onclick = function () {showModifyForm(avis.vo_ni)}
+    modifyButton.onclick = function () {
+        event.preventDefault();
+        showModifyForm(avis.vo_ni)
+    }
 
     const modifyForm = document.createElement("form")
     modifyForm.id = `modify-form-${avis.vo_ni}`
