@@ -8,11 +8,13 @@ function onAvisButtonClick(){
     const newAvisElement = document.createElement("div")
     newAvisElement.innerText = textInput
 
-    postAvis(textInput, noteValue, sessionStorage.getItem('id'))
+    postAvis(textInput, noteValue, sessionStorage.getItem('id'), sessionStorage.getItem('vo_ni'))
     inputElement.value = ""
+    sessionStorage.removeItem('vo_ni')
+    window.location.href = "../static/utilisateur.html"
 }
 
-function postAvis(text, note, userId) {
+function postAvis(text, note, userId, vo_ni) {
     const postUrl = "add-avis"
 
     fetch(postUrl, {
@@ -23,7 +25,8 @@ function postAvis(text, note, userId) {
         body: JSON.stringify({
             text: text,
             note: note,
-            user_id: userId
+            user_id: userId,
+            vo_ni: vo_ni
         })
     }).then(function (response) {
         return response.json()
@@ -33,12 +36,12 @@ function postAvis(text, note, userId) {
 }
 
 
-window.onload = getAllAvis
+// window.onload = getAllAvis
 function getAllAvis() {
     const avisContainer = document.getElementById("notice-containeur");
     avisContainer.innerHTML = "";
 
-    fetch(`get-avis/${sessionStorage.getItem('id')}`)
+    fetch(`get-all-avis/${sessionStorage.getItem('id')}`)
         .then(response => response.json())
         .then(avisList => {
             avisList.forEach(avis => {
@@ -47,10 +50,10 @@ function getAllAvis() {
 
                 const modifyButton = document.createElement("button")
                 modifyButton.innerText = "Modifier"
-                modifyButton.onclick = function () {showModifyForm(avis.no_avis)}
+                modifyButton.onclick = function () {showModifyForm(avis.vo_ni)}
 
                 const modifyForm = document.createElement("form")
-                modifyForm.id = `modify-form-${avis.no_avis}`
+                modifyForm.id = `modify-form-${avis.vo_ni}`
                 modifyForm.style.display = "none"
 
                 const newCommentaireInput = document.createElement("input")
@@ -87,12 +90,12 @@ function getAllAvis() {
                     e.preventDefault()
                     const newNoteElement = modifyForm.querySelector('input[name="newNote"]:checked');
                     const newNote = newNoteElement ? newNoteElement.value : 'Aucune note';
-                    modifyAvis(avis.no_avis, newCommentaireInput.value, newNote)
+                    modifyAvis(avis.vo_ni, newCommentaireInput.value, newNote)
                 }
 
                 const avisButtonSuppression = document.createElement("button")
                 avisButtonSuppression.innerText = "Supprimer"
-                avisButtonSuppression.onclick = function () {supprimerAvis(avis.no_avis)}
+                avisButtonSuppression.onclick = function () {supprimerAvis(avis.vo_ni)}
 
                 avisElement.appendChild(modifyButton)
                 avisElement.appendChild(modifyForm)
@@ -102,14 +105,14 @@ function getAllAvis() {
         })
 }
 
-function showModifyForm(no_avis) {
-    const modifyForm = document.getElementById(`modify-form-${no_avis}`)
+function showModifyForm(vo_ni) {
+    const modifyForm = document.getElementById(`modify-form-${vo_ni}`)
     modifyForm.style.display = "block"
 }
 
-function modifyAvis(no_avis, newCommentaire, newNote){
+function modifyAvis(vo_ni, newCommentaire, newNote){
     const noteValue = newNote ? newNote : 'Aucune note'
-    fetch(`modify-avis/${no_avis}`, {
+    fetch(`modify-avis/${vo_ni}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -124,8 +127,9 @@ function modifyAvis(no_avis, newCommentaire, newNote){
         getAllAvis()
     })
 }
-function supprimerAvis(no_avis){
-    fetch(`delete-avis/${no_avis}`, {
+
+function supprimerAvis(vo_ni){
+    fetch(`delete-avis/${sessionStorage.getItem('id')}/${vo_ni}`, {
         method: "DELETE",
     }).then(function (response){
         return response.json()

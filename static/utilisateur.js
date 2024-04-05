@@ -86,14 +86,18 @@ function add_voyage(vo_ni) {
         })
 }
 
-function goToAvis() {
+function goToAvis(vo_ni) {
+    sessionStorage.setItem('vo_ni', vo_ni)
     window.location.href = "../static/avisUtilisateur.html"
 }
 
-function get_voyages_utilisateur() {
+async function get_voyages_utilisateur() {
     const voyageUtilisateurElement = document.getElementById("voyage-utilisateur")
     const id_utilisateur = sessionStorage.getItem('id')
-    fetch(`get_voyages_utilisateur/${id_utilisateur}`)
+    const responseAvis = await fetch(`get-all-avis/${sessionStorage.getItem('id')}`)
+    const liste_avis = await responseAvis.json()
+
+    await fetch(`get_voyages_utilisateur/${id_utilisateur}`)
         .then(response => response.json())
         .then(voyagesList => {
             voyageUtilisateurElement.innerHTML = ""
@@ -106,10 +110,31 @@ function get_voyages_utilisateur() {
                 avis_voyage.innerText = "Avis"
                 voyageElement.appendChild(avis_voyage)
 
-                avis_voyage.addEventListener("click", function (event){
-                    event.preventDefault();
-                    goToAvis()
-                })
+
+                if (liste_avis.some(function(avis) {
+                    return avis.vo_ni === voyage.vo_ni
+                })) {
+                    const avis = liste_avis.find(function(avis_recherche) {
+                        return avis_recherche.vo_ni === voyage.vo_ni
+                    })
+                    const avisElement = display_avis(avis)
+                    avisElement.id = `avis-${avis.vo_ni}`
+                    avisElement.style.display = "none"
+                    avis_voyage.addEventListener("click", function (event) {
+                        event.preventDefault()
+                        showAvis(avis.vo_ni)
+                    })
+                    voyageUtilisateurElement.appendChild(avisElement)
+                    avisElement.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        showModifyForm(avis.vo_ni)
+                    })
+                } else {
+                    avis_voyage.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        goToAvis(voyage.vo_ni)
+                    })
+                }
 
                 const suppression_voyage = document.createElement("button")
                 suppression_voyage.innerText = "Supprimer"
@@ -131,4 +156,102 @@ function supp_voyage(id_utilisateur, vo_ni) {
         }).then(function () {
             get_voyages_utilisateur()
     })
+}
+
+function showModifyForm(vo_ni) {
+    const modifyForm = document.getElementById(`modify-form-${vo_ni}`)
+    modifyForm.style.display = "block"
+}
+
+function showAvis(vo_ni) {
+    const avis = document.getElementById(`avis-${vo_ni}`)
+    avis.style.display = "block"
+}
+
+function modifyAvis(vo_ni, newCommentaire, newNote){
+    const noteValue = newNote ? newNote : 'Aucune note'
+    fetch(`modify-avis/${sessionStorage.getItem('id')}/${vo_ni}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            commentaire: newCommentaire,
+            note: noteValue
+        })
+    }).then(function (response){
+        return response.json()
+    }).then(function (data){
+        getAllAvis()
+    })
+}
+
+function supprimerAvis(vo_ni){
+    fetch(`delete-avis/${sessionStorage.getItem('id')}/${vo_ni}`, {
+        method: "DELETE",
+    }).then(function (response){
+        return response.json()
+    }).then(function (data){
+        getAllAvis()
+    })
+}
+
+function display_avis(avis) {
+    const avisElement = document.createElement("li")
+    avisElement.innerText = avis.commentaire + " - " + avis.note
+
+    const modifyButton = document.createElement("button")
+    modifyButton.innerText = "Modifier"
+    modifyButton.onclick = function () {showModifyForm(avis.vo_ni)}
+
+    const modifyForm = document.createElement("form")
+    modifyForm.id = `modify-form-${avis.vo_ni}`
+    modifyForm.style.display = "none"
+
+    const newCommentaireInput = document.createElement("input")
+    newCommentaireInput.type = "text"
+    newCommentaireInput.name = "newCommentaire"
+    newCommentaireInput.placeholder = "Entrez le nouveau commentaire"
+    modifyForm.appendChild(newCommentaireInput)
+
+    const noteLabel = document.createElement("h4")
+    noteLabel.innerText = "Note"
+    modifyForm.appendChild(noteLabel)
+
+    const notes = ["Excellent", "Bien", "Modeste", "Mauvais"]
+    notes.forEach(note => {
+        const newNoteInput = document.createElement("input")
+        newNoteInput.type = "radio"
+        newNoteInput.id = note
+        newNoteInput.name = "newNote"
+        newNoteInput.value = note
+        modifyForm.appendChild(newNoteInput)
+
+        const newNoteLabel = document.createElement("label")
+        newNoteLabel.for = note
+        newNoteLabel.innerText = note
+        modifyForm.appendChild(newNoteLabel)
+    })
+
+    const submitButton = document.createElement("button")
+    submitButton.type = "submit"
+    submitButton.innerText = "Valider"
+    modifyForm.appendChild(submitButton)
+
+    modifyForm.onsubmit = function(e) {
+        e.preventDefault()
+        const newNoteElement = modifyForm.querySelector('input[name="newNote"]:checked');
+        const newNote = newNoteElement ? newNoteElement.value : 'Aucune note';
+        modifyAvis(avis.vo_ni, newCommentaireInput.value, newNote)
+    }
+
+    const avisButtonSuppression = document.createElement("button")
+    avisButtonSuppression.innerText = "Supprimer"
+    avisButtonSuppression.onclick = function () {supprimerAvis(avis.vo_ni)}
+
+    avisElement.appendChild(modifyButton)
+    avisElement.appendChild(modifyForm)
+    avisElement.appendChild(avisButtonSuppression)
+
+    return avisElement
 }

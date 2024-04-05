@@ -58,32 +58,32 @@ def get_voyages_utilisateur(user_id):
 @app.route("/static/add-avis", methods=["POST"])
 def add_avis():
     data = request.get_json()
-    insert_avis(data["text"], data["note"], data["user_id"])
+    insert_avis(data["text"], data["note"], data["user_id"], data["vo_ni"])
     response = {
         "status": "success"
     }
     return jsonify(response)
 
 
-@app.route("/static/get-avis/<string:user_id>", methods=["GET"])
+@app.route("/static/get-all-avis/<string:user_id>", methods=["GET"])
 def get_all_avis(user_id):
     avis = get_avis(user_id)
     return jsonify(avis)
 
 
-@app.route("/static/delete-avis/<int:no_avis>", methods=["DELETE"])
-def delete_avis(no_avis):
-    supprime_avis(no_avis)
+@app.route("/static/delete-avis/<string:id_utilisateur>/<string:vo_ni>", methods=["DELETE"])
+def delete_avis(id_utilisateur, vo_ni):
+    supprime_avis(id_utilisateur, vo_ni)
     response = {
         "status": "success"
     }
     return jsonify(response)
 
 
-@app.route("/static/modify-avis/<int:no_avis>", methods=["PUT"])
-def modify_avis(no_avis):
+@app.route("/static/modify-avis/<string:id_utilisateur>/<string:vo_ni>", methods=["PUT"])
+def modify_avis(id_utilisateur, vo_ni):
     data = request.get_json()
-    modifier_commentaire(no_avis, data["commentaire"], data["note"])
+    modifier_commentaire(id_utilisateur, vo_ni, data["commentaire"], data["note"])
     response = {
         "status": "success"
     }

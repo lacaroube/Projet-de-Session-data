@@ -13,7 +13,8 @@ function manageButtonsDisplay() {
 
 function logOut() {
     sessionStorage.removeItem('username')
-    sessionStorage.removeItem('username')
+    sessionStorage.removeItem('id')
+    sessionStorage.removeItem('vo_ni')
     window.location.replace("/")
 }
 

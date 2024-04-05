@@ -41,10 +41,11 @@ def get_voyage(depart, destination, date_temps, prix):
             for vo_ni, depart, destination, date_temps, prix in result]
 
 
-def insert_avis(text, note, user_id):
+def insert_avis(text, note, user_id, vo_ni):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"INSERT INTO avis (note, commentaire, id_utilisateur) VALUES ('{note}', '{text}', '{user_id}')")
+    cursor.execute(f"INSERT INTO avis (vo_ni, note, commentaire, id_utilisateur)"
+                   f"VALUES ('{vo_ni}', '{note}', '{text}', '{user_id}')")
     connection.close()
 
 
@@ -83,24 +84,25 @@ def insert_new_admin(username, password):
 def get_avis(user_id):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"SELECT no_avis, note, commentaire FROM avis WHERE id_utilisateur = '{user_id}'")
+    cursor.execute(f"SELECT vo_ni, note, commentaire FROM avis WHERE id_utilisateur = '{user_id}'")
     result = cursor.fetchall()
     connection.close()
-    return [{"no_avis": no_avis, "note": note, "commentaire": commentaire} for no_avis, note, commentaire in result]
+    return [{"vo_ni": vo_ni, "note": note, "commentaire": commentaire} for vo_ni, note, commentaire in result]
 
 
-def supprime_avis(no_avis):
+def supprime_avis(id_utilisateur, vo_ni):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"DELETE FROM avis WHERE no_avis = '{no_avis}'")
+    cursor.execute(f"DELETE FROM avis WHERE vo_ni = '{vo_ni}'"
+                   f"AND id_utilisateur = '{id_utilisateur}'")
     connection.close()
 
 
-def modifier_commentaire(no_avis, text, note):
+def modifier_commentaire(id_utilisateur, vo_ni, text, note):
     connection = get_db_connection()
     cursor = connection.cursor()
     cursor.execute(f"UPDATE avis SET commentaire = '{text}', note = '{note}'"
-                   f"WHERE no_avis = '{no_avis}'")
+                   f"WHERE vo_ni = '{vo_ni}' AND id_utilisateur = '{id_utilisateur}'")
     connection.close()
 
 
