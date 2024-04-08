@@ -50,3 +50,13 @@ CREATE TABLE IF NOT EXISTS voyage_utilisateur(
     FOREIGN KEY (vo_ni) REFERENCES voyage(vo_ni)
 );
 
+CREATE TABLE IF NOT EXISTS avisVoyage (
+    id_avis integer primary key,
+    no_avis integer,
+    commentaire enum('Excellent','Bien','Modeste','Mauvais',''),
+    id_utilisateur integer,
+    vo_ni varchar(20),
+    foreign key (no_avis) REFERENCES avis(no_avis),
+    foreign key (id_utilisateur) REFERENCES utilisateur(id_utilisateur),
+    foreign key (vo_ni) REFERENCES voyage(vo_ni)
+);
