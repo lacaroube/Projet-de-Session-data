@@ -182,3 +182,13 @@ def delete_voyage_user(id_utilisateur, vo_ni):
     cursor = connection.cursor()
     cursor.execute(f"DELETE FROM voyage_utilisateur WHERE id_utilisateur = '{id_utilisateur}' AND vo_ni = '{vo_ni}'")
     connection.close()
+
+
+def fetch_horaire_conducteur(id_conducteur, date):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT heure_debut, heure_fin FROM horaire_conducteur "
+                   f" WHERE id_conducteur = '{id_conducteur}' AND date = DATE('{date}')")
+    result = cursor.fetchall()
+    connection.close()
+    return [{"heure_debut": str(heure_debut), "heure_fin": str(heure_fin)} for heure_debut, heure_fin in result]

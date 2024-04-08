@@ -235,5 +235,18 @@ def add_voyage():
     return jsonify(response)
 
 
+@app.route("/static/conducteur/get-horaire", methods=["POST"])
+def get_horaire_conducteur():
+    data = request.get_json()
+    horaire = fetch_horaire_conducteur(data["id_conducteur"],
+                                       data["date"])
+
+    response = {
+        "status": "success",
+        "horaire": horaire[0]
+    }
+    return jsonify(response)
+
+
 if __name__ == '__main__':
     app.run()
