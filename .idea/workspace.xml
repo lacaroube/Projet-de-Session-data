@@ -4,27 +4,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eeb61af6-be07-4db4-9b68-a04c287ebe2d" name="Changes" comment="changement mineur">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="eeb61af6-be07-4db4-9b68-a04c287ebe2d" name="Changes" comment="feature ajouter et supprimer des voyages a un utilisateur">
+      <change afterPath="$PROJECT_DIR$/static/conducteur/conducteur.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/conducteur/conducteur.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/conducteur/loginConducteur.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/conducteur/loginConducteur.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/conducteur/registerConducteur.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/conducteur/registerConducteur.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Projet-de-Session-data.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Projet-de-Session-data.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BD/index.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BD/index.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BD/relation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BD/relation.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/loginClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/utilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/utilisateur.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/utilisateur.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/utilisateur.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
-    <list id="04396e09-4dae-448b-99fa-f63591848771" name="Changes by rapha" comment="Changes by rapha 2.0">
+    <list id="43e35336-88ce-4283-981d-6ea3cbefa61d" name="Changes by rapha" comment="">
       <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/utilisateur.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/utilisateur.js" afterDir="false" />
     </list>
-    <list id="20648419-f97c-456f-b31b-39ee229b4ffe" name="Changes by Tezcat" comment="">
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-    </list>
+    <list id="b4d09e3c-f91e-4c51-9985-e92b3db71196" name="Changes by Tezcat" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
     <envs>
@@ -46,35 +62,24 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/static/utilisateur.js">
-      <ranges>
-        <range start1="1" end1="3" start2="1" end2="3" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="4" end1="5" start2="4" end2="6" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="68" end1="69" start2="69" end2="70" changelist="04396e09-4dae-448b-99fa-f63591848771" />
-        <range start1="70" end1="71" start2="71" end2="72" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="79" end1="80" start2="80" end2="81" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="83" end1="84" start2="84" end2="85" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="85" end1="88" start2="86" end2="86" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="89" end1="89" start2="87" end2="121" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-      </ranges>
-    </file>
     <file path="$PROJECT_DIR$/server.py">
       <ranges>
-        <range start1="3" end1="4" start2="3" end2="5" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="24" end1="25" start2="25" end2="26" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="29" end1="29" start2="30" end2="39" changelist="04396e09-4dae-448b-99fa-f63591848771" />
-        <range start1="31" end1="32" start2="41" end2="42" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="40" end1="40" start2="50" end2="56" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="51" end1="52" start2="67" end2="68" changelist="04396e09-4dae-448b-99fa-f63591848771" />
+        <range start1="0" end1="1" start2="0" end2="1" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="4" end1="5" start2="4" end2="6" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="8" end1="9" start2="9" end2="9" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="21" end1="23" start2="21" end2="27" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="27" end1="30" start2="31" end2="38" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="114" end1="114" start2="122" end2="145" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="159" end1="159" start2="190" end2="209" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="185" end1="185" start2="235" end2="248" changelist="43e35336-88ce-4283-981d-6ea3cbefa61d" />
       </ranges>
     </file>
     <file path="$PROJECT_DIR$/database.py">
       <ranges>
-        <range start1="16" end1="17" start2="16" end2="17" changelist="04396e09-4dae-448b-99fa-f63591848771" />
-        <range start1="65" end1="66" start2="65" end2="66" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="67" end1="68" start2="67" end2="68" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
-        <range start1="145" end1="145" start2="145" end2="146" changelist="04396e09-4dae-448b-99fa-f63591848771" />
-        <range start1="146" end1="146" start2="147" end2="163" changelist="20648419-f97c-456f-b31b-39ee229b4ffe" />
+        <range start1="70" end1="70" start2="70" end2="81" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="114" end1="114" start2="125" end2="134" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="154" end1="155" start2="174" end2="176" changelist="eeb61af6-be07-4db4-9b68-a04c287ebe2d" />
+        <range start1="163" end1="163" start2="184" end2="194" changelist="43e35336-88ce-4283-981d-6ea3cbefa61d" />
       </ranges>
     </file>
   </component>
@@ -93,6 +98,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;Flask server.Flask (server.py).executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -126,7 +132,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -162,6 +168,14 @@
       <workItem from="1711741288028" duration="648000" />
       <workItem from="1711810975943" duration="8132000" />
       <workItem from="1711907422901" duration="12000" />
+      <workItem from="1712091755557" duration="37000" />
+      <workItem from="1712240918932" duration="12662000" />
+      <workItem from="1712412569750" duration="8545000" />
+      <workItem from="1712429419785" duration="11246000" />
+      <workItem from="1712510498612" duration="13229000" />
+      <workItem from="1712526404618" duration="2394000" />
+      <workItem from="1712536039098" duration="97000" />
+      <workItem from="1712585398075" duration="8253000" />
     </task>
     <task id="LOCAL-00001" summary="feature voyage selection">
       <option name="closed" value="true" />
@@ -203,7 +217,31 @@
       <option name="project" value="LOCAL" />
       <updated>1711984286371</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feature ajouter et supprimer des voyages a un utilisateur">
+      <option name="closed" value="true" />
+      <created>1711988943629</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1711988943629</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Changes by rapha 2.1&#10;feature ajouter et supprimer des voyages a un utilisateur">
+      <option name="closed" value="true" />
+      <created>1711988956723</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1711988956723</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Changes by Tezcat&#10;feature ajouter et supprimer des voyages a un utilisateur">
+      <option name="closed" value="true" />
+      <created>1711988969406</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1711988969406</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,9 +255,12 @@
     <MESSAGE value="add before checkout" />
     <MESSAGE value="changement mineur" />
     <MESSAGE value="Changes by rapha 2.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by rapha 2.0" />
+    <MESSAGE value="Changes by rapha 2.1&#10;feature ajouter et supprimer des voyages a un utilisateur" />
+    <MESSAGE value="feature ajouter et supprimer des voyages a un utilisateur" />
+    <MESSAGE value="Changes by Tezcat&#10;feature ajouter et supprimer des voyages a un utilisateur" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Tezcat&#10;feature ajouter et supprimer des voyages a un utilisateur" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Projet_de_Session_data$Flask__server_py_.coverage" NAME="Flask (server.py) Coverage Results" MODIFIED="1711988772782" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/Projet_de_Session_data$Flask__server_py_.coverage" NAME="Flask (server.py) Coverage Results" MODIFIED="1712593401500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

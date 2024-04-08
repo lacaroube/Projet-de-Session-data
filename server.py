@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
 
 from database import (insert_avis, get_avis, supprime_avis, modifier_commentaire, fetch_client, insert_new_client,
                       get_all_ville, get_voyage, insert_new_voyage_utilisateur, insert_voyage, insert_new_admin,
-                      fetch_admin, get_voyages_user, delete_voyage_user)
+                      fetch_admin, get_voyages_user, delete_voyage_user, fetch_conducteur, insert_new_conducteur,
+                      fetch_horaire_conducteur)
 
 from flask_bcrypt import Bcrypt
-
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -19,15 +19,23 @@ def index():
 @app.route("/get_cities", methods=["GET"])
 @app.route("/static/get_cities", methods=["GET"])
 def get_cities():
-    city_names = get_all_ville()
-    return jsonify(city_names)
+    try:
+        city_names = get_all_ville()
+        return jsonify(city_names)
+    except Exception as e:
+        print(e)
+        return Response(status=406)
 
 
 @app.route("/static/get_voyages", methods=["POST"])
 def get_voyages():
-    data = request.get_json()
-    voyages = get_voyage(data["depart"], data["destination"], data["date_temps"], data["prix"])
-    return jsonify(voyages)
+    try:
+        data = request.get_json()
+        voyages = get_voyage(data["depart"], data["destination"], data["date_temps"], data["prix"])
+        return jsonify(voyages)
+    except Exception as e:
+        print(e)
+        return Response(status=406)
 
 
 @app.route("/static/delete-voyage/<string:id_utilisateur>/<string:vo_ni>", methods=["DELETE"])
@@ -113,6 +121,29 @@ def get_client():
     return jsonify(response)
 
 
+@app.route("/static/conducteur/get-conducteur", methods=["POST"])
+def get_conducteur():
+    data = request.get_json()
+    username = data["username"]
+    password = data["password"].encode('utf-8')
+
+    conducteurs = fetch_conducteur(username)
+
+    for conducteur in conducteurs:
+        if bcrypt.check_password_hash(conducteur[2], password):
+            response = {
+                "status": "success",
+                "conducteur": conducteur
+            }
+            return jsonify(response)
+
+    response = {
+        "status": "failure",
+        "conducteur": []
+    }
+    return jsonify(response)
+
+
 @app.route("/static/get-admin", methods=["POST"])
 def get_admin():
     data = request.get_json()
@@ -155,6 +186,25 @@ def create_client():
         "client": client
     }
     return jsonify(response)
+
+
+@app.route("/static/conducteur/create-conducteur", methods=["POST"])
+def create_conducteur():
+    data = request.get_json()
+    password = data["password"].encode('utf-8')
+
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    try:
+        conducteur = insert_new_conducteur(data["username"], hashed_password)
+
+        response = {
+            "status": "success",
+            "conducteur": conducteur
+        }
+        return jsonify(response)
+    except Exception as e:
+        print(e)
+        return Response(status=500)
 
 
 @app.route("/static/create-admin", methods=["POST"])

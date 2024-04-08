@@ -5,7 +5,6 @@ function get_all_ville() {
     fetch("get_cities")
         .then(response => response.json())
         .then(citiesList => {
-            console.log(citiesList);
             citiesList.forEach(city=>{
             const cityElementDepart = document.createElement("option");
             cityElementDepart.innerText = city;
@@ -19,10 +18,28 @@ function get_all_ville() {
 }
 
 function addVoyage() {
+    event.preventDefault()
     const departure = document.getElementById('departure').value;
     const destination = document.getElementById('destination').value;
     const dateTime = document.getElementById('date-time').value;
     const price = document.getElementById('prix').value;
+    let errorElement = document.getElementById("submit-error")
+    errorElement.innerHTML = ""
+
+    if(departure === destination){
+        errorElement.innerHTML = "<p style='color:red'>La destination ne peut pas être la ville de départ</p>"
+        return
+    }
+
+    if (new Date() > new Date(dateTime)){
+        errorElement.innerHTML = "<p style='color:red'>La date du depart ne peut pas être avant la date présente</p>"
+        return
+    }
+
+    if(price <= 0){
+        errorElement.innerHTML = "<p style='color:red'>Le prix ne peut pas être de null ou être négatif</p>"
+        return
+    }
 
     const data = postVoyage(departure, destination, dateTime, price);
 }

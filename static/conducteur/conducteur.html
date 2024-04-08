@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Choix d'horaire et demande de congé</title>
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script src="conducteur.js"></script>
+</head>
+<body>
+    <div class="form-container">
+        <form id="calenderForm">
+            <div id='calendar'></div>
+        </form>
+
+        <form>
+            <div id="horaire">
+                <h2>
+                    Horaire
+                </h2>
+                <h5>
+                    Date: <p id="date"></p>
+                </h5>
+                   <h5>
+                    Heure de début: <p id="heure_debut"></p>
+                </h5>
+                <h5>
+                    Heure de fin: <p id="heure_fin"></p>
+                </h5>
+            </div>
+        </form>
+
+        <form id="leaveForm">
+            <h2>Demande de congé</h2>
+            <label for="date">Choisissez la date de votre congé:</label>
+            <input type="date" id="date" name="date">
+            <input type="submit" value="Soumettre">
+        </form>
+
+    </div>
+</body>
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333333;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+        form{
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="submit"] {
+            background: deepskyblue;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover {
+            background: #45a049;
+        }
+    </style>
+</html>

@@ -68,6 +68,17 @@ def insert_new_client(username, password, last_name, first_name, birth_date, pho
     return [utili_id, username, password, last_name, first_name, birth_date, phone, address]
 
 
+def insert_new_conducteur(username, password):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"INSERT INTO conducteur (id_conducteur, username, password)"
+                   f"VALUES (UUID(), '{username}', '{password}')")
+    cursor.execute("SELECT LAST_INSERT_ID()")
+    id_conducteur = cursor.fetchone()[0]
+    connection.close()
+    return [id_conducteur, username, password, ]
+
+
 def insert_new_admin(username, password):
     connection = get_db_connection()
     cursor = connection.cursor()
@@ -112,6 +123,15 @@ def fetch_client(username):
     return clients
 
 
+def fetch_conducteur(username):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM conducteur WHERE username = %s", (username,))
+    conducteurs = cursor.fetchall()
+    connection.close()
+    return conducteurs
+
+
 def fetch_admin(username):
     connection = get_db_connection()
     cursor = connection.cursor()
@@ -152,7 +172,8 @@ def get_voyages_user(id_utilisateur):
                    f"WHERE vu.id_utilisateur = '{id_utilisateur}'")
     voyages = cursor.fetchall()
     connection.close()
-    return [{"vo_ni": vo_ni, "vo_prix_passager": vo_prix_passager, "vo_heure_dep": vo_heure_dep, "vo_dep": vo_dep, "vo_dest": vo_dest}
+    return [{"vo_ni": vo_ni, "vo_prix_passager": vo_prix_passager, "vo_heure_dep": vo_heure_dep, "vo_dep": vo_dep,
+             "vo_dest": vo_dest}
             for vo_ni, vo_prix_passager, vo_heure_dep, vo_dep, vo_dest in voyages]
 
 
