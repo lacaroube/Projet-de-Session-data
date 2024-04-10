@@ -76,7 +76,7 @@ def insert_new_conducteur(username, password):
     cursor.execute(f"INSERT INTO conducteur (id_conducteur, username, password)"
                    f"VALUES ('{myuuid}', '{username}', '{password}');")
     connection.close()
-    return [id_conducteur, username, password, ]
+    return [myuuid, username, password]
 
 
 def insert_new_admin(username, password):
@@ -192,3 +192,47 @@ def fetch_horaire_conducteur(id_conducteur, date):
     result = cursor.fetchall()
     connection.close()
     return [{"heure_debut": str(heure_debut), "heure_fin": str(heure_fin)} for heure_debut, heure_fin in result]
+
+
+def insert_day_off(id_conducteur, date):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT voyage_av_midi, voyage_ap_midi FROM horaire_conducteur "
+                   f"WHERE id_conducteur = '{id_conducteur}' "
+                   f"AND date = DATE('{date}')")
+    conducteur_occupe = cursor.fetchone()
+    voyages_ni = []
+    new_conducteurs_id = []
+    if conducteur_occupe[0] == "TRUE" or conducteur_occupe[1] == "TRUE":
+        cursor = connection.cursor()
+        cursor.execute(f"SELECT vo_ni FROM voyage "
+                       f"WHERE id_conducteur = '{id_conducteur}' "
+                       f"AND date = DATE('{date}')")
+        voyages_trouves = cursor.fetchall()
+        for voyage in voyages_trouves:
+            voyages_ni.append(voyage[0])
+        for voyage in voyages_trouves:
+            cursor = connection.cursor()
+            cursor.callproc("DemandeDeConger", (voyage, id_conducteur))
+            returned_id = cursor.fetchone()
+            if returned_id is not None:
+                new_conducteurs_id.append(returned_id[0])
+        if len(new_conducteurs_id) == len(voyages_ni):
+            cursor = connection.cursor()
+            cursor.execute(f"UPDATE horaire_conducteur "
+                           f"SET conger = TRUE "
+                           f"WHERE id_conducteur = '{id_conducteur} "
+                           f"AND date = DATE('{date}')")
+    else:
+        cursor = connection.cursor()
+        cursor.execute(f"UPDATE horaire_conducteur "
+                       f"SET conger = TRUE "
+                       f"WHERE id_conducteur = '{id_conducteur} "
+                       f"AND date = DATE('{date}')")
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT conger FROM horaire_conducteur "
+                   f"WHERE id_conducteur = '{id_conducteur} "
+                   f"AND date = DATE('{date}')")
+    request_success = cursor.fetchone()
+    connection.close()
+    return request_success

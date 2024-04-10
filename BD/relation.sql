@@ -117,8 +117,8 @@ BEGIN
         SELECT ville INTO random_city1 FROM villes_quebec ORDER BY RAND() LIMIT 1;
         SELECT ville INTO random_city2 FROM villes_quebec where villes_quebec.ville != random_city1 ORDER BY RAND() LIMIT 1;
         SELECT ville INTO random_city3 FROM villes_quebec WHERE villes_quebec.ville != 'Montréal' AND villes_quebec.ville != 'Québec' ORDER BY RAND() LIMIT 1;
-        CALL InsertVoyage(random_city1, random_city2, FLOOR(RAND() * 111 + 10), FLOOR(RAND() * 24), FLOOR(RAND() * 365 + 1));
-        CALL InsertVoyage('Montréal', random_city3, FLOOR(RAND() * 111 + 10), FLOOR(RAND() * 24), FLOOR(RAND() * 365 + 1));
+        CALL InsertVoyage(random_city1, random_city2, FLOOR(RAND() * 111 + 10), FLOOR(RAND() * 9) + 9, FLOOR(RAND() * 365 + 1));
+        CALL InsertVoyage('Montréal', random_city3, FLOOR(RAND() * 111 + 10), FLOOR(RAND() * 9) + 9, FLOOR(RAND() * 365 + 1));
         SET i = i + 1;
     END WHILE;
 
@@ -127,7 +127,6 @@ BEGIN
         CALL InsertVoyage('Québec', 'Montréal', FLOOR(RAND() * 20 + 100), 11, j);
         CALL InsertVoyage('Montréal', 'Québec', FLOOR(RAND() * 20 + 100), 17, j);
         CALL InsertVoyage('Québec', 'Montréal', FLOOR(RAND() * 20 + 100), 17, j);
-
         SET j = j + 1;
     END WHILE;
 

@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, jsonify, Response
 from database import (insert_avis, get_avis, supprime_avis, modifier_commentaire, fetch_client, insert_new_client,
                       get_all_ville, get_voyage, insert_new_voyage_utilisateur, insert_voyage, insert_new_admin,
                       fetch_admin, get_voyages_user, delete_voyage_user, fetch_conducteur, insert_new_conducteur,
-                      fetch_horaire_conducteur)
+                      fetch_horaire_conducteur, insert_day_off)
 
 from flask_bcrypt import Bcrypt
 
@@ -246,6 +246,20 @@ def get_horaire_conducteur():
         "horaire": horaire[0]
     }
     return jsonify(response)
+
+
+@app.route("/static/conducteur/post-day-off-horaire", methods=["POST"])
+def post_day_off_request():
+    data = request.get_json()
+    request_response = insert_day_off(data["id_conducteur"], data["date"])
+    if request_response[0] == "TRUE":
+        return {
+            "status": "success",
+        }
+    else:
+        return {
+            "status": "failure",
+        }
 
 
 if __name__ == '__main__':
