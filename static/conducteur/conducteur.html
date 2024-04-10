@@ -9,10 +9,7 @@
 <body>
     <div class="form-container">
         <form id="calenderForm">
-            <div id='calendar'></div>
-        </form>
-
-        <form>
+            <div id="calendar"></div>
             <div id="horaire">
                 <h2>
                     Horaire
@@ -35,7 +32,6 @@
             <input type="date" id="date" name="date">
             <input type="submit" value="Soumettre">
         </form>
-
     </div>
 </body>
  <style>
@@ -52,7 +48,7 @@
             align-items: center;
             margin-top: 50px;
         }
-        form{
+        form {
             background: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -75,6 +71,15 @@
         }
         input[type="submit"]:hover {
             background: #45a049;
+        }
+        #calenderForm {
+            display: flex;
+            flex-direction: row;
+            width: 80%;
+        }
+        #horaire, #calendar {
+            width: 40%;
+            margin-right: 40px;
         }
     </style>
 </html>

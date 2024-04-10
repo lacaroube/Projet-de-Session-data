@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import pymysql
+import uuid
 
 
 def get_db_connection():
@@ -71,10 +72,9 @@ def insert_new_client(username, password, last_name, first_name, birth_date, pho
 def insert_new_conducteur(username, password):
     connection = get_db_connection()
     cursor = connection.cursor()
+    myuuid = uuid.uuid4()
     cursor.execute(f"INSERT INTO conducteur (id_conducteur, username, password)"
-                   f"VALUES (UUID(), '{username}', '{password}')")
-    cursor.execute("SELECT LAST_INSERT_ID()")
-    id_conducteur = cursor.fetchone()[0]
+                   f"VALUES ('{myuuid}', '{username}', '{password}');")
     connection.close()
     return [id_conducteur, username, password, ]
 
