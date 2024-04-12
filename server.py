@@ -227,7 +227,8 @@ def add_voyage():
     data = request.get_json()
     insert_voyage(data["departure"],
                   data["destination"],
-                  data["date_time"],
+                  data["days"],
+                  data["hour"],
                   data["price"])
     response = {
         "status": "success",

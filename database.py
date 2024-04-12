@@ -143,19 +143,10 @@ def fetch_admin(username):
     return admins
 
 
-def insert_voyage(departure, destination, date_time, price):
+def insert_voyage(departure, destination, days, hour, price):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"INSERT INTO voyage (vo_ni,"
-                   f"vo_prix_passager,"
-                   f"vo_heure_dep,"
-                   f"vo_dep,"
-                   f"vo_dest)"
-                   f"VALUES (UUID(),"
-                   f"'{price}',"
-                   f"'{date_time}',"
-                   f"'{departure}',"
-                   f"'{destination}');")
+    cursor.callproc("InsertVoyage", (departure, destination, price, hour, days))
     connection.close()
 
 
@@ -218,9 +209,8 @@ def insert_day_off(id_conducteur, date):
                        f"WHERE id_conducteur = '{id_conducteur}' "
                        f"AND date = DATE('{date}')")
         voyages_trouves = cursor.fetchall()
-        for voyage in voyages_trouves:
-            voyages_ni.append(voyage[0])
-        for voyage in voyages_trouves:
+        connection.close()
+        for voyage_id in voyages_trouves:
             cursor = connection.cursor()
             try:
                 cursor.callproc("DemandeDeConger", (voyage_id, id_conducteur))

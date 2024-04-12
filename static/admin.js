@@ -22,6 +22,7 @@ function addVoyage() {
     const departure = document.getElementById('departure').value;
     const destination = document.getElementById('destination').value;
     const dateTime = document.getElementById('date-time').value;
+    const dateTimeValue = new Date(dateTime)
     const price = document.getElementById('prix').value;
     let errorElement = document.getElementById("submit-error")
     errorElement.innerHTML = ""
@@ -31,7 +32,7 @@ function addVoyage() {
         return
     }
 
-    if (new Date() > new Date(dateTime)){
+    if (new Date() > dateTimeValue){
         errorElement.innerHTML = "<p style='color:red'>La date du depart ne peut pas être avant la date présente</p>"
         return
     }
@@ -41,10 +42,22 @@ function addVoyage() {
         return
     }
 
-    const data = postVoyage(departure, destination, dateTime, price);
+    const timeOfVoyage = dateTimeValue.getHours()
+    const millisecondsBeforeVoyage = dateTimeValue.setHours(0, 0, 0, 0) - new Date().setHours(0, 0, 0, 0)
+    const daysBeforeVoyage = millisecondsBeforeVoyage / (24 * 60 * 60 * 1000)
+
+    const response = postVoyage(departure, destination, daysBeforeVoyage, timeOfVoyage, price);
+    if (response.status === 200) {
+        errorElement.innerHTML = "<p style='color:deepskyblue'>Le voyage a bien été ajouté</p>"
+    }
+    else {
+        errorElement.innerHTML = "<p style='color:red'>Impossible d'ajouter ce voyage</p>"
+    }
 }
 
-function postVoyage(departure, destination, dateTime, price) {
+function postVoyage(departure, destination, daysBeforeVoyage, timeOfVoyage, price) {
+    let errorElement = document.getElementById("submit-error")
+    errorElement.innerHTML = ""
     const postUrl = "add-voyage"
     return fetch(postUrl, {
         method: "POST",
@@ -54,10 +67,11 @@ function postVoyage(departure, destination, dateTime, price) {
         body: JSON.stringify({
             departure: departure,
             destination: destination,
-            date_time: dateTime,
+            days: daysBeforeVoyage,
+            hour: timeOfVoyage,
             price: price
         })
     }).then(function (response) {
-        return response.json()
+        return response.data
     })
 }
