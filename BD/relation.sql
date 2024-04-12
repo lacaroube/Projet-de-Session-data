@@ -176,5 +176,10 @@ SELECT * FROM horaire_conducteur;
 UPDATE horaire_conducteur SET conger = FALSE, voyage_av_midi = FALSE, voyage_ap_midi = FALSE
                           WHERE id_conducteur = '841450f2-56d6-452d-8599-66cd95bbeb5c' AND date = DATE('2024-04-29');
 
+SELECT * FROM voyage WHERE vo_dep = 'Montreal'
+AND vo_dest = 'Quebec'
+AND vo_heure_dep BETWEEN DATE('2024-04-27 11:08:00') AND DATE('2024-04-28 11:08:00')
+AND vo_prix_passager <= 120;
+
 INSERT INTO conducteur(id_conducteur, username, password) VALUES(UUID(), 'userConger', '1234');
 -- INSERT INTO voyage(vo_ni, vo_prix_passager, vo_heure_dep, vo_dep, vo_dest) VALUES (UUID(), 50, '2024-05-14 09:59:47', 'Chambly', 'Saint-Hyacinthe');

@@ -34,10 +34,14 @@ def get_voyage(depart, destination, date_temps, prix):
     date_temps_24 = datetime.strptime(date_temps, "%Y-%m-%dT%H:%M")
     date_temps_inf = date_temps_24 - timedelta(days=1)
     date_temps_sup = date_temps_24 + timedelta(days=1)
-    cursor.execute(f"SELECT * FROM voyage WHERE vo_dep = '{depart}' "
+    print(date_temps_24)
+    print(date_temps_inf)
+    print(date_temps_sup)
+    cursor.execute(f"SELECT vo_ni, vo_dep, vo_dest, vo_heure_dep, vo_prix_passager FROM voyage "
+                   f"WHERE vo_dep = '{depart}' "
                    f"AND vo_dest = '{destination}' "
-                   f"AND vo_heure_dep BETWEEN '{date_temps_inf}' "
-                   f"AND '{date_temps_sup}' AND vo_prix_passager <= {prix};")
+                   f"AND vo_heure_dep BETWEEN DATE('{date_temps_inf}') "
+                   f"AND DATE('{date_temps_sup}') AND vo_prix_passager <= {prix};")
     result = cursor.fetchall()
     connection.close()
     return [{"vo_ni": vo_ni, "depart": depart, "destination": destination, "date_temps": date_temps, "prix": prix}
@@ -164,13 +168,14 @@ def insert_new_voyage_utilisateur(vo_ni, id_utilisateur):
 def get_voyages_user(id_utilisateur):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"SELECT v.* FROM voyage_utilisateur vu JOIN voyage v ON vu.vo_ni = v.vo_ni "
+    cursor.execute(f"SELECT v.vo_ni, v.vo_dep, v.vo_dest, v.vo_heure_dep, v.vo_prix_passager "
+                   f"FROM voyage_utilisateur vu JOIN voyage v ON vu.vo_ni = v.vo_ni "
                    f"WHERE vu.id_utilisateur = '{id_utilisateur}'")
     voyages = cursor.fetchall()
     connection.close()
-    return [{"vo_ni": vo_ni, "vo_prix_passager": vo_prix_passager, "vo_heure_dep": vo_heure_dep, "vo_dep": vo_dep,
-             "vo_dest": vo_dest}
-            for vo_ni, vo_prix_passager, vo_heure_dep, vo_dep, vo_dest in voyages]
+    return [{"vo_ni": vo_ni, "vo_dep": vo_dep, "vo_dest": vo_dest,
+             "vo_heure_dep": vo_heure_dep, "vo_prix_passager": vo_prix_passager}
+            for vo_ni, vo_dep, vo_dest, vo_heure_dep, vo_prix_passager in voyages]
 
 
 def delete_voyage_user(id_utilisateur, vo_ni):

@@ -5,8 +5,10 @@
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script src="conducteur.js"></script>
+    <script src="../../static/topBarMenu.js"></script>
 </head>
 <body>
+    <div id="div1"></div>
     <div class="form-container">
         <form id="calenderForm">
             <div id="calendar"></div>
@@ -35,6 +37,14 @@
             <span id="error-registration"></span>
         </form>
     </div>
+    <script>
+        fetch('../../static/topBarMenu.html')
+          .then(response => response.text())
+          .then(data => {
+            document.getElementById('div1').innerHTML = data;
+            manageButtonsDisplay();
+          });
+    </script>
 </body>
  <style>
         body {

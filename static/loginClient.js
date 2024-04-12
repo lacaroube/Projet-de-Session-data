@@ -24,7 +24,7 @@ function getClient(username, password) {
             password: password
         })
     }).then(function (response) {
-        return response.status
+        return response.json()
     })
 }
 

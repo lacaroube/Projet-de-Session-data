@@ -17,7 +17,7 @@ function get_all_ville() {
         })
 }
 
-function addVoyage() {
+async function addVoyage() {
     event.preventDefault()
     const departure = document.getElementById('departure').value;
     const destination = document.getElementById('destination').value;
@@ -46,8 +46,8 @@ function addVoyage() {
     const millisecondsBeforeVoyage = dateTimeValue.setHours(0, 0, 0, 0) - new Date().setHours(0, 0, 0, 0)
     const daysBeforeVoyage = millisecondsBeforeVoyage / (24 * 60 * 60 * 1000)
 
-    const response = postVoyage(departure, destination, daysBeforeVoyage, timeOfVoyage, price);
-    if (response.status === 200) {
+    const response = await postVoyage(departure, destination, daysBeforeVoyage, timeOfVoyage, price);
+    if (response === 200) {
         errorElement.innerHTML = "<p style='color:deepskyblue'>Le voyage a bien été ajouté</p>"
     }
     else {
@@ -72,6 +72,6 @@ function postVoyage(departure, destination, daysBeforeVoyage, timeOfVoyage, pric
             price: price
         })
     }).then(function (response) {
-        return response.data
+        return response.status
     })
 }
