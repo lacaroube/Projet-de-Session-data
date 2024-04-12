@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 
 function getHoraireConducteur(id_conducteur, date) {
+    const conger = document.getElementById("conger-horaire")
+    conger.innerHTML = ""
     const postUrl = "../../static/conducteur/get-horaire"
     return fetch(postUrl, {
         method: "POST",
@@ -64,30 +66,43 @@ function getHoraireConducteur(id_conducteur, date) {
             id_conducteur: id_conducteur,
             date: date
         })
-    }).then(response => response.json())
+    }).then(function (response) {
+        if(response.status === 200){
+            return response.json()
+        }
+        if(response.status === 304){
+            conger.innerHTML = "<p style='color:red'>Vous avez pris conger</p>"
+        }
+        else{
+            conger.innerHTML = "<p style='color:red'>Autre erreur</p>"
+        }
+    })
 }
 
-function submitDayOffRequest(){
+async function submitDayOffRequest(){
     const error = document.getElementById("error-registration")
     error.innerHTML = ""
-    const dateElement = document.getElementById("date")
-    const dateValue = dateElement.value
+    const dateValue = document.querySelector('input[type="date"]').value
     const dateRequested = new Date(dateValue)
+    const formattedDate = dateRequested.toISOString().split('T')[0];
+
+
     const dateMin = new Date()
     dateMin.setDate(dateMin.getDate() + 14)
     dateMin.setHours(0, 0, 0, 0)
     if (dateMin < dateRequested) {
-        const response = postDayOffRequest(sessionStorage.getItem('id'), dateRequested)
-        if (response.status !== "success") {
-            error.innerHTML = "<p style='color:red'>Impossible de demander congé à cette journée</p>"
-        }
+        event.preventDefault()
+        const response = await postDayOffRequest(sessionStorage.getItem('id'), formattedDate)
     } else {
-        error.innerHTML = "<p style='color:red'>IL est trop tard pour demander congé à cette journée</p>"
+        event.preventDefault()
+        error.innerHTML = "<p style='color:red'>Il est trop tard pour demander congé à cette journée(minimum 2 semaine)</p>"
     }
 }
 
 function postDayOffRequest(id_conducteur, date) {
-    const postUrl = "../../static/conducteur/post-day-off-request"
+    const error = document.getElementById("error-registration")
+    error.innerHTML = ""
+    const postUrl = "../../static/conducteur/post-day-off-horaire"
     return fetch(postUrl, {
         method: "POST",
         headers: {
@@ -97,5 +112,16 @@ function postDayOffRequest(id_conducteur, date) {
             id_conducteur: id_conducteur,
             date: date
         })
-    }).then(response => response.json())
+    }).then(function (response) {
+        if(response.status === 200){
+            error.innerHTML = "<p style='color:deepskyblue'>Votre conger à été accepté</p>"
+            return response.json()
+        }
+        if(response.status === 304){
+            error.innerHTML = "<p style='color:red'>Vous avez déjà pris congé</p>"
+        }
+        else{
+            error.innerHTML = "<p style='color:red'>Impossible de demander congé à cette journée</p>"
+        }
+    })
 }

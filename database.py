@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 import pymysql
 import uuid
 
+from flask import Response
+
 
 def get_db_connection():
     return pymysql.connect(host='localhost',
@@ -187,23 +189,30 @@ def delete_voyage_user(id_utilisateur, vo_ni):
 def fetch_horaire_conducteur(id_conducteur, date):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"SELECT heure_debut, heure_fin FROM horaire_conducteur "
-                   f" WHERE id_conducteur = '{id_conducteur}' AND date = DATE('{date}')")
+    cursor.execute(f"SELECT heure_debut, heure_fin, conger FROM horaire_conducteur "
+                   f" WHERE id_conducteur = '{id_conducteur}' AND date = DATE('{date}') AND conger !=TRUE")
     result = cursor.fetchall()
     connection.close()
-    return [{"heure_debut": str(heure_debut), "heure_fin": str(heure_fin)} for heure_debut, heure_fin in result]
+    if len(result) == 0:
+        return result
+    return [{"heure_debut": str(heure_debut), "heure_fin": str(heure_fin), "conger": conger}
+            for heure_debut, heure_fin, conger in result]
 
 
 def insert_day_off(id_conducteur, date):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"SELECT voyage_av_midi, voyage_ap_midi FROM horaire_conducteur "
+    cursor.execute(f"SELECT voyage_av_midi, voyage_ap_midi, conger FROM horaire_conducteur "
                    f"WHERE id_conducteur = '{id_conducteur}' "
                    f"AND date = DATE('{date}')")
     conducteur_occupe = cursor.fetchone()
-    voyages_ni = []
+    connection.close()
+    if conducteur_occupe[2] == 1:
+        raise ValueError("L'utilisateur est deja en conger")
+
     new_conducteurs_id = []
-    if conducteur_occupe[0] == "TRUE" or conducteur_occupe[1] == "TRUE":
+    if conducteur_occupe[0] == 1 or conducteur_occupe[1] == 1:
+        connection = get_db_connection()
         cursor = connection.cursor()
         cursor.execute(f"SELECT vo_ni FROM voyage "
                        f"WHERE id_conducteur = '{id_conducteur}' "
@@ -213,26 +222,42 @@ def insert_day_off(id_conducteur, date):
             voyages_ni.append(voyage[0])
         for voyage in voyages_trouves:
             cursor = connection.cursor()
-            cursor.callproc("DemandeDeConger", (voyage, id_conducteur))
-            returned_id = cursor.fetchone()
-            if returned_id is not None:
+            try:
+                cursor.callproc("DemandeDeConger", (voyage_id, id_conducteur))
+                returned_id = cursor.fetchone()
                 new_conducteurs_id.append(returned_id[0])
-        if len(new_conducteurs_id) == len(voyages_ni):
-            cursor = connection.cursor()
-            cursor.execute(f"UPDATE horaire_conducteur "
-                           f"SET conger = TRUE "
-                           f"WHERE id_conducteur = '{id_conducteur} "
-                           f"AND date = DATE('{date}')")
+            except Exception:
+                raise Exception("Ceci est une autre type d'erreur :")
+
+        if len(new_conducteurs_id) == len(voyages_trouves):
+            try:
+                accepted_conger(id_conducteur, date)
+                new_conducteur_voyage(voyages_trouves, new_conducteurs_id)
+            except Exception:
+                raise Exception("Ceci est une autre type d'erreur :")
     else:
+        try:
+            accepted_conger(id_conducteur, date)
+        except Exception:
+            raise Exception("Ceci est une autre type d'erreur :")
+
+
+def new_conducteur_voyage(voyages, new_conducteurs_id):
+    numero_utilisateur = 0
+    for voyage_id in voyages:
+        connection = get_db_connection()
         cursor = connection.cursor()
-        cursor.execute(f"UPDATE horaire_conducteur "
-                       f"SET conger = TRUE "
-                       f"WHERE id_conducteur = '{id_conducteur} "
-                       f"AND date = DATE('{date}')")
+        cursor.execute(
+            f"UPDATE voyage SET id_conducteur = '{new_conducteurs_id[numero_utilisateur]}' WHERE vo_ni = '{voyage_id}';")
+        numero_utilisateur += 1
+        connection.close()
+
+
+def accepted_conger(id_conducteur, date):
+    connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"SELECT conger FROM horaire_conducteur "
-                   f"WHERE id_conducteur = '{id_conducteur} "
+    cursor.execute(f"UPDATE horaire_conducteur "
+                   f"SET conger = TRUE, voyage_av_midi = FALSE, voyage_ap_midi = FALSE "
+                   f"WHERE id_conducteur = '{id_conducteur}' "
                    f"AND date = DATE('{date}')")
-    request_success = cursor.fetchone()
     connection.close()
-    return request_success

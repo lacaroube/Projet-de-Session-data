@@ -204,7 +204,7 @@ def create_conducteur():
         return jsonify(response)
     except Exception as e:
         print(e)
-        return Response(status=500)
+        return jsonify(Response(status=500))
 
 
 @app.route("/static/create-admin", methods=["POST"])
@@ -241,6 +241,9 @@ def get_horaire_conducteur():
     horaire = fetch_horaire_conducteur(data["id_conducteur"],
                                        data["date"])
 
+    if len(horaire) == 0:
+        return Response(status=304)
+
     response = {
         "status": "success",
         "horaire": horaire[0]
@@ -251,15 +254,16 @@ def get_horaire_conducteur():
 @app.route("/static/conducteur/post-day-off-horaire", methods=["POST"])
 def post_day_off_request():
     data = request.get_json()
-    request_response = insert_day_off(data["id_conducteur"], data["date"])
-    if request_response[0] == "TRUE":
-        return {
+    try:
+        insert_day_off(data["id_conducteur"], data["date"])
+        response = {
             "status": "success",
         }
-    else:
-        return {
-            "status": "failure",
-        }
+        return jsonify(response)
+    except ValueError:
+        return Response(status=304)
+    except Exception:
+        return Response(status=406)
 
 
 if __name__ == '__main__':

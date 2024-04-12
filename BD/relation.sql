@@ -156,8 +156,6 @@ BEGIN
     IF new_conducteur IS NULL THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Aucun conducteur remplaçant disponible pour cette journée.';
-    ELSE
-        UPDATE voyage SET id_conducteur = new_conducteur WHERE vo_ni = voyage_ni;
     END IF;
 
 END //
@@ -167,7 +165,16 @@ CALL CreationVoyage();
 
 
 SELECT * FROM villes_quebec;
-SELECT * FROM voyage WHERE id_conducteur = 'ac663186-f787-11ee-bd7e-309c23e5e88b';
-SELECT * FROM conducteur;
+SELECT * FROM voyage WHERE id_conducteur = '841450f2-56d6-452d-8599-66cd95bbeb5c';
+
+SELECT * FROM horaire_conducteur WHERE id_conducteur='841450f2-56d6-452d-8599-66cd95bbeb5c';
+
+SELECT * FROM conducteur WHERE id_conducteur='841450f2-56d6-452d-8599-66cd95bbeb5c';
+
 SELECT * FROM horaire_conducteur;
+
+UPDATE horaire_conducteur SET conger = FALSE, voyage_av_midi = FALSE, voyage_ap_midi = FALSE
+                          WHERE id_conducteur = '841450f2-56d6-452d-8599-66cd95bbeb5c' AND date = DATE('2024-04-29');
+
+INSERT INTO conducteur(id_conducteur, username, password) VALUES(UUID(), 'userConger', '1234');
 -- INSERT INTO voyage(vo_ni, vo_prix_passager, vo_heure_dep, vo_dep, vo_dest) VALUES (UUID(), 50, '2024-05-14 09:59:47', 'Chambly', 'Saint-Hyacinthe');
