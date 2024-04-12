@@ -1,24 +1,21 @@
 CREATE DATABASE agence_de_transport;
 USE agence_de_transport;
 
-
-CREATE TABLE IF NOT EXISTS vehicule (
-    ve_niv varchar(17) primary key ,
-    ve_immatriculation varchar(7) unique ,
-    ve_type_vehicule enum('type 1','type 2','type 3') not null ,
-    ve_odometre integer
-    /* ve_mecanicienID integer references mecanos(me_id) */
-);
-
 CREATE TABLE IF NOT EXISTS utilisateurs (
     id_utilisateur varchar(36) primary key,
-    ut_username varchar(20),
+    ut_username varchar(60),
     ut_password varchar(200),
     ut_nom varchar(20),
     ut_prenom varchar(20),
     ut_telephone varchar(10)
 );
 
+CREATE TABLE IF NOT EXISTS conducteur(
+    id_conducteur varchar(36) PRIMARY KEY,
+    username varchar(60),
+    password varchar(200),
+    nb_jour_conger INT DEFAULT 5
+);
 
 
 CREATE TABLE IF NOT EXISTS avis (
@@ -36,10 +33,11 @@ CREATE TABLE IF NOT EXISTS voyage (
     vo_prix_passager integer,
     vo_heure_dep DATETIME not null,
     vo_dep varchar(255),
-    vo_dest varchar(255)
+    vo_dest varchar(255),
+    id_conducteur varchar(36),
+    FOREIGN KEY (id_conducteur) REFERENCES conducteur(id_conducteur)
 );
 
-INSERT INTO voyage(vo_ni, vo_prix_passager, vo_heure_dep, vo_dep, vo_dest) VALUES (UUID(), 50, '2024-05-14 09:59:47', 'Chambly', 'Saint-Hyacinthe');
 
 
 CREATE TABLE IF NOT EXISTS admins (
@@ -48,21 +46,24 @@ CREATE TABLE IF NOT EXISTS admins (
     adm_password varchar(200)
 );
 
-/* CREATE TABLE IF NOT EXISTS conducteurs (
-    co_id integer primary key references employes (em_id),
-    co_nom varchar(20) references employes (em_nom),
-    co_prenom varchar(20) references employes (em_prenom),
-    co_th FLOAT references employes (em_th),
-    co_niv varchar(17) references vehicule(ve_niv) ,
-    co_qualification enum('type 1','type 2','type 3') not null references vehicule (ve_type_vehicule)
+CREATE TABLE IF NOT EXISTS voyage_utilisateur(
+    id_participation integer AUTO_INCREMENT PRIMARY KEY,
+    id_utilisateur varchar(36),
+    vo_ni varchar(36),
+    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
+    FOREIGN KEY (vo_ni) REFERENCES voyage(vo_ni)
 );
 
-CREATE TABLE IF NOT EXISTS mecanos (
-    me_id integer primary key references employes (em_id),
-    me_nom varchar(20) references employes (em_nom),
-    me_prenom varchar(20) references employes (em_prenom),
-    me_th FLOAT references employes (em_th),
-    me_qualification enum('type 1','type 2','type 3') not null references vehicule (ve_type_vehicule)
+CREATE TABLE IF NOT EXISTS horaire_conducteur(
+    id_conducteur varchar(36),
+    date DATE,
+    heure_debut TIME,
+    heure_fin TIME,
+    conger BOOL DEFAULT FALSE,
+    voyage_av_midi BOOL DEFAULT FALSE,
+    voyage_ap_midi BOOL DEFAULT FALSE,
+    PRIMARY KEY (id_conducteur, date),
+    FOREIGN KEY (id_conducteur) REFERENCES conducteur(id_conducteur)
 );
 
 CREATE TABLE IF NOT EXISTS serviceClient (
@@ -164,24 +165,3 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL CreationVoyage();
-
-
-DELIMITER //
-CREATE TRIGGER check_ville_quebec
-BEFORE INSERT ON voyage
-FOR EACH ROW
-BEGIN
-    DECLARE dep_exists INT;
-    DECLARE dest_exists INT;
-
-    SELECT COUNT(*) INTO dep_exists FROM villes_quebec WHERE ville = NEW.vo_dep;
-    SELECT COUNT(*) INTO dest_exists FROM villes_quebec WHERE ville = NEW.vo_dest;
-
-    IF dep_exists = 0 OR dest_exists = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Les villes de départ et de destination doivent être des villes du Québec.';
-    END IF;
-END;
-//
-DELIMITER ;

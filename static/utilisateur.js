@@ -28,10 +28,28 @@ function get_all_ville() {
 function get_voyage(){
     event.preventDefault()
     const voyage_container = document.getElementById("voyage-container")
+    let errorElement = document.getElementById("submit-error")
     const departElement = document.querySelector('select[name="departure"]').value;
     const destElement = document.querySelector('select[name="destination"]').value;
     const datetimeElement = document.querySelector('input[name="date-time"]').value;
     const prixElement = document.querySelector('input[name="prix"]').value;
+
+    errorElement.innerHTML = ""
+
+    if(departElement === destElement){
+        errorElement.innerHTML = "<p style='color:red'>La destination ne peut pas être la ville de départ</p>"
+        return
+    }
+
+    if (new Date() > new Date(datetimeElement)){
+        errorElement.innerHTML = "<p style='color:red'>La date du depart ne peut pas être avant la date présente</p>"
+        return
+    }
+
+    if(prixElement <= 0){
+        errorElement.innerHTML = "<p style='color:red'>Le prix ne peut pas être de null ou être négatif</p>"
+        return
+    }
 
     const getURL = "get_voyages"
 
@@ -49,6 +67,9 @@ function get_voyage(){
     }).then(response => response.json())
         .then(voyage_list => {
             voyage_container.innerHTML = ""
+            if(Object.keys(voyage_list).length === 0){
+                voyage_container.innerHTML = "<p style='color:black'>Aucun resultat trouver</p>"
+            }
             voyage_list.forEach(voyage => {
                 const voyageElement = document.createElement("li")
                 const addVoyageButton = document.createElement("button")

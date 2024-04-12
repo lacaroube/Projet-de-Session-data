@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="loginConducteur.js"></script>
+        <script src="../../static/topBarMenu.js"></script>
+</head>
+<body>
+<div id="div1"></div>
+<div style="text-align: center">
+    <h1 style="font-size: 36px;">Login as conducteur</h1>
+    <p>
+        <label style="font-size: 16px;" for="username">Username:</label>
+        <input style="font-size: 16px;" id="username" placeholder="Username">
+    </p>
+    <p>
+        <label style="font-size: 16px;" for="password">Password:</label>
+        <input style="font-size: 16px;" type="password" id="password" placeholder="Password">
+    </p>
+    <button class="clientLoginButton" onclick="loginAsConducteur()">Submit</button>
+    <button class="clientLoginButton" onclick="goToRegisterConducteur()">Register</button>
+    <span id="error-registration"></span>
+</div>
+    <script>
+    fetch('../../static/topBarMenu.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('div1').innerHTML = data;
+        manageButtonsDisplay();
+      });
+    </script>
+</body>
+
+<style>
+    body{
+        background-color: #333333;
+    }
+    .clientLoginButton {
+        background-color: deepskyblue;
+        border: none;
+        border-radius: 7%;
+        display: inline-block;
+        font-size: 20px;
+        justify-content: center;
+        margin: 2px auto;
+        padding: 8px 10px;
+        position: relative;
+    }
+
+    .clientLoginButton:hover {
+        filter: brightness(75%);
+        transition-duration: 0.18s;
+    }
+</style>
+</html>

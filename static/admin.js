@@ -5,7 +5,6 @@ function get_all_ville() {
     fetch("get_cities")
         .then(response => response.json())
         .then(citiesList => {
-            console.log(citiesList);
             citiesList.forEach(city=>{
             const cityElementDepart = document.createElement("option");
             cityElementDepart.innerText = city;
@@ -19,15 +18,46 @@ function get_all_ville() {
 }
 
 function addVoyage() {
+    event.preventDefault()
     const departure = document.getElementById('departure').value;
     const destination = document.getElementById('destination').value;
     const dateTime = document.getElementById('date-time').value;
+    const dateTimeValue = new Date(dateTime)
     const price = document.getElementById('prix').value;
+    let errorElement = document.getElementById("submit-error")
+    errorElement.innerHTML = ""
 
-    const data = postVoyage(departure, destination, dateTime, price);
+    if(departure === destination){
+        errorElement.innerHTML = "<p style='color:red'>La destination ne peut pas être la ville de départ</p>"
+        return
+    }
+
+    if (new Date() > dateTimeValue){
+        errorElement.innerHTML = "<p style='color:red'>La date du depart ne peut pas être avant la date présente</p>"
+        return
+    }
+
+    if(price <= 0){
+        errorElement.innerHTML = "<p style='color:red'>Le prix ne peut pas être de null ou être négatif</p>"
+        return
+    }
+
+    const timeOfVoyage = dateTimeValue.getHours()
+    const millisecondsBeforeVoyage = dateTimeValue.setHours(0, 0, 0, 0) - new Date().setHours(0, 0, 0, 0)
+    const daysBeforeVoyage = millisecondsBeforeVoyage / (24 * 60 * 60 * 1000)
+
+    const response = postVoyage(departure, destination, daysBeforeVoyage, timeOfVoyage, price);
+    if (response.status === 200) {
+        errorElement.innerHTML = "<p style='color:deepskyblue'>Le voyage a bien été ajouté</p>"
+    }
+    else {
+        errorElement.innerHTML = "<p style='color:red'>Impossible d'ajouter ce voyage</p>"
+    }
 }
 
-function postVoyage(departure, destination, dateTime, price) {
+function postVoyage(departure, destination, daysBeforeVoyage, timeOfVoyage, price) {
+    let errorElement = document.getElementById("submit-error")
+    errorElement.innerHTML = ""
     const postUrl = "add-voyage"
     return fetch(postUrl, {
         method: "POST",
@@ -37,10 +67,11 @@ function postVoyage(departure, destination, dateTime, price) {
         body: JSON.stringify({
             departure: departure,
             destination: destination,
-            date_time: dateTime,
+            days: daysBeforeVoyage,
+            hour: timeOfVoyage,
             price: price
         })
     }).then(function (response) {
-        return response.json()
+        return response.data
     })
 }

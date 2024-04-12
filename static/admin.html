@@ -32,8 +32,10 @@
 
         <label for="prix">Prix:</label><br>
         <input type="number" id="prix" name="prix" min="0"><br>
-
-        <input type="submit" value="Submit" onclick="addVoyage()">
+        <div>
+            <input type="submit" value="Submit" onclick="addVoyage()">
+            <span id="submit-error"></span>
+        </div>
     </form>
 
     <script>

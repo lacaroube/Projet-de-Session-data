@@ -1,6 +1,9 @@
 import os
 from datetime import datetime, timedelta
 import pymysql
+import uuid
+
+from flask import Response
 
 from dotenv import load_dotenv
 
@@ -70,6 +73,16 @@ def insert_new_client(username, password, last_name, first_name, phone):
     return [utili_id, username, password, last_name, first_name, phone]
 
 
+def insert_new_conducteur(username, password):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    myuuid = uuid.uuid4()
+    cursor.execute(f"INSERT INTO conducteur (id_conducteur, username, password)"
+                   f"VALUES ('{myuuid}', '{username}', '{password}');")
+    connection.close()
+    return [myuuid, username, password]
+
+
 def insert_new_admin(username, password):
     connection = get_db_connection()
     cursor = connection.cursor()
@@ -115,6 +128,15 @@ def fetch_client(username):
     return clients
 
 
+def fetch_conducteur(username):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM conducteur WHERE username = %s", (username,))
+    conducteurs = cursor.fetchall()
+    connection.close()
+    return conducteurs
+
+
 def fetch_admin(username):
     connection = get_db_connection()
     cursor = connection.cursor()
@@ -124,19 +146,10 @@ def fetch_admin(username):
     return admins
 
 
-def insert_voyage(departure, destination, date_time, price):
+def insert_voyage(departure, destination, days, hour, price):
     connection = get_db_connection()
     cursor = connection.cursor()
-    cursor.execute(f"INSERT INTO voyage (vo_ni,"
-                   f"vo_prix_passager,"
-                   f"vo_heure_dep,"
-                   f"vo_dep,"
-                   f"vo_dest)"
-                   f"VALUES (UUID(),"
-                   f"'{price}',"
-                   f"'{date_time}',"
-                   f"'{departure}',"
-                   f"'{destination}');")
+    cursor.callproc("InsertVoyage", (departure, destination, price, hour, days))
     connection.close()
 
 
@@ -155,7 +168,8 @@ def get_voyages_user(id_utilisateur):
                    f"WHERE vu.id_utilisateur = '{id_utilisateur}'")
     voyages = cursor.fetchall()
     connection.close()
-    return [{"vo_ni": vo_ni, "vo_prix_passager": vo_prix_passager, "vo_heure_dep": vo_heure_dep, "vo_dep": vo_dep, "vo_dest": vo_dest}
+    return [{"vo_ni": vo_ni, "vo_prix_passager": vo_prix_passager, "vo_heure_dep": vo_heure_dep, "vo_dep": vo_dep,
+             "vo_dest": vo_dest}
             for vo_ni, vo_prix_passager, vo_heure_dep, vo_dep, vo_dest in voyages]
 
 
@@ -163,4 +177,80 @@ def delete_voyage_user(id_utilisateur, vo_ni):
     connection = get_db_connection()
     cursor = connection.cursor()
     cursor.execute(f"DELETE FROM voyage_utilisateur WHERE id_utilisateur = '{id_utilisateur}' AND vo_ni = '{vo_ni}'")
+    connection.close()
+
+
+def fetch_horaire_conducteur(id_conducteur, date):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT heure_debut, heure_fin, conger FROM horaire_conducteur "
+                   f" WHERE id_conducteur = '{id_conducteur}' AND date = DATE('{date}') AND conger !=TRUE")
+    result = cursor.fetchall()
+    connection.close()
+    if len(result) == 0:
+        return result
+    return [{"heure_debut": str(heure_debut), "heure_fin": str(heure_fin), "conger": conger}
+            for heure_debut, heure_fin, conger in result]
+
+
+def insert_day_off(id_conducteur, date):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT voyage_av_midi, voyage_ap_midi, conger FROM horaire_conducteur "
+                   f"WHERE id_conducteur = '{id_conducteur}' "
+                   f"AND date = DATE('{date}')")
+    conducteur_occupe = cursor.fetchone()
+    connection.close()
+    if conducteur_occupe[2] == 1:
+        raise ValueError("L'utilisateur est deja en conger")
+
+    new_conducteurs_id = []
+    if conducteur_occupe[0] == 1 or conducteur_occupe[1] == 1:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute(f"SELECT vo_ni FROM voyage "
+                       f"WHERE id_conducteur = '{id_conducteur}' "
+                       f"AND date = DATE('{date}')")
+        voyages_trouves = cursor.fetchall()
+        connection.close()
+        for voyage_id in voyages_trouves:
+            cursor = connection.cursor()
+            try:
+                cursor.callproc("DemandeDeConger", (voyage_id, id_conducteur))
+                returned_id = cursor.fetchone()
+                new_conducteurs_id.append(returned_id[0])
+            except Exception:
+                raise Exception("Ceci est une autre type d'erreur :")
+
+        if len(new_conducteurs_id) == len(voyages_trouves):
+            try:
+                accepted_conger(id_conducteur, date)
+                new_conducteur_voyage(voyages_trouves, new_conducteurs_id)
+            except Exception:
+                raise Exception("Ceci est une autre type d'erreur :")
+    else:
+        try:
+            accepted_conger(id_conducteur, date)
+        except Exception:
+            raise Exception("Ceci est une autre type d'erreur :")
+
+
+def new_conducteur_voyage(voyages, new_conducteurs_id):
+    numero_utilisateur = 0
+    for voyage_id in voyages:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute(
+            f"UPDATE voyage SET id_conducteur = '{new_conducteurs_id[numero_utilisateur]}' WHERE vo_ni = '{voyage_id}';")
+        numero_utilisateur += 1
+        connection.close()
+
+
+def accepted_conger(id_conducteur, date):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"UPDATE horaire_conducteur "
+                   f"SET conger = TRUE, voyage_av_midi = FALSE, voyage_ap_midi = FALSE "
+                   f"WHERE id_conducteur = '{id_conducteur}' "
+                   f"AND date = DATE('{date}')")
     connection.close()
