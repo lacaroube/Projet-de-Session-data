@@ -1,19 +1,19 @@
-async function loginAdmin() {
+async function loginAsClient() {
     const usernameInput = document.getElementById("username")
     const username = usernameInput.value
     const passwordInput = document.getElementById("password")
     const password = passwordInput.value
 
-    const data = await getAdmin(username, password)
+    const data = await getClient(username, password)
     if (data.status === "success") {
-        sessionStorage.setItem('username', data.admin[1]);
-        sessionStorage.setItem('id', data.admin[0]);
-        window.location.href = "admin.html";
+        sessionStorage.setItem('username', data.client[1]);
+        sessionStorage.setItem('id', data.client[0]);
+        window.location.href = "client.html";
     }
 }
 
-function getAdmin(username, password) {
-    const getUrl = "get-admin"
+function getClient(username, password) {
+    const getUrl = "get-client"
     return fetch(getUrl, {
         method: "POST",
         headers: {
@@ -28,6 +28,6 @@ function getAdmin(username, password) {
     })
 }
 
-function goToRegisterAdmin() {
-    window.location.replace("../static/registerAdmin.html")
+function goToRegisterClient() {
+    window.location.replace("registerClient.html")
 }

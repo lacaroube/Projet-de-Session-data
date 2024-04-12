@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
-    <script src="../static/topBarMenu.js" ></script>
-    <script src="../static/admin.js" ></script>
+    <script src="../../static/topBarMenu.js" ></script>
+    <script src="admin.js" ></script>
     <script>
         window.onload = function() {
             const username = sessionStorage.getItem('username');
@@ -39,7 +39,7 @@
     </form>
 
     <script>
-        fetch('../static/topBarMenu.html')
+        fetch('../../static/topBarMenu.html')
           .then(response => response.text())
           .then(data => {
             document.getElementById('topBarMenu').innerHTML = data;

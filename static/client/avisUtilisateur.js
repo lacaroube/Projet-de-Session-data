@@ -11,7 +11,7 @@ function onAvisButtonClick(){
     postAvis(textInput, noteValue, sessionStorage.getItem('id'), sessionStorage.getItem('vo_ni'))
     inputElement.value = ""
     sessionStorage.removeItem('vo_ni')
-    window.location.href = "../static/utilisateur.html"
+    window.location.href = "client.html"
 }
 
 function postAvis(text, note, userId, vo_ni) {

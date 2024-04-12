@@ -14,7 +14,7 @@ async function registerNewClient() {
     if (data.status === "success") {
         sessionStorage.setItem('username', data.client[1]);
         sessionStorage.setItem('id', data.client[0]);
-        window.location.href = "utilisateur.html";
+        window.location.href = "client.html";
     }
 }
 

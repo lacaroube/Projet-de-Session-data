@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="registerAdmin.js"></script>
-    <script src="../static/topBarMenu.js"></script>
+    <title>Register Client</title>
+    <script src="registerClient.js"></script>
+    <script src="../../static/topBarMenu.js"></script>
 </head>
 <body>
     <div id="div1"></div>
     <div style="display: flex; flex-direction: column; align-items: center;">
-        <h1 style="font-size: 36px;">Register</h1>
+        <h1 style="font-size: 36px;">Register new client</h1>
         <div style="display: flex; flex-direction: column; align-items: flex-start;">
             <p>
             <label style="font-size: 16px;" for="username">Username:</label>
@@ -20,11 +20,22 @@
             <input style="font-size: 16px;" type="password" id="password" placeholder="Password">
             </p>
             <p>
+            <label style="font-size: 16px;" for="first_name">First name:</label>
+            <input style="font-size: 16px;" id="first_name" placeholder="First name">
+            </p>
+            <p>
+            <label style="font-size: 16px;" for="last_name">Last name:</label>
+            <input style="font-size: 16px;" id="last_name" placeholder="Last name">
+            </p>
+            <p>
+            <label style="font-size: 16px;" for="phone">Phone number:</label>
+            <input style="font-size: 16px;" id="phone" placeholder="Phone number">
+            </p>
         </div>
-        <button class="submitRegister" onclick="registerNewAdmin()">Register</button>
+        <button class="submitRegister" onclick="registerNewClient()">Register</button>
     </div>
     <script>
-    fetch('../static/topBarMenu.html')
+    fetch('../../static/topBarMenu.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('div1').innerHTML = data;

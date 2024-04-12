@@ -74,7 +74,7 @@ function get_voyage(){
                 const voyageElement = document.createElement("li")
                 const addVoyageButton = document.createElement("button")
                 addVoyageButton.innerText = "Ajouter Voyage"
-                voyageElement.innerText = voyage.depart + " - " + voyage.destination + " - " + voyage.date_temps + " - " + voyage.prix
+                voyageElement.innerText = voyage.depart + " - " + voyage.destination + " - " + voyage.date_temps + " - " + voyage.prix + "$"
 
                 addVoyageButton.addEventListener('click', function (){
                     add_voyage(voyage.vo_ni)
@@ -109,7 +109,7 @@ function add_voyage(vo_ni) {
 
 function goToAvis(vo_ni) {
     sessionStorage.setItem('vo_ni', vo_ni)
-    window.location.href = "../static/avisUtilisateur.html"
+    window.location.href = "avisUtilisateur.html"
 }
 
 async function get_voyages_utilisateur() {

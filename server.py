@@ -17,7 +17,8 @@ def index():
 
 
 @app.route("/get_cities", methods=["GET"])
-@app.route("/static/get_cities", methods=["GET"])
+@app.route("/static/client/get_cities", methods=["GET"])
+@app.route("/static/admin/get_cities", methods=["GET"])
 def get_cities():
     try:
         city_names = get_all_ville()
@@ -27,7 +28,7 @@ def get_cities():
         return Response(status=406)
 
 
-@app.route("/static/get_voyages", methods=["POST"])
+@app.route("/static/client/get_voyages", methods=["POST"])
 def get_voyages():
     try:
         data = request.get_json()
@@ -38,7 +39,7 @@ def get_voyages():
         return Response(status=406)
 
 
-@app.route("/static/delete-voyage/<string:id_utilisateur>/<string:vo_ni>", methods=["DELETE"])
+@app.route("/static/client/delete-voyage/<string:id_utilisateur>/<string:vo_ni>", methods=["DELETE"])
 def delete_voyage_utilisateur(id_utilisateur, vo_ni):
     delete_voyage_user(id_utilisateur, vo_ni)
     response = {
@@ -47,7 +48,7 @@ def delete_voyage_utilisateur(id_utilisateur, vo_ni):
     return jsonify(response)
 
 
-@app.route("/static/add_voyage_utilisateur", methods=["POST"])
+@app.route("/static/client/add_voyage_utilisateur", methods=["POST"])
 def add_voyage_utilisateur():
     data = request.get_json()
     insert_new_voyage_utilisateur(data["vo_ni"], data["id_utilisateur"])
@@ -57,13 +58,13 @@ def add_voyage_utilisateur():
     return jsonify(response)
 
 
-@app.route("/static/get_voyages_utilisateur/<string:user_id>", methods=["GET"])
+@app.route("/static/client/get_voyages_utilisateur/<string:user_id>", methods=["GET"])
 def get_voyages_utilisateur(user_id):
     voyages = get_voyages_user(user_id)
     return jsonify(voyages)
 
 
-@app.route("/static/add-avis", methods=["POST"])
+@app.route("/static/client/add-avis", methods=["POST"])
 def add_avis():
     data = request.get_json()
     insert_avis(data["text"], data["note"], data["user_id"], data["vo_ni"])
@@ -73,13 +74,13 @@ def add_avis():
     return jsonify(response)
 
 
-@app.route("/static/get-all-avis/<string:user_id>", methods=["GET"])
+@app.route("/static/client/get-all-avis/<string:user_id>", methods=["GET"])
 def get_all_avis(user_id):
     avis = get_avis(user_id)
     return jsonify(avis)
 
 
-@app.route("/static/delete-avis/<string:id_utilisateur>/<string:vo_ni>", methods=["DELETE"])
+@app.route("/static/client/delete-avis/<string:id_utilisateur>/<string:vo_ni>", methods=["DELETE"])
 def delete_avis(id_utilisateur, vo_ni):
     supprime_avis(id_utilisateur, vo_ni)
     response = {
@@ -88,7 +89,7 @@ def delete_avis(id_utilisateur, vo_ni):
     return jsonify(response)
 
 
-@app.route("/static/modify-avis/<string:id_utilisateur>/<string:vo_ni>", methods=["PUT"])
+@app.route("/static/client/modify-avis/<string:id_utilisateur>/<string:vo_ni>", methods=["PUT"])
 def modify_avis(id_utilisateur, vo_ni):
     data = request.get_json()
     modifier_commentaire(id_utilisateur, vo_ni, data["commentaire"], data["note"])
@@ -98,7 +99,7 @@ def modify_avis(id_utilisateur, vo_ni):
     return jsonify(response)
 
 
-@app.route("/static/get-client", methods=["POST"])
+@app.route("/static/client/get-client", methods=["POST"])
 def get_client():
     data = request.get_json()
     username = data["username"]
@@ -144,7 +145,7 @@ def get_conducteur():
     return jsonify(response)
 
 
-@app.route("/static/get-admin", methods=["POST"])
+@app.route("/static/admin/get-admin", methods=["POST"])
 def get_admin():
     data = request.get_json()
     username = data["username"]
@@ -167,7 +168,7 @@ def get_admin():
     return jsonify(response)
 
 
-@app.route("/static/create-client", methods=["POST"])
+@app.route("/static/client/create-client", methods=["POST"])
 def create_client():
     data = request.get_json()
     password = data["password"].encode('utf-8')
@@ -205,7 +206,7 @@ def create_conducteur():
         return jsonify(Response(status=500))
 
 
-@app.route("/static/create-admin", methods=["POST"])
+@app.route("/static/admin/create-admin", methods=["POST"])
 def create_admin():
     data = request.get_json()
     password = data["password"].encode('utf-8')
@@ -220,7 +221,7 @@ def create_admin():
     return jsonify(response)
 
 
-@app.route("/static/add-voyage", methods=["POST"])
+@app.route("/static/admin/add-voyage", methods=["POST"])
 def add_voyage():
     data = request.get_json()
     insert_voyage(data["departure"],

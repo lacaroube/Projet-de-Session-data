@@ -5,14 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeb61af6-be07-4db4-9b68-a04c287ebe2d" name="Changes" comment="changement mineur">
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BD/index.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BD/index.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BD/relation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BD/relation.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/conducteur/conducteur.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/conducteur/conducteur.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/loginClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/loginClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/avisUtilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/avisUtilisateur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/avisUtilisateur.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/avisUtilisateur.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/conducteur/loginConducteur.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/conducteur/loginConducteur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/conducteur/loginConducteur.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/conducteur/loginConducteur.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/conducteur/registerConducteur.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/conducteur/registerConducteur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/loginAdmin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginAdmin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/loginAdmin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginClient.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/loginClient.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/loginClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginService.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/registerAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/registerAdmin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/registerAdmin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/registerAdmin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/registerClient.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/registerClient.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/registerClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/registerClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/topBarMenu.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/topBarMenu.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/topBarMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/topBarMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/utilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/client.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/utilisateur.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <list id="04396e09-4dae-448b-99fa-f63591848771" name="Changes by rapha" comment="Changes by rapha 2.0" />
     <list id="20648419-f97c-456f-b31b-39ee229b4ffe" name="Changes by Tezcat" comment="" />
@@ -83,6 +98,12 @@
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\GLO-2005\Projet-de-Session-data\static\client" />
+      <recent name="C:\GLO-2005\Projet-de-Session-data\static\admin" />
+    </key>
+  </component>
   <component name="RunManager" selected="Flask server.Flask (server.py)">
     <configuration name="index.sql" type="DatabaseScript" editBeforeRun="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/BD/index.sql" />
@@ -266,7 +287,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="Changes by rapha&#10;conducteur_love_voyage" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Projet_de_Session_data$Flask__server_py_.coverage" NAME="Flask (server.py) Coverage Results" MODIFIED="1712935975968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Projet_de_Session_data$Flask__server_py_.coverage" NAME="Flask (server.py) Coverage Results" MODIFIED="1712938685042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Projet_de_Session_ex$Flask__server_py_.coverage" NAME="Flask (server.py) Coverage Results" MODIFIED="1712341776775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>

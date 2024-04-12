@@ -21,15 +21,15 @@ function logOut() {
 }
 
 function loginConducteur() {
-    window.location.href = "/conducteur/loginConducteur.html"
+    window.location.href = "../../conducteur/loginConducteur.html"
 }
 
 
 function loginAdmin() {
-    window.location.href = "loginAdmin.html"
+    window.location.href = "../../admin/loginAdmin.html"
 }
 
 function loginClient() {
-    window.location.href = "loginClient.html"
+    window.location.href = "../../client/loginClient.html"
 }
 

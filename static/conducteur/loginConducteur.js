@@ -28,5 +28,5 @@ function getConducteur(username, password) {
 }
 
 function goToRegisterConducteur() {
-    window.location.replace("../../static/conducteur/registerConducteur.html")
+    window.location.replace("registerConducteur.html")
 }

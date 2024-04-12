@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="loginClient.js"></script>
+    <script src="../../static/topBarMenu.js"></script>
 </head>
 <body>
+<div id="div1"></div>
 <div style="text-align: center">
-    <h1 style="font-size: 36px;">Login for service</h1>
+    <h1 style="font-size: 36px;">Login as client</h1>
     <p>
         <label style="font-size: 16px;" for="username">Username:</label>
         <input style="font-size: 16px;" id="username" placeholder="Username">
@@ -15,30 +18,33 @@
         <label style="font-size: 16px;" for="password">Password:</label>
         <input style="font-size: 16px;" type="password" id="password" placeholder="Password">
     </p>
-    <button class="submitServiceLogin" onclick="login()">Submit</button>
+    <button class="clientLoginButton" onclick="loginAsClient()">Submit</button>
+    <button class="clientLoginButton" onclick="goToRegisterClient()">Register</button>
 </div>
+<script>
+    fetch('../../static/topBarMenu.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('div1').innerHTML = data;
+        manageButtonsDisplay();
+      });
+</script>
 </body>
 
-<script>
-    function login() {
-        window.location.replace("/")
-    }
-</script>
-
 <style>
-    .submitServiceLogin {
+    .clientLoginButton {
         background-color: deepskyblue;
         border: none;
         border-radius: 7%;
         display: inline-block;
         font-size: 20px;
         justify-content: center;
-        margin: 2px auto;
+        margin: 2px 4px;
         padding: 8px 10px;
         position: relative;
     }
 
-    .submitServiceLogin:hover {
+    .clientLoginButton:hover {
         filter: brightness(75%);
         transition-duration: 0.18s;
     }

@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../static/avisUtilisateur.css">
-    <script src="../static/avisUtilisateur.js"></script>
-    <script src="../static/utilisateur.js" ></script>
-    <script src="../static/topBarMenu.js" ></script>
+    <link rel="stylesheet" type="text/css" href="../avisUtilisateur.css">
+    <script src="avisUtilisateur.js"></script>
+    <script src="client.js" ></script>
+    <script src="../../static/topBarMenu.js" ></script>
 </head>
 <body>
 <label id="username"></label>
@@ -48,7 +48,7 @@
 </form>
 
     <script>
-        fetch('../static/topBarMenu.html')
+        fetch('../../static/topBarMenu.html')
           .then(response => response.text())
           .then(data => {
             document.getElementById('topBarMenu').innerHTML = data;
