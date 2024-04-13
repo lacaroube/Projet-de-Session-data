@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, jsonify, Response
 from database import (insert_avis, get_avis, supprime_avis, modifier_commentaire, fetch_client, insert_new_client,
                       get_all_ville, get_voyage, insert_new_voyage_utilisateur, insert_voyage, insert_new_admin,
                       fetch_admin, get_voyages_user, delete_voyage_user, fetch_conducteur, insert_new_conducteur,
-                      fetch_horaire_conducteur, insert_day_off)
+                      fetch_horaire_conducteur, insert_day_off, prise_de_conge, get_voyages_conducteur)
 
 from flask_bcrypt import Bcrypt
 
@@ -264,7 +264,23 @@ def post_day_off_request():
         return jsonify(response)
     except ValueError:
         return Response(status=304)
+    except TypeError:
+        return Response(status=400)
     except Exception:
+        return Response(status=406)
+
+
+@app.route("/static/conducteur/get-voyages/<string:id_conducteur>/<string:date>", methods=["GET"])
+def get_voyages_conduct(id_conducteur, date):
+    try:
+        print(id_conducteur, date)
+        voyages = get_voyages_conducteur(id_conducteur, date)
+        response = {
+            "status": "success",
+            "voyages": voyages
+        }
+        return jsonify(response)
+    except:
         return Response(status=406)
 
 

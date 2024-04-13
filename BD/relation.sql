@@ -47,8 +47,7 @@ insert INTO villes_quebec (ville) VALUES
 ('Baie-Comeau'),
 ('Saint-Lambert'),
 ('Kirkland'),
-('Joliette'),
-('Victoriaville');
+('Joliette');
 
 DELIMITER //
 CREATE PROCEDURE InsertVoyage(IN dep VARCHAR(255), IN dest VARCHAR(255), IN price INT, IN heure INT, IN jour INT)

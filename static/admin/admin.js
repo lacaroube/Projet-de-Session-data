@@ -32,6 +32,11 @@ async function addVoyage() {
         return
     }
 
+    if (dateTime === '') {
+        errorElement.innerHTML = "<p style='color:red'>La date ne peut pas être nulle</p>"
+        return
+    }
+
     if (new Date() > dateTimeValue){
         errorElement.innerHTML = "<p style='color:red'>La date du depart ne peut pas être avant la date présente</p>"
         return

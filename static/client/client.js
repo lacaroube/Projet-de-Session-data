@@ -41,6 +41,11 @@ function get_voyage(){
         return
     }
 
+    if (datetimeElement === '') {
+        errorElement.innerHTML = "<p style='color:red'>La date ne peut pas être nulle</p>"
+        return
+    }
+
     if (new Date() > new Date(datetimeElement)){
         errorElement.innerHTML = "<p style='color:red'>La date du depart ne peut pas être avant la date présente</p>"
         return

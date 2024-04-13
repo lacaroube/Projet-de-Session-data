@@ -67,6 +67,6 @@ CREATE TABLE IF NOT EXISTS horaire_conducteur(
 
 CREATE TABLE IF NOT EXISTS villes_quebec (
     id_ville INT AUTO_INCREMENT,
-    ville VARCHAR(255),
+    ville VARCHAR(255) UNIQUE,
     PRIMARY KEY(id_ville)
 );

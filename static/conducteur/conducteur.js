@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     const dateElement = document.getElementById('date')
     const heureDebutEl = document.getElementById('heure_debut')
     const heureFinEl = document.getElementById('heure_fin')
+    const aucunVoyage = document.getElementById("aucun-voyage")
+    const voyages = document.getElementById("voyages")
     const jourResponse = await getHoraireConducteur(sessionStorage.getItem('id'), ajdDate)
      if (jourResponse.status === "success") {
                     dateElement.innerText = ajdDate
@@ -31,6 +33,10 @@ document.addEventListener('DOMContentLoaded', async function() {
             const dateValue = info.dateStr
             heureDebutEl.innerText = ""
             heureFinEl.innerText = ""
+            const voyagesContainer = document.getElementById("voyages")
+            while (voyagesContainer.firstChild) {
+                voyagesContainer.removeChild(voyagesContainer.firstChild)
+            }
             let today = new Date();
             today.setHours(0, 0, 0, 0);
             let datePicked = new Date(dateValue)
@@ -39,12 +45,16 @@ document.addEventListener('DOMContentLoaded', async function() {
             if (datePicked.getTime() >= today.getTime()) {
                 dateElement.innerText = dateValue
                 const horaireResponse = await getHoraireConducteur(sessionStorage.getItem('id'), dateValue)
-                if (horaireResponse.status === "success") {
-                    heureDebutEl.innerText = horaireResponse.horaire.heure_debut
-                    heureFinEl.innerText = horaireResponse.horaire.heure_fin
+                if (horaireResponse !== undefined) {
+                    if (horaireResponse.status === "success") {
+                        const voyageResponse = await getVoyage(sessionStorage.getItem('id'), dateValue)
+                        heureDebutEl.innerText = horaireResponse.horaire.heure_debut
+                        heureFinEl.innerText = horaireResponse.horaire.heure_fin
+                    }
                 }
             } else {
                 dateElement.innerHTML = "<p style='color:red'>Cette date est antérieure à aujourd'hui</p>"
+                aucunVoyage.innerHTML = "<p style='color:red'>Les voyages ne sont pas affichés pour les dates antérieures</p>"
             }
         }
     })
@@ -86,7 +96,6 @@ async function submitDayOffRequest(){
     const dateRequested = new Date(dateValue)
     const formattedDate = dateRequested.toISOString().split('T')[0];
 
-
     const dateMin = new Date()
     dateMin.setDate(dateMin.getDate() + 14)
     dateMin.setHours(0, 0, 0, 0)
@@ -113,15 +122,46 @@ function postDayOffRequest(id_conducteur, date) {
             date: date
         })
     }).then(function (response) {
+        event.preventDefault()
         if(response.status === 200){
             error.innerHTML = "<p style='color:deepskyblue'>Votre conger à été accepté</p>"
             return response.json()
         }
-        if(response.status === 304){
+        else if(response.status === 304){
             error.innerHTML = "<p style='color:red'>Vous avez déjà pris congé</p>"
+        }
+        else if(response.status === 400){
+            error.innerHTML = "<p style='color:red'>Vous avez deja prit trop de conger</p>"
         }
         else{
             error.innerHTML = "<p style='color:red'>Impossible de demander congé à cette journée</p>"
         }
     })
+}
+
+function getVoyage(id_conducteur, date){
+    const error = document.getElementById("aucun-voyage")
+    const voyagesContainer = document.getElementById("voyages")
+    error.innerHTML = ""
+    return fetch(`get-voyages/${id_conducteur}/${date}`)
+        .then(response => {
+            if (response.status === 200) {
+                return response.json()
+            }
+            else{
+                error.innerHTML = "<p style='color:red'>Erreur</p>"
+            }
+        }).then(voyages => {
+            if (voyages.voyages.length === 0) {
+                error.innerHTML = "Aucun voyage ne vous est assigné à cette date"
+            }
+            else {
+                voyages.voyages.forEach(voyage => {
+                    const listeVoyage = document.createElement("li")
+                    listeVoyage.innerText = voyage.depart + " - " + voyage.destination + " - " + voyage.date_temps
+                    voyagesContainer.appendChild(listeVoyage)
+                })
+            }
+        })
+
 }

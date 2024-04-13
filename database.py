@@ -225,19 +225,25 @@ def insert_day_off(id_conducteur, date):
                 returned_id = cursor.fetchone()
                 new_conducteurs_id.append(returned_id[0])
             except Exception:
-                raise Exception("Ceci est une autre type d'erreur :")
+                raise Exception("Ceci est une autre type d'erreur")
 
         if len(new_conducteurs_id) == len(voyages_trouves):
             try:
+                prise_de_conge(id_conducteur)
                 accepted_conger(id_conducteur, date)
                 new_conducteur_voyage(voyages_trouves, new_conducteurs_id)
             except Exception:
-                raise Exception("Ceci est une autre type d'erreur :")
+                raise Exception("Ceci est une autre type d'erreur")
     else:
         try:
+            prise_de_conge(id_conducteur)
+        except Exception as e:
+            raise Exception(f"Ceci est une autre type d'erreur : %s", e)
+
+        try:
             accepted_conger(id_conducteur, date)
-        except Exception:
-            raise Exception("Ceci est une autre type d'erreur :")
+        except Exception as e:
+            raise Exception(f"Ceci est une autre type d'erreur : %s", e)
 
 
 def new_conducteur_voyage(voyages, new_conducteurs_id):
@@ -259,3 +265,37 @@ def accepted_conger(id_conducteur, date):
                    f"WHERE id_conducteur = '{id_conducteur}' "
                    f"AND date = DATE('{date}')")
     connection.close()
+
+
+def prise_de_conge(id_conducteur):
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT nb_jour_conger FROM conducteur WHERE id_conducteur = '{id_conducteur}'")
+    nb_jours = cursor.fetchone()
+    connection.close()
+    if nb_jours[0] > 0:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute(f"UPDATE conducteur SET nb_jour_conger = '{nb_jours[0] - 1}'"
+                       f"WHERE id_conducteur = '{id_conducteur}'")
+        connection.close()
+
+    else:
+        raise TypeError("L'utilisateur n'a plus de jour de conger")
+
+
+def get_voyages_conducteur(id_conducteur, date):
+    heure_min = datetime.strptime(date, "%Y-%m-%d")
+    heure_max = heure_min + timedelta(days=1)
+    print(heure_min.date(), heure_max.date())
+    connection = get_db_connection()
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT vo_ni, vo_dep, vo_dest, vo_heure_dep, vo_prix_passager "
+                   f"FROM voyage "
+                   f"WHERE id_conducteur = '{id_conducteur}' "
+                   f"AND vo_heure_dep BETWEEN '{heure_min.date()}' AND '{heure_max.date()}' "
+                   f"ORDER BY vo_heure_dep")
+    result = cursor.fetchall()
+    connection.close()
+    return [{"vo_ni": vo_ni, "depart": vo_dep, "destination": vo_dest, "date_temps": vo_heure_dep, "prix": vo_prix_passager}
+            for vo_ni, vo_dep, vo_dest, vo_heure_dep, vo_prix_passager in result]
