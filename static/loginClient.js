@@ -13,6 +13,7 @@ async function loginAsClient() {
 }
 
 function getClient(username, password) {
+    const error = document.getElementById("error-login")
     const getUrl = "get-client"
     return fetch(getUrl, {
         method: "POST",
@@ -24,8 +25,12 @@ function getClient(username, password) {
             password: password
         })
     }).then(function (response) {
-        return response.status
-    })
+       if(response.status === 200) {
+           return response.json()
+       } else{
+            error.innerHTML = "<p style='color:red'>Nom utilisateur et/ou mot de passe invalide</p>"
+        }
+     })
 }
 
 function goToRegisterClient() {

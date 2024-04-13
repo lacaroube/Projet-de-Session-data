@@ -4,16 +4,17 @@ async function registerNewConducteur() {
     const passwordInput = document.getElementById("password")
     const password = passwordInput.value
     const data = await createConducteur(username, password)
-    if (data.status === "success") {
-        sessionStorage.setItem('username', data.conducteur[1]);
-        sessionStorage.setItem('id', data.conducteur[0]);
-        window.location.href = "conducteur.html"
+    if(data != null) {
+        if (data.status === "success") {
+            sessionStorage.setItem('username', data.conducteur[1]);
+            sessionStorage.setItem('id', data.conducteur[0]);
+            window.location.href = "conducteur.html"
+        }
     }
 }
 
 function createConducteur(username, password) {
     const error = document.getElementById("error-registration")
-    error.innerHTML = ""
     const postUrl = "create-conducteur"
     return fetch(postUrl, {
         method: "POST",

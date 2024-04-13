@@ -5,14 +5,17 @@ async function loginAdmin() {
     const password = passwordInput.value
 
     const data = await getAdmin(username, password)
-    if (data.status === "success") {
-        sessionStorage.setItem('username', data.admin[1]);
-        sessionStorage.setItem('id', data.admin[0]);
-        window.location.href = "admin.html";
+    if(data != null){
+        if (data.status === "success") {
+            sessionStorage.setItem('username', data.admin[1]);
+            sessionStorage.setItem('id', data.admin[0]);
+            window.location.href = "admin.html";
+        }
     }
 }
 
 function getAdmin(username, password) {
+    const error = document.getElementById("login-error")
     const getUrl = "get-admin"
     return fetch(getUrl, {
         method: "POST",
@@ -24,8 +27,12 @@ function getAdmin(username, password) {
             password: password
         })
     }).then(function (response) {
-        return response.json()
-    })
+       if(response.status === 200) {
+           return response.json()
+       } else{
+            error.innerHTML = "<p style='color:red'>Nom utilisateur et/ou mot de passe invalide</p>"
+        }
+     })
 }
 
 function goToRegisterAdmin() {
