@@ -164,14 +164,13 @@ DELIMITER ;
 CALL CreationVoyage();
 
 
-SELECT * FROM villes_quebec;
 SELECT * FROM voyage WHERE id_conducteur = '841450f2-56d6-452d-8599-66cd95bbeb5c';
 
 SELECT * FROM horaire_conducteur WHERE id_conducteur='841450f2-56d6-452d-8599-66cd95bbeb5c';
 
 SELECT * FROM conducteur WHERE id_conducteur='841450f2-56d6-452d-8599-66cd95bbeb5c';
 
-SELECT * FROM horaire_conducteur;
+SELECT * FROM utilisateurs;
 
 UPDATE horaire_conducteur SET conger = FALSE, voyage_av_midi = FALSE, voyage_ap_midi = FALSE
                           WHERE id_conducteur = '841450f2-56d6-452d-8599-66cd95bbeb5c' AND date = DATE('2024-04-29');

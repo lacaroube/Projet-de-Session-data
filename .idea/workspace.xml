@@ -5,8 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeb61af6-be07-4db4-9b68-a04c287ebe2d" name="Changes" comment="changement mineur">
+    <list default="true" id="eeb61af6-be07-4db4-9b68-a04c287ebe2d" name="Changes" comment="feature verification register login">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BD/relation.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BD/relation.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/conducteur/loginConducteur.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/conducteur/loginConducteur.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/conducteur/loginConducteur.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/conducteur/loginConducteur.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/conducteur/registerConducteur.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/conducteur/registerConducteur.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/loginAdmin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginAdmin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/loginAdmin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginClient.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/loginClient.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/loginClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/loginClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/registerAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/registerAdmin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/registerClient.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/registerClient.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/registerClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/registerClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/registerNewAdmin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/registerNewAdmin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/admin.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/admin/admin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/avisUtilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/avisUtilisateur.html" afterDir="false" />
@@ -29,6 +43,7 @@
       <change beforePath="$PROJECT_DIR$/static/utilisateur.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/client/client.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
+    <list id="dfaaf15e-289b-4575-afd3-f856bcd69206" name="Changes by rapha" comment="Changes by rapha&#10;&#10;feature conger" />
     <list id="04396e09-4dae-448b-99fa-f63591848771" name="Changes by rapha" comment="Changes by rapha 2.0" />
     <list id="20648419-f97c-456f-b31b-39ee229b4ffe" name="Changes by Tezcat" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -166,6 +181,7 @@
       <workItem from="1712619273826" duration="8000" />
       <workItem from="1712769139766" duration="18770000" />
       <workItem from="1712844920340" duration="10105000" />
+      <workItem from="1712931253023" duration="9287000" />
     </task>
     <task id="LOCAL-00001" summary="feature voyage selection">
       <option name="closed" value="true" />
@@ -263,7 +279,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712787487419</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feature conger">
+      <option name="closed" value="true" />
+      <created>1712931331422</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1712931331422</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Changes by rapha&#10;&#10;feature conger">
+      <option name="closed" value="true" />
+      <created>1712931345184</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1712931345184</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,9 +316,12 @@
     <MESSAGE value="Changes by rapha&#10;&#10;conducteur" />
     <MESSAGE value="feature voyage_love_conducteur" />
     <MESSAGE value="Changes by rapha&#10;conducteur_love_voyage" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by rapha&#10;conducteur_love_voyage" />
+    <MESSAGE value="feature conger" />
+    <MESSAGE value="Changes by rapha&#10;&#10;feature conger" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by rapha&#10;&#10;feature conger" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Projet_de_Session_data$Flask__server_py_.coverage" NAME="Flask (server.py) Coverage Results" MODIFIED="1712938602941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Projet_de_Session_data$Flask__server_py_.coverage" NAME="Flask (server.py) Coverage Results" MODIFIED="1712938685042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Projet_de_Session_ex$Flask__server_py_.coverage" NAME="Flask (server.py) Coverage Results" MODIFIED="1712341776775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>

@@ -11,14 +11,17 @@ async function registerNewClient() {
     const phone = phoneInput.value
 
     const data = await createClient(username, password, lastName, firstName, phone)
-    if (data.status === "success") {
-        sessionStorage.setItem('username', data.client[1]);
-        sessionStorage.setItem('id', data.client[0]);
-        window.location.href = "client.html";
+    if(data != null) {
+        if (data.status === "success") {
+            sessionStorage.setItem('username', data.client[1]);
+            sessionStorage.setItem('id', data.client[0]);
+            window.location.href = "client.html";
+        }
     }
 }
 
 function createClient(username, password, lastName, firstName, phone) {
+    const error = document.getElementById("error-registration")
     const postUrl = "create-client"
     return fetch(postUrl, {
         method: "POST",
@@ -33,6 +36,11 @@ function createClient(username, password, lastName, firstName, phone) {
             phone: phone
         })
     }).then(function (response) {
-        return response.json()
+        if(response.status === 500){
+            error.innerHTML = "<p style='color:red'>Ce nom d'utilisateur est déjà utilisé</p>"
+        }
+        else if(response.status === 200){
+            return response.json()
+        }
     })
 }

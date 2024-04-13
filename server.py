@@ -106,6 +106,8 @@ def get_client():
     password = data["password"].encode('utf-8')
 
     clients = fetch_client(username)
+    if clients == ():
+        return Response(status=400)
 
     for client in clients:
         if bcrypt.check_password_hash(client[2], password):
@@ -114,12 +116,8 @@ def get_client():
                 "client": client
             }
             return jsonify(response)
-
-    response = {
-        "status": "failure",
-        "client": []
-    }
-    return jsonify(response)
+        else:
+            return Response(status=400)
 
 
 @app.route("/static/conducteur/get-conducteur", methods=["POST"])
@@ -130,6 +128,9 @@ def get_conducteur():
 
     conducteurs = fetch_conducteur(username)
 
+    if conducteurs == ():
+        return Response(status=400)
+
     for conducteur in conducteurs:
         if bcrypt.check_password_hash(conducteur[2], password):
             response = {
@@ -137,12 +138,8 @@ def get_conducteur():
                 "conducteur": conducteur
             }
             return jsonify(response)
-
-    response = {
-        "status": "failure",
-        "conducteur": []
-    }
-    return jsonify(response)
+        else:
+            return Response(status=400)
 
 
 @app.route("/static/admin/get-admin", methods=["POST"])
@@ -153,6 +150,9 @@ def get_admin():
 
     admins = fetch_admin(username)
 
+    if admins == ():
+        return Response(status=400)
+
     for admin in admins:
         if bcrypt.check_password_hash(admin[2], password):
             response = {
@@ -160,12 +160,8 @@ def get_admin():
                 "admin": admin
             }
             return jsonify(response)
-
-    response = {
-        "status": "failure",
-        "admin": []
-    }
-    return jsonify(response)
+        else:
+            return Response(status=400)
 
 
 @app.route("/static/client/create-client", methods=["POST"])
@@ -174,6 +170,9 @@ def create_client():
     password = data["password"].encode('utf-8')
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    if len(fetch_client(data["username"])) > 0:
+        return Response(status=500)
 
     client = insert_new_client(data["username"],
                                hashed_password,
@@ -201,9 +200,8 @@ def create_conducteur():
             "conducteur": conducteur
         }
         return jsonify(response)
-    except Exception as e:
-        print(e)
-        return jsonify(Response(status=500))
+    except Exception:
+        return Response(status=500)
 
 
 @app.route("/static/admin/create-admin", methods=["POST"])
@@ -213,7 +211,11 @@ def create_admin():
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
+    if len(fetch_admin(data["username"])) > 0:
+        return Response(status=500)
+
     admin = insert_new_admin(data["username"], hashed_password)
+
     response = {
         "status": "success",
         "admin": admin
