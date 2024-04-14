@@ -25,6 +25,9 @@ function get_all_ville() {
         })
 }
 
+/*
+* Permet de chercher des voyages avec certaint parametre d'entrée
+* */
 function get_voyage(){
     event.preventDefault()
     const voyage_container = document.getElementById("voyage-container")
@@ -36,21 +39,25 @@ function get_voyage(){
 
     errorElement.innerHTML = ""
 
+    //Permet de vérifier si la destination et la ville de départ ne sont pas les même
     if(departElement === destElement){
         errorElement.innerHTML = "<p style='color:red'>La destination ne peut pas être la ville de départ</p>"
         return
     }
 
+    //Permet de vérifier si le parametre de date est vide
     if (datetimeElement === '') {
         errorElement.innerHTML = "<p style='color:red'>La date ne peut pas être nulle</p>"
         return
     }
 
+    //Permet de vérifier si la date est avant la date actuelle
     if (new Date() > new Date(datetimeElement)){
         errorElement.innerHTML = "<p style='color:red'>La date du depart ne peut pas être avant la date présente</p>"
         return
     }
 
+    //Permet de vérifier si le prix est nulle ou négatif
     if(prixElement <= 0){
         errorElement.innerHTML = "<p style='color:red'>Le prix ne peut pas être de null ou être négatif</p>"
         return
@@ -120,11 +127,19 @@ function goToAvis(vo_ni) {
 async function get_voyages_utilisateur() {
     const voyageUtilisateurElement = document.getElementById("voyage-utilisateur")
     const id_utilisateur = sessionStorage.getItem('id')
+    const error = document.getElementById("error-voyage")
     const responseAvis = await fetch(`get-all-avis/${sessionStorage.getItem('id')}`)
     const liste_avis = await responseAvis.json()
 
     await fetch(`get_voyages_utilisateur/${id_utilisateur}`)
-        .then(response => response.json())
+        .then(function (response) {
+            if(response.status === 200){
+                return response.json()
+            }
+            else{
+                error.innerHTML = "<p style='color:red'>Une erreur c'est produite</p>"
+            }
+        })
         .then(voyagesList => {
             voyageUtilisateurElement.innerHTML = ""
             voyagesList.forEach(voyage => {
@@ -170,11 +185,17 @@ async function get_voyages_utilisateur() {
 }
 
 function supp_voyage(id_utilisateur, vo_ni) {
+    const error = document.getElementById("error-voyage")
     fetch(`delete-voyage/${id_utilisateur}/${vo_ni}`, {
         method: "DELETE",
     })
         .then(function (response) {
-            return response.json()
+            if(response.status === 200){
+                return response.json()
+            }
+            else{
+                error.innerHTML = "<p style='color:red'>La suppression a encontré une erreur</p>"
+            }
         }).then(function () {
             get_voyages_utilisateur()
     })

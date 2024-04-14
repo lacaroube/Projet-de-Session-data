@@ -29,20 +29,31 @@ function postAvis(text, note, userId, vo_ni) {
             vo_ni: vo_ni
         })
     }).then(function (response) {
-        return response.json()
+        if(response.status=== 200){
+            return response.json()
+        }
+        else{
+            console.log("Erreur lors de l'ajout de l'avis")
+        }
     }).then(function (data) {
         getAllAvis();
     })
 }
 
 
-// window.onload = getAllAvis
 function getAllAvis() {
     const avisContainer = document.getElementById("notice-containeur");
     avisContainer.innerHTML = "";
 
     fetch(`get-all-avis/${sessionStorage.getItem('id')}`)
-        .then(response => response.json())
+        .then(function (response) {
+        if(response.status=== 200){
+            return response.json()
+        }
+        else {
+            console.log("Erreur lors de l'ajout de l'avis")
+        }
+        })
         .then(avisList => {
             avisList.forEach(avis => {
                 const avisElement = document.createElement("li")

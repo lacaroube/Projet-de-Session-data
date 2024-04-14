@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" type="text/css" href="../avisUtilisateur.css">
+    <link rel="stylesheet" type="text/css" href="avisUtilisateur.css">
     <script src="avisUtilisateur.js"></script>
     <script src="client.js" ></script>
     <script src="../../static/topBarMenu.js" ></script>
@@ -45,6 +45,7 @@
         <ul id="voyage-utilisateur">
 
         </ul>
+    <span id="error-voyage"></span>
 </form>
 
     <script>
@@ -57,6 +58,9 @@
     </script>
 </body>
 <style>
+    body{
+        background-color: #504e4e;
+    }
     form {
         max-width: 700px;
         margin: 50px auto;
@@ -115,6 +119,10 @@
     .avisButton:hover {
         filter: brightness(75%);
         transition-duration: 0.18s;
+    }
+    #username{
+        color:deepskyblue;
+        font-size: 25px;
     }
 </style>
 </html>

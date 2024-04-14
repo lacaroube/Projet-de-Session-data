@@ -1,6 +1,6 @@
 body{
-    background-color: #333333;
-}
+        background-color: #504e4e;
+    }
 
 #background-image {
     position: absolute;
@@ -49,4 +49,17 @@ button:hover {
     padding: 20px;
     margin-top: 20px;
     margin-left: 7px;
+}
+
+#note {
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #504e4e;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    label{
+        color: deepskyblue;
+        font-weight: bold;
+        font-size: 150%;
+    }
 }

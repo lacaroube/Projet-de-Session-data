@@ -122,7 +122,6 @@ function postDayOffRequest(id_conducteur, date) {
             date: date
         })
     }).then(function (response) {
-        event.preventDefault()
         if(response.status === 200){
             error.innerHTML = "<p style='color:deepskyblue'>Votre conger à été accepté</p>"
             return response.json()
