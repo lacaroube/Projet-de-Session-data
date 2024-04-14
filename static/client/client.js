@@ -102,6 +102,7 @@ function get_voyage(){
 
 function add_voyage(vo_ni) {
     event.preventDefault()
+    const error = document.getElementById("error-voyage")
     const id_utilisateur = sessionStorage.getItem('id')
     const getUrl = "add_voyage_utilisateur"
     fetch(getUrl, {
@@ -113,10 +114,17 @@ function add_voyage(vo_ni) {
             vo_ni: vo_ni,
             id_utilisateur: id_utilisateur
         })
-    }).then(response => response.json())
-        .then(function (data){
-             get_voyages_utilisateur()
-        })
+    }).then(function(response) {
+        if(response.status === 200){
+            return response.json()
+        }
+        else{
+            error.innerHTML = "<p style='color:red'>La suppression a encontré une erreur</p>"
+        }
+    })
+    .then(function(data) {
+         get_voyages_utilisateur()
+    })
 }
 
 function goToAvis(vo_ni) {
@@ -222,6 +230,7 @@ function showAvis(vo_ni) {
 }
 
 function modifyAvis(vo_ni, newCommentaire, newNote){
+    const error = document.getElementById("error-voyage")
     const noteValue = newNote ? newNote : 'Aucune note'
     fetch(`modify-avis/${sessionStorage.getItem('id')}/${vo_ni}`, {
         method: "PUT",
@@ -233,17 +242,28 @@ function modifyAvis(vo_ni, newCommentaire, newNote){
             note: noteValue
         })
     }).then(function (response){
-        return response.json()
+        if(response.status === 200){
+            return response.json()
+        }
+        else{
+            error.innerHTML = "<p style='color:red'>La modification de l'avis a encontré une erreur</p>"
+        }
     }).then(function (data){
         get_voyages_utilisateur()
     })
 }
 
 function supprimerAvis(vo_ni){
+    const error = document.getElementById("error-voyage")
     fetch(`delete-avis/${sessionStorage.getItem('id')}/${vo_ni}`, {
         method: "DELETE",
-    }).then(function (response){
-        return response.json()
+    }).then(function (response) {
+        if(response.status === 200){
+            return response.json()
+        }
+        else{
+            error.innerHTML = "<p style='color:red'>La suppression de l'avis a encontré une erreur</p>"
+        }
     }).then(function (data){
         getAllAvis()
     })
@@ -281,11 +301,13 @@ function display_avis(avis) {
         newNoteInput.id = note
         newNoteInput.name = "newNote"
         newNoteInput.value = note
+        newNoteInput.style.display = "inline-block"
         modifyForm.appendChild(newNoteInput)
 
         const newNoteLabel = document.createElement("label")
         newNoteLabel.for = note
         newNoteLabel.innerText = note
+        newNoteLabel.style.display = "inline-block"
         modifyForm.appendChild(newNoteLabel)
     })
 
