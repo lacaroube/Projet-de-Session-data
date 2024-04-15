@@ -79,13 +79,3 @@ BEGIN
 END;
 //
 DELIMITER ;
-
-CREATE INDEX idx_voyage_list ON voyage (vo_dep, vo_dest, vo_heure_dep, vo_prix_passager);
-
-CREATE INDEX idx_ut_username ON utilisateurs (ut_username);
-
-CREATE INDEX idx_avis_utilisateur ON avis (id_utilisateur);
-
-CREATE INDEX idx_conducteur_username ON conducteur (username);
-
-CREATE INDEX idx_adm_username ON admins (adm_username);

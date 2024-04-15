@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS utilisateurs (
     ut_telephone varchar(10)
 );
 
+CREATE INDEX idx_ut_username ON utilisateurs (ut_username);
+
 CREATE TABLE IF NOT EXISTS conducteur(
     id_conducteur varchar(36) PRIMARY KEY,
     username varchar(60),
@@ -18,6 +20,7 @@ CREATE TABLE IF NOT EXISTS conducteur(
     nb_jour_conger INT DEFAULT 5
 );
 
+CREATE INDEX idx_conducteur_username ON conducteur (username);
 
 CREATE TABLE IF NOT EXISTS admins (
     id_admin varchar(36) PRIMARY KEY,
@@ -25,6 +28,7 @@ CREATE TABLE IF NOT EXISTS admins (
     adm_password varchar(200)
 );
 
+CREATE INDEX idx_adm_username ON admins (adm_username);
 
 CREATE TABLE IF NOT EXISTS voyage (
     vo_ni varchar(36) PRIMARY KEY,
@@ -35,6 +39,8 @@ CREATE TABLE IF NOT EXISTS voyage (
     id_conducteur varchar(36),
     FOREIGN KEY (id_conducteur) REFERENCES conducteur(id_conducteur)
 );
+
+CREATE INDEX idx_voyage_list ON voyage (vo_dep, vo_dest, vo_heure_dep, vo_prix_passager);
 
 CREATE TABLE IF NOT EXISTS voyage_utilisateur(
     id_utilisateur varchar(36),
@@ -64,6 +70,8 @@ CREATE TABLE IF NOT EXISTS avis (
     PRIMARY KEY (id_utilisateur, vo_ni),
     FOREIGN KEY (id_utilisateur, vo_ni) REFERENCES voyage_utilisateur(id_utilisateur, vo_ni) ON DELETE CASCADE
 );
+
+CREATE INDEX idx_avis_utilisateur ON avis (id_utilisateur);
 
 CREATE TABLE IF NOT EXISTS villes_quebec (
     id_ville INT AUTO_INCREMENT,
