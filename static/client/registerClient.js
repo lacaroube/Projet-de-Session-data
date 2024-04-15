@@ -10,6 +10,16 @@ async function registerNewClient() {
     const phoneInput = document.getElementById("phone")
     const phone = phoneInput.value
 
+    if(username === "" || password === "" || lastName === "" || firstName === "" || phone === "") {
+        document.getElementById("error-registration").innerHTML = "<p style='color:red'>Veuillez remplir tous les champs</p>"
+        return
+    }
+
+    if(phone.length !== 10 || isNaN(phone)){
+        document.getElementById("error-registration").innerHTML = "<p style='color:red'>Veuillez entrer un numéro de téléphone valide</p>"
+        return
+    }
+
     const data = await createClient(username, password, lastName, firstName, phone)
     if(data !== null) {
         if (data.status === "success") {

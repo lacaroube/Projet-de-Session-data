@@ -4,6 +4,10 @@ async function registerNewAdmin() {
     const passwordInput = document.getElementById("password")
     const password = passwordInput.value
 
+    if (username === "" || password === "") {
+        document.getElementById("error-registration").innerHTML = "<p style='color:red'>Veuillez remplir tous les champs</p>"
+        return
+    }
     const data = await createAdmin(username, password)
     if(data != null){
         if (data.status === "success") {

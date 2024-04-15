@@ -31,35 +31,6 @@ END;
 //
 DELIMITER ;
 
-/*
-DELIMITER //
-CREATE TRIGGER check_si_conducteur_disponible
-BEFORE INSERT ON voyage
-FOR EACH ROW
-BEGIN
-    DECLARE nb_conducteur INT DEFAULT 0;
-    IF(DATE_FORMAT(NEW.vo_heure_dep, '%H:%i:%s') < TIME('12:00:00')) THEN
-        SELECT COUNT(*) INTO nb_conducteur FROM horaire_conducteur H, voyage V
-                                           WHERE H.date = DATE(v.vo_heure_dep) AND H.heure_debut <= TIME(V.vo_heure_dep)
-                                             AND H.heure_fin > TIME(V.vo_heure_dep) AND H.voyage_av_midi = false AND H.conger = false;
-    END IF;
-
-   IF(DATE_FORMAT(NEW.vo_heure_dep, '%H:%i:%s') >= TIME('12:00:00')) THEN
-        SELECT COUNT(*) INTO nb_conducteur FROM horaire_conducteur H, voyage V
-                                           WHERE H.date = DATE(v.vo_heure_dep) AND H.heure_debut <= TIME(V.vo_heure_dep)
-                                             AND H.heure_fin > TIME(V.vo_heure_dep) AND H.voyage_ap_midi = false AND H.conger = false;
-    END IF;
-
-    IF nb_conducteur = 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Aucun horaire de conducteur est disponible pour cette date et cette heure';
-    END IF;
-END;
-//
-DELIMITER ;*/
-
-
-
 
 DELIMITER //
 CREATE TRIGGER check_ville_quebec
