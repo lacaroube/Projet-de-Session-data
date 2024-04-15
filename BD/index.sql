@@ -1,7 +1,6 @@
 CREATE DATABASE agence_de_transport;
 USE agence_de_transport;
 
-
 CREATE TABLE IF NOT EXISTS utilisateurs (
     id_utilisateur varchar(36) PRIMARY KEY,
     ut_username varchar(60),
