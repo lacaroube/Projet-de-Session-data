@@ -1,4 +1,4 @@
-insert INTO villes_quebec (ville) VALUES
+INSERT INTO villes_quebec (ville) VALUES
 ('Montréal'),
 ('Québec'),
 ('Laval'),

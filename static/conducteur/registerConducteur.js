@@ -4,7 +4,7 @@ async function registerNewConducteur() {
     const passwordInput = document.getElementById("password")
     const password = passwordInput.value
     const data = await createConducteur(username, password)
-    if(data != null) {
+    if(data !== null) {
         if (data.status === "success") {
             sessionStorage.setItem('username', data.conducteur[1]);
             sessionStorage.setItem('id', data.conducteur[0]);

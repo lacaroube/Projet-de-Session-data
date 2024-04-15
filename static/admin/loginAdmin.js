@@ -5,7 +5,7 @@ async function loginAsAdmin() {
     const password = passwordInput.value
 
     const data = await getAdmin(username, password)
-    if(data != null){
+    if(data !== null){
         if (data.status === "success") {
             sessionStorage.setItem('username', data.admin[1]);
             sessionStorage.setItem('id', data.admin[0]);

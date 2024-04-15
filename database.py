@@ -72,21 +72,20 @@ class Database:
         de téléphone du client.
         SORTIE : Les informations entrées par l'utilisateur'''
     def insert_new_client(self, username, password, last_name, first_name, phone):
+        myuuid = uuid.uuid4()
         self.cursor.execute(f"INSERT INTO utilisateurs (id_utilisateur,"
                             f"ut_username,"
                             f"ut_password,"
                             f"ut_nom,"
                             f"ut_prenom,"
                             f"ut_telephone)"
-                            f"VALUES (UUID(),"
+                            f"VALUES ('{myuuid}',"
                             f"'{username}',"
                             f"'{password}',"
                             f"'{last_name}',"
                             f"'{first_name}',"
                             f"'{phone}')")
-        self.cursor.execute("SELECT LAST_INSERT_ID()")
-        utili_id = self.cursor.fetchone()[0]
-        return [utili_id, username, password, last_name, first_name, phone]
+        return [myuuid, username, password, last_name, first_name, phone]
 
     ''' Cette fonction permet l'insertion d'un nouveau conducteur.
         ENTREE : Le nom d'utilisateur et le mot de passe du conducteur.
@@ -102,11 +101,10 @@ class Database:
         ENTREE : Le nom d'utilisateur et le mot de passe de l'admin.
         SORTIE : Les informations entrées par l'admin ainsi que l'ID qui lui est attribué.'''
     def insert_new_admin(self, username, password):
+        myuuid = uuid.uuid4()
         self.cursor.execute(f"INSERT INTO admins (id_admin, adm_username, adm_password)"
-                            f"VALUES (UUID(), '{username}', '{password}')")
-        self.cursor.execute("SELECT LAST_INSERT_ID()")
-        id = self.cursor.fetchone()[0]
-        return [id, username, password]
+                            f"VALUES ('{myuuid}', '{username}', '{password}')")
+        return [myuuid, username, password]
 
     ''' Cette fonction permet l'obtention des avis d'un utilisateur grâce à son ID.
         ENTREE : L'ID de l'utilisateur dont on veut obtenir les avis.

@@ -59,7 +59,7 @@ function get_voyage(){
 
     //Permet de vérifier si le prix est nulle ou négatif
     if(prixElement <= 0){
-        errorElement.innerHTML = "<p style='color:red'>Le prix ne peut pas être de null ou être négatif</p>"
+        errorElement.innerHTML = "<p style='color:red'>Le prix ne peut pas être nul ou négatif</p>"
         return
     }
 
@@ -80,7 +80,7 @@ function get_voyage(){
         .then(voyage_list => {
             voyage_container.innerHTML = ""
             if(Object.keys(voyage_list).length === 0){
-                voyage_container.innerHTML = "<p style='color:black'>Aucun resultat trouver</p>"
+                voyage_container.innerHTML = "<p style='color:black'>Aucun resultat trouvé</p>"
             }
             voyage_list.forEach(voyage => {
                 const voyageElement = document.createElement("li")
@@ -104,8 +104,8 @@ function add_voyage(vo_ni) {
     event.preventDefault()
     const error = document.getElementById("error-voyage")
     const id_utilisateur = sessionStorage.getItem('id')
-    const getUrl = "add_voyage_utilisateur"
-    fetch(getUrl, {
+    const postUrl = "add_voyage_utilisateur"
+    fetch(postUrl, {
         method: "POST",
          headers: {
             "Content-Type": "application/json"
@@ -119,7 +119,7 @@ function add_voyage(vo_ni) {
             return response.json()
         }
         else{
-            error.innerHTML = "<p style='color:red'>La suppression a encontré une erreur</p>"
+            error.innerHTML = "<p style='color:red'>L'ajout de voyage a encontré une erreur</p>"
         }
     })
     .then(function(data) {

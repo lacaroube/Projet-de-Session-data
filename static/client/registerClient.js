@@ -11,7 +11,7 @@ async function registerNewClient() {
     const phone = phoneInput.value
 
     const data = await createClient(username, password, lastName, firstName, phone)
-    if(data != null) {
+    if(data !== null) {
         if (data.status === "success") {
             sessionStorage.setItem('username', data.client[1]);
             sessionStorage.setItem('id', data.client[0]);

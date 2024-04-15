@@ -81,7 +81,7 @@ function getHoraireConducteur(id_conducteur, date) {
             return response.json()
         }
         if(response.status === 304){
-            conger.innerHTML = "<p style='color:red'>Vous avez pris conger</p>"
+            conger.innerHTML = "<p style='color:red'>Vous avez pris congé</p>"
         }
         else{
             conger.innerHTML = "<p style='color:red'>Autre erreur</p>"
@@ -104,7 +104,7 @@ async function submitDayOffRequest(){
         const response = await postDayOffRequest(sessionStorage.getItem('id'), formattedDate)
     } else {
         event.preventDefault()
-        error.innerHTML = "<p style='color:red'>Il est trop tard pour demander congé à cette journée(minimum 2 semaine)</p>"
+        error.innerHTML = "<p style='color:red'>Il est trop tard pour demander congé à cette journée (minimum 2 semaine)</p>"
     }
 }
 
@@ -123,14 +123,14 @@ function postDayOffRequest(id_conducteur, date) {
         })
     }).then(function (response) {
         if(response.status === 200){
-            error.innerHTML = "<p style='color:deepskyblue'>Votre conger à été accepté</p>"
+            error.innerHTML = "<p style='color:deepskyblue'>Votre congé a été accepté</p>"
             return response.json()
         }
         else if(response.status === 304){
             error.innerHTML = "<p style='color:red'>Vous avez déjà pris congé</p>"
         }
         else if(response.status === 400){
-            error.innerHTML = "<p style='color:red'>Vous avez deja prit trop de conger</p>"
+            error.innerHTML = "<p style='color:red'>Vous avez déjà pris trop de congés</p>"
         }
         else{
             error.innerHTML = "<p style='color:red'>Impossible de demander congé à cette journée</p>"

@@ -3,7 +3,7 @@ USE agence_de_transport;
 
 
 CREATE TABLE IF NOT EXISTS utilisateurs (
-    id_utilisateur varchar(36) primary key,
+    id_utilisateur varchar(36) PRIMARY KEY,
     ut_username varchar(60),
     ut_password varchar(200),
     ut_nom varchar(20),
@@ -20,14 +20,14 @@ CREATE TABLE IF NOT EXISTS conducteur(
 
 
 CREATE TABLE IF NOT EXISTS admins (
-    id_admin varchar(36) primary key,
+    id_admin varchar(36) PRIMARY KEY,
     adm_username varchar(20),
     adm_password varchar(200)
 );
 
 
 CREATE TABLE IF NOT EXISTS voyage (
-    vo_ni varchar(36) primary key,
+    vo_ni varchar(36) PRIMARY KEY,
     vo_prix_passager integer,
     vo_heure_dep DATETIME not null,
     vo_dep varchar(255),
@@ -36,20 +36,10 @@ CREATE TABLE IF NOT EXISTS voyage (
     FOREIGN KEY (id_conducteur) REFERENCES conducteur(id_conducteur)
 );
 
-CREATE TABLE IF NOT EXISTS avis (
-    vo_ni varchar(36),
-    note enum('Excellent','Bien','Modeste','Mauvais','Aucune note'),
-    commentaire varchar(200),
-    id_utilisateur varchar(36),
-    PRIMARY KEY (vo_ni, id_utilisateur),
-    FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
-    FOREIGN KEY (vo_ni) REFERENCES voyage(vo_ni)
-);
-
 CREATE TABLE IF NOT EXISTS voyage_utilisateur(
-    id_participation integer AUTO_INCREMENT PRIMARY KEY,
     id_utilisateur varchar(36),
     vo_ni varchar(36),
+    PRIMARY KEY (id_utilisateur, vo_ni),
     FOREIGN KEY (id_utilisateur) REFERENCES utilisateurs(id_utilisateur),
     FOREIGN KEY (vo_ni) REFERENCES voyage(vo_ni)
 );
@@ -64,6 +54,15 @@ CREATE TABLE IF NOT EXISTS horaire_conducteur(
     voyage_ap_midi BOOL DEFAULT FALSE,
     PRIMARY KEY (id_conducteur, date),
     FOREIGN KEY (id_conducteur) REFERENCES conducteur(id_conducteur)
+);
+
+CREATE TABLE IF NOT EXISTS avis (
+    vo_ni varchar(36),
+    note enum('Excellent','Bien','Modeste','Mauvais','Aucune note'),
+    commentaire varchar(200),
+    id_utilisateur varchar(36),
+    PRIMARY KEY (id_utilisateur, vo_ni),
+    FOREIGN KEY (id_utilisateur, vo_ni) REFERENCES voyage_utilisateur(id_utilisateur, vo_ni) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS villes_quebec (
